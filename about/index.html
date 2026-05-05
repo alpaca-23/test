@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大老昆布のご紹介 | 大老昆布 – 株式会社明和</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-deep:   #2c5f2e;
+      --green-mid:    #3d7a40;
+      --green-light:  #e8f0e9;
+      --gold:         #b8952a;
+      --gold-light:   #f0e6c0;
+      --cream:        #faf8f3;
+      --warm-gray:    #f0ede6;
+      --text:         #2a2a2a;
+      --text-muted:   #6b6b6b;
+      --white:        #ffffff;
+      --radius:       8px;
+      --shadow:       0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.8;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      background: var(--green-deep);
+      color: rgba(255,255,255,0.8);
+      font-size: 0.72rem;
+      padding: 6px 24px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 24px;
+      letter-spacing: 0.04em;
+    }
+    .topbar a { color: inherit; text-decoration: none; }
+    .topbar a:hover { color: #fff; }
+
+    /* ── NAV ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid #e0dbd0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--green-deep);
+    }
+    .logo-mark {
+      width: 44px;
+      height: 44px;
+      background: var(--green-deep);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .logo-text { display: flex; flex-direction: column; line-height: 1.2; }
+    .logo-text .main { font-family: 'Noto Serif JP', serif; font-size: 1.1rem; font-weight: 700; color: var(--green-deep); }
+    .logo-text .sub { font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.05em; }
+
+    .nav-links { display: flex; list-style: none; gap: 0; }
+    .nav-links a {
+      display: block;
+      padding: 8px 16px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      border-radius: var(--radius);
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      background: var(--green-light);
+      color: var(--green-deep);
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--green-deep); border-radius: 2px; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--green-deep) 0%, #1a3d1c 60%, #2c5f2e 100%);
+      color: #fff;
+      padding: 72px 24px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      padding: 4px 16px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+    .hero p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.8);
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .hero-divider { width: 40px; height: 2px; background: var(--gold); margin: 20px auto; border-radius: 2px; }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .breadcrumb a { color: var(--green-mid); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb-sep { color: #ccc; }
+
+    /* ── LAYOUT ── */
+    .page-body {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar { position: sticky; top: 80px; }
+    .sidebar-section {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .sidebar-title {
+      background: var(--green-deep);
+      color: #fff;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 10px 16px;
+      letter-spacing: 0.08em;
+    }
+    .sidebar-nav { list-style: none; }
+    .sidebar-nav li { border-bottom: 1px solid var(--warm-gray); }
+    .sidebar-nav li:last-child { border-bottom: none; }
+    .sidebar-nav a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 16px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.82rem;
+      transition: background 0.15s, color 0.15s, padding-left 0.15s;
+    }
+    .sidebar-nav a::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--green-mid);
+      flex-shrink: 0;
+    }
+    .sidebar-nav a:hover { background: var(--green-light); color: var(--green-deep); padding-left: 20px; }
+    .sidebar-nav a.active { background: var(--green-light); color: var(--green-deep); font-weight: 700; }
+    .sidebar-contact {
+      padding: 16px;
+      background: var(--gold-light);
+      border-radius: var(--radius);
+      font-size: 0.78rem;
+      line-height: 2;
+    }
+    .sidebar-contact strong { display: block; font-family: 'Noto Serif JP', serif; font-size: 0.85rem; color: var(--green-deep); margin-bottom: 6px; }
+    .sidebar-contact .tel { font-size: 1.05rem; font-weight: 700; color: var(--green-deep); letter-spacing: 0.05em; }
+
+    /* ── CONTENT ── */
+    .content { min-width: 0; }
+
+    /* ── ARTICLE SECTIONS ── */
+    .article-section {
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+
+    .article-header {
+      background: var(--green-deep);
+      color: #fff;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .article-header h2 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+    .article-header .num {
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .article-body {
+      padding: 28px 28px;
+    }
+    .article-body p {
+      font-size: 0.9rem;
+      line-height: 2;
+      color: var(--text);
+    }
+
+    /* ── HIGHLIGHT BLOCK ── */
+    .highlight-box {
+      background: var(--green-light);
+      border-left: 4px solid var(--green-deep);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 16px 20px;
+      margin: 20px 0;
+      font-size: 0.88rem;
+      line-height: 1.9;
+      color: var(--green-deep);
+      font-weight: 500;
+    }
+
+    /* ── GOLD SECTION ── */
+    .gold-header {
+      background: linear-gradient(135deg, var(--gold) 0%, #9a7820 100%);
+    }
+
+    /* ── DIAGRAM ── */
+    .diagram-box {
+      background: var(--warm-gray);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-top: 20px;
+      text-align: center;
+    }
+    .diagram-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--green-deep);
+      margin-bottom: 20px;
+    }
+    .diagram-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 16px;
+      align-items: center;
+    }
+    .diagram-item {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+    .diagram-item h4 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--green-deep);
+      margin-bottom: 8px;
+    }
+    .diagram-item p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.7; }
+    .diagram-arrow {
+      font-size: 1.5rem;
+      color: var(--gold);
+    }
+    .diagram-vs {
+      background: var(--green-deep);
+      color: #fff;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── PROCESS LINK ── */
+    .process-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: var(--green-deep);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .process-link:hover { background: var(--green-mid); transform: translateY(-1px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #1a2e1b;
+      color: rgba(255,255,255,0.75);
+      padding: 56px 24px 24px;
+    }
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 40px;
+    }
+    .footer-brand .name { font-family: 'Noto Serif JP', serif; font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+    .footer-brand .tagline { font-size: 0.78rem; line-height: 1.9; margin-bottom: 16px; }
+    .footer-brand .address { font-size: 0.78rem; line-height: 2; }
+    .footer-col h4 { font-size: 0.8rem; font-weight: 700; color: #fff; margin-bottom: 14px; letter-spacing: 0.08em; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.15); }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-links a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.8rem; transition: color 0.2s; }
+    .footer-links a:hover { color: #fff; }
+    .footer-bottom {
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.4);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .topbar { justify-content: center; flex-wrap: wrap; gap: 12px; }
+      .nav-links { display: none; flex-direction: column; gap: 0; }
+      .nav-links.open {
+        display: flex;
+        position: absolute;
+        top: 64px; left: 0; right: 0;
+        background: var(--white);
+        border-bottom: 1px solid #e0dbd0;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        padding: 8px 16px 16px;
+        z-index: 99;
+      }
+      .hamburger { display: flex; }
+      .page-body { grid-template-columns: 1fr; padding: 0 16px 60px; }
+      .sidebar { position: static; order: 2; }
+      .content { order: 1; }
+      .diagram-grid { grid-template-columns: 1fr; }
+      .diagram-vs { margin: 0 auto; transform: rotate(90deg); }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .hero { padding: 48px 20px 56px; }
+      .article-body { padding: 20px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <span>滋賀県彦根市中葛2丁目5-8</span>
+  <span>TEL: <a href="tel:0749233939">0749-23-3939</a></span>
+  <span>FAX: 0749-26-2786</span>
+</div>
+
+<!-- HEADER -->
+<header>
+  <nav>
+    <a href="../index.html" class="logo">
+      <div class="logo-mark">大</div>
+      <div class="logo-text">
+        <span class="main">大老昆布</span>
+        <span class="sub">株式会社明和 — 彦根のとろろ昆布専門店</span>
+      </div>
+    </a>
+    <button class="hamburger" onclick="this.nextElementSibling.classList.toggle('open')" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="../index.html">TOP</a></li>
+      <li><a href="../osusume/index.html">おすすめ商品</a></li>
+      <li><a href="../shopping/index.html">ショッピング</a></li>
+      <li><a href="../howto/index.html">お買い物方法</a></li>
+      <li><a href="../contact/index.html">お問い合わせ</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">ABOUT TAIROU KONBU</div>
+  <h1>大老昆布のご紹介</h1>
+  <div class="hero-divider"></div>
+  <p>昭和55年創業。彦根の地で育んだ<br>とろろ昆布の技術と味をお届けします。</p>
+</section>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="../index.html">TOP</a>
+  <span class="breadcrumb-sep">›</span>
+  <span>大老昆布のご紹介</span>
+</div>
+
+<!-- PAGE BODY -->
+<div class="page-body">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">メニュー</div>
+      <ul class="sidebar-nav">
+        <li><a href="index.html" class="active">大老昆布のご紹介</a></li>
+        <li><a href="../osusume/index.html">おすすめ商品</a></li>
+        <li><a href="../shopping/index.html">ショッピング</a></li>
+        <li><a href="../howto/index.html">お買い物方法</a></li>
+        <li><a href="../quantity/index.html">包量について</a></li>
+        <li><a href="../process/index.html">とろろ昆布の加工工程</a></li>
+        <li><a href="../company/index.html">会社案内</a></li>
+        <li><a href="../tourism/index.html">彦根観光おすすめ情報</a></li>
+        <li><a href="../links/index.html">Links</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-contact">
+      <strong>お電話でのお問い合わせ</strong>
+      <div class="tel">0749-23-3939</div>
+      <div>平日 9:00〜17:00</div>
+    </div>
+  </aside>
+
+  <!-- CONTENT -->
+  <main class="content">
+
+    <!-- Section 1: ご紹介 -->
+    <div class="article-section">
+      <div class="article-header">
+        <div class="num">1</div>
+        <h2>大老昆布のご紹介</h2>
+      </div>
+      <div class="article-body">
+        <p>当店はとろろ昆布の加工機メーカー「報明和」を母体として昭和55年に開店致しました。平成15年からは自社製の切削機を店内に据え、加工・直販を始めました。</p>
+        <div class="highlight-box">
+          当店の特徴は長年とろろ昆布の加工に携わってきた技術と経験を活かした上質なとろろ昆布を、削りたての新鮮な風味そのままにご家庭にお届けできる事です。
+        </div>
+        <p>機械的品質にこだわった「とろろ昆布」を是非ご賞味下さい。</p>
+      </div>
+    </div>
+
+    <!-- Section 2: 屋号の由来 -->
+    <div class="article-section">
+      <div class="article-header gold-header">
+        <div class="num">2</div>
+        <h2>屋号「大老昆布」の由来</h2>
+      </div>
+      <div class="article-body">
+        <p>日本最大の湖、琵琶湖を有する滋賀県東部のまち彦根市。当店はそのシンボル国宝彦根城のお膝元にございます。</p>
+        <div class="highlight-box">
+          江戸時代の開国で知られる第13代彦根藩主の井伊直弼が安政5年に就任した大老職に因んで屋号を頂きました。
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: おぼろ昆布とtろろ昆布の違い -->
+    <div class="article-section">
+      <div class="article-header">
+        <div class="num">3</div>
+        <h2>「おぼろ昆布」と「とろろ昆布」の違いをご存知ですか？</h2>
+      </div>
+      <div class="article-body">
+        <p>簡単にご説明すると1枚の昆布の平面を削ったものが「おぼろ昆布」であり、何枚も重ね合わせてブロック状に成型した昆布の側面を削ったものが「とろろ昆布」です。</p>
+        <p style="margin-top:12px;">とろろ昆布を広げてご覧になると木目調の模様が見えます。その一筋毎が1枚の昆布の側面です。「おぼろ昆布」は熟練の職人さんの技で1枚ずつ削ります。デパートの祭事などで見ることが出来ます。対して「とろろ昆布」は機械設備を用いた8つの工程を経てようやく完成します。</p>
+        <p style="margin-top:12px;">「おぼろ昆布」の加工品質は職人さんの技にゆだねられますが「とろろ昆布」の加工品質は機械設備の精度とオペレーターにゆだねられます。</p>
+
+        <!-- Diagram -->
+        <div class="diagram-box">
+          <div class="diagram-title">昆布の削り方の違い</div>
+          <div class="diagram-grid">
+            <div class="diagram-item">
+              <h4>おぼろ昆布</h4>
+              <p>1枚の昆布の<strong>平面</strong>を削る<br>職人の手技による加工<br>デパートの祭事などで見られる</p>
+            </div>
+            <div class="diagram-vs">VS</div>
+            <div class="diagram-item">
+              <h4>とろろ昆布</h4>
+              <p>ブロック状の昆布の<strong>側面</strong>を削る<br>機械設備による8工程<br>均一で高品質な仕上がり</p>
+            </div>
+          </div>
+        </div>
+
+        <a href="../process/index.html" class="process-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+          とろろ昆布加工工程を詳しく見る
+        </a>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="name">大老昆布 – 株式会社明和</div>
+        <p class="tagline">昭和55年創業。道南白口浜の真昆布を用いた<br>とろろ昆布の加工・直販を行っております。</p>
+        <address class="address" style="font-style:normal;">
+          〒522-0000 滋賀県彦根市中葛2丁目5-8<br>
+          TEL: 0749-23-3939　FAX: 0749-26-2786<br>
+          E-mail: kk-meiwa@proof.ocn.ne.jp
+        </address>
+      </div>
+      <div class="footer-col">
+        <h4>サイトマップ</h4>
+        <ul class="footer-links">
+          <li><a href="../index.html">TOP</a></li>
+          <li><a href="../osusume/index.html">おすすめ商品</a></li>
+          <li><a href="../shopping/index.html">ショッピング</a></li>
+          <li><a href="../howto/index.html">お買い物方法</a></li>
+          <li><a href="../contact/index.html">お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>大老昆布について</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">大老昆布のご紹介</a></li>
+          <li><a href="../process/index.html">とろろ昆布の加工工程</a></li>
+          <li><a href="../quantity/index.html">包量について</a></li>
+          <li><a href="../company/index.html">会社案内</a></li>
+          <li><a href="../tourism/index.html">彦根観光おすすめ情報</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Copyright &copy; 2004 Meiwa Corporation. All Rights Reserved.</span>
+      <span>滋賀県彦根市の昆布専門店</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
