@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /css/
+
+Sitemap: https://alpaca-23.github.io/test/sitemap.xml
