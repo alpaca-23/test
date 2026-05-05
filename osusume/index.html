@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>おすすめ商品 | 大老昆布 – 株式会社明和</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-deep:   #2c5f2e;
+      --green-mid:    #3d7a40;
+      --green-light:  #e8f0e9;
+      --gold:         #b8952a;
+      --gold-light:   #f0e6c0;
+      --cream:        #faf8f3;
+      --warm-gray:    #f0ede6;
+      --text:         #2a2a2a;
+      --text-muted:   #6b6b6b;
+      --white:        #ffffff;
+      --radius:       8px;
+      --shadow:       0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.8;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      background: var(--green-deep);
+      color: rgba(255,255,255,0.8);
+      font-size: 0.72rem;
+      padding: 6px 24px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 24px;
+      letter-spacing: 0.04em;
+    }
+    .topbar a { color: inherit; text-decoration: none; }
+    .topbar a:hover { color: #fff; }
+
+    /* ── NAV ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid #e0dbd0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--green-deep);
+    }
+    .logo-mark {
+      width: 44px;
+      height: 44px;
+      background: var(--green-deep);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+    .logo-text .main {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--green-deep);
+    }
+    .logo-text .sub {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 0;
+    }
+    .nav-links a {
+      display: block;
+      padding: 8px 16px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      border-radius: var(--radius);
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      background: var(--green-light);
+      color: var(--green-deep);
+    }
+    .nav-links a.active {
+      font-weight: 700;
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--green-deep);
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--green-deep) 0%, #1a3d1c 60%, #2c5f2e 100%);
+      color: #fff;
+      padding: 72px 24px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 1;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      padding: 4px 16px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+    .hero p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.8);
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.9;
+    }
+    .hero-divider {
+      width: 40px;
+      height: 2px;
+      background: var(--gold);
+      margin: 20px auto;
+      border-radius: 2px;
+    }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .breadcrumb a { color: var(--green-mid); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb-sep { color: #ccc; }
+
+    /* ── MAIN LAYOUT ── */
+    .page-body {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      position: sticky;
+      top: 80px;
+    }
+    .sidebar-section {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .sidebar-title {
+      background: var(--green-deep);
+      color: #fff;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 10px 16px;
+      letter-spacing: 0.08em;
+    }
+    .sidebar-nav {
+      list-style: none;
+    }
+    .sidebar-nav li {
+      border-bottom: 1px solid var(--warm-gray);
+    }
+    .sidebar-nav li:last-child { border-bottom: none; }
+    .sidebar-nav a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 16px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.82rem;
+      font-weight: 400;
+      transition: background 0.15s, color 0.15s, padding-left 0.15s;
+    }
+    .sidebar-nav a::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--green-mid);
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+    .sidebar-nav a:hover {
+      background: var(--green-light);
+      color: var(--green-deep);
+      padding-left: 20px;
+    }
+    .sidebar-nav a:hover::before { background: var(--gold); }
+    .sidebar-nav a.active {
+      background: var(--green-light);
+      color: var(--green-deep);
+      font-weight: 700;
+    }
+    .sidebar-contact {
+      padding: 16px;
+      background: var(--gold-light);
+      border-radius: var(--radius);
+      font-size: 0.78rem;
+      color: var(--text);
+      line-height: 2;
+    }
+    .sidebar-contact strong {
+      display: block;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.85rem;
+      color: var(--green-deep);
+      margin-bottom: 6px;
+    }
+    .sidebar-contact .tel {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--green-deep);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── CONTENT ── */
+    .content { min-width: 0; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--warm-gray);
+    }
+    .section-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--green-deep);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .section-icon svg { fill: #fff; width: 18px; height: 18px; }
+    .section-header h2 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--green-deep);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── PRODUCT CARDS ── */
+    .product-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .product-card {
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    .product-card:hover {
+      box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+      transform: translateY(-2px);
+    }
+
+    .product-image {
+      background: var(--warm-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-image-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: #aaa;
+      font-size: 0.75rem;
+    }
+    .product-image-placeholder svg {
+      width: 48px;
+      height: 48px;
+      fill: #ccc;
+    }
+
+    /* Product image styling for real images */
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Tairou-specific image styles */
+    .product-img-tairou {
+      background: linear-gradient(135deg, #f7ece0 0%, #edd5b8 100%);
+    }
+    .product-img-box {
+      background: linear-gradient(135deg, #f0e8d0 0%, #e8d8b8 100%);
+    }
+
+    .product-body {
+      padding: 28px 28px 24px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-tag {
+      display: inline-block;
+      background: var(--gold-light);
+      color: var(--gold);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 2px 10px;
+      border-radius: 20px;
+      border: 1px solid var(--gold);
+      margin-bottom: 10px;
+      width: fit-content;
+    }
+
+    .product-name {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--green-deep);
+      margin-bottom: 12px;
+      letter-spacing: 0.04em;
+      line-height: 1.5;
+    }
+
+    .product-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.9;
+      flex: 1;
+    }
+
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--warm-gray);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .product-price {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--green-deep);
+      letter-spacing: 0.02em;
+    }
+    .product-price .yen { font-size: 0.85em; }
+    .product-price .tax { font-size: 0.7rem; color: var(--text-muted); font-weight: 400; margin-left: 2px; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      cursor: pointer;
+      border: none;
+      letter-spacing: 0.05em;
+    }
+    .btn-primary {
+      background: var(--green-deep);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: var(--green-mid);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(44,95,46,0.35);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--green-deep);
+      border: 2px solid var(--green-deep);
+    }
+    .btn-outline:hover {
+      background: var(--green-light);
+      transform: translateY(-1px);
+    }
+
+    /* ── FEATURE STRIP ── */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 40px 0;
+    }
+    .feature-item {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 20px 16px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      border-top: 3px solid var(--green-deep);
+    }
+    .feature-icon {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+    .feature-label {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--green-deep);
+      margin-bottom: 4px;
+    }
+    .feature-desc {
+      font-size: 0.73rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ── BANNER ── */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--green-deep), #1a3d1c);
+      color: #fff;
+      border-radius: 12px;
+      padding: 32px 28px;
+      text-align: center;
+      margin-top: 40px;
+    }
+    .cta-banner h3 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: 0.06em;
+    }
+    .cta-banner p {
+      font-size: 0.83rem;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 20px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #1a2e1b;
+      color: rgba(255,255,255,0.75);
+      padding: 56px 24px 24px;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 40px;
+    }
+    .footer-brand .name {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .footer-brand .tagline {
+      font-size: 0.78rem;
+      line-height: 1.9;
+      margin-bottom: 16px;
+    }
+    .footer-brand .address {
+      font-size: 0.78rem;
+      line-height: 2;
+    }
+    .footer-col h4 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 14px;
+      letter-spacing: 0.08em;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+    }
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .footer-links a {
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      font-size: 0.8rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: #fff; }
+    .footer-bottom {
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.4);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .topbar { justify-content: center; flex-wrap: wrap; gap: 12px; }
+      .nav-links { display: none; flex-direction: column; gap: 0; }
+      .nav-links.open {
+        display: flex;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: var(--white);
+        border-bottom: 1px solid #e0dbd0;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        padding: 8px 16px 16px;
+        z-index: 99;
+      }
+      .hamburger { display: flex; }
+      .page-body {
+        grid-template-columns: 1fr;
+        padding: 0 16px 60px;
+      }
+      .sidebar {
+        position: static;
+        order: 2;
+      }
+      .content { order: 1; }
+      .product-card {
+        grid-template-columns: 1fr;
+      }
+      .product-image {
+        min-height: 180px;
+      }
+      .features {
+        grid-template-columns: 1fr;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+      .hero { padding: 48px 20px 56px; }
+    }
+
+    @media (max-width: 480px) {
+      .product-footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <span>滋賀県彦根市中葛2丁目5-8</span>
+  <span>TEL: <a href="tel:0749233939">0749-23-3939</a></span>
+  <span>FAX: 0749-26-2786</span>
+</div>
+
+<!-- HEADER / NAV -->
+<header>
+  <nav>
+    <a href="../index.html" class="logo">
+      <div class="logo-mark">大</div>
+      <div class="logo-text">
+        <span class="main">大老昆布</span>
+        <span class="sub">株式会社明和 — 彦根のとろろ昆布専門店</span>
+      </div>
+    </a>
+    <button class="hamburger" onclick="this.nextElementSibling.classList.toggle('open')" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="../index.html">TOP</a></li>
+      <li><a href="index.html" class="active">おすすめ商品</a></li>
+      <li><a href="../shopping/index.html">ショッピング</a></li>
+      <li><a href="../howto/index.html">お買い物方法</a></li>
+      <li><a href="../contact/index.html">お問い合わせ</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">TAIROU KONBU SPECIALTY</div>
+  <h1>おすすめ商品</h1>
+  <div class="hero-divider"></div>
+  <p>道南白口浜の真昆布を使った、削りたての<br>とろろ昆布をお届けします。</p>
+</section>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="../index.html">TOP</a>
+  <span class="breadcrumb-sep">›</span>
+  <span>おすすめ商品</span>
+</div>
+
+<!-- PAGE BODY -->
+<div class="page-body">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">メニュー</div>
+      <ul class="sidebar-nav">
+        <li><a href="../about/index.html">大老昆布のご紹介</a></li>
+        <li><a href="index.html" class="active">おすすめ商品</a></li>
+        <li><a href="../shopping/index.html">ショッピング</a></li>
+        <li><a href="../howto/index.html">お買い物方法</a></li>
+        <li><a href="../quantity/index.html">包量について</a></li>
+        <li><a href="../process/index.html">とろろ昆布の加工工程</a></li>
+        <li><a href="../company/index.html">会社案内</a></li>
+        <li><a href="../tourism/index.html">彦根観光おすすめ情報</a></li>
+        <li><a href="../links/index.html">Links</a></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-contact">
+      <strong>お電話でのお問い合わせ</strong>
+      <div class="tel">0749-23-3939</div>
+      <div>平日 9:00〜17:00</div>
+    </div>
+  </aside>
+
+  <!-- CONTENT -->
+  <main class="content">
+
+    <!-- FEATURES -->
+    <div class="features">
+      <div class="feature-item">
+        <div class="feature-icon">🌊</div>
+        <div class="feature-label">道南白口浜産</div>
+        <div class="feature-desc">上質な真昆布を厳選して使用</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">✂️</div>
+        <div class="feature-label">削りたて直送</div>
+        <div class="feature-desc">機械加工による均一な品質</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🎁</div>
+        <div class="feature-label">贈り物に最適</div>
+        <div class="feature-desc">手土産・引き出物にも人気</div>
+      </div>
+    </div>
+
+    <!-- SECTION HEADER -->
+    <div class="section-header">
+      <div class="section-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+      </div>
+      <h2>おすすめ商品一覧</h2>
+    </div>
+
+    <!-- PRODUCT GRID -->
+    <div class="product-grid">
+
+      <!-- Product 1 -->
+      <article class="product-card">
+        <div class="product-image product-img-tairou">
+          <div class="product-image-placeholder">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+            <span>商品画像</span>
+          </div>
+        </div>
+        <div class="product-body">
+          <span class="product-tag">人気 No.1</span>
+          <h3 class="product-name">太白とろろ（60g）</h3>
+          <p class="product-desc">
+            道南白口浜の真昆布をふんだんに用いた削りたてのとろろ昆布を筒容器に1枚ずつ丁寧に詰め込みました。ご賞味頂いたお客様からは味の評価に加え、1枚ずつ取り出せて食べ易く保存もし易いとご好評頂いております。単品の化粧筒は縦8cm×横8cm×高15cmのサイズで、ちょっとした手土産・引き出物などにも最適です。
+          </p>
+          <div class="product-footer">
+            <div class="product-price">
+              <span class="yen">¥</span>1,460<span class="tax">（税込）</span>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <a href="../shopping/index.html" class="btn btn-outline">詳細を見る</a>
+              <a href="../shopping/index.html" class="btn btn-primary">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96C5 16.1 6.9 18 9 18h12v-2H9.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H19c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0023.46 5H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                カートに入れる
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Product 2 -->
+      <article class="product-card">
+        <div class="product-image product-img-box">
+          <div class="product-image-placeholder">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+            <span>商品画像</span>
+          </div>
+        </div>
+        <div class="product-body">
+          <span class="product-tag">贈り物におすすめ</span>
+          <h3 class="product-name">化粧箱詰め合わせ（A）</h3>
+          <p class="product-desc">
+            太白とろろ（60g）2個入り。高級感のある和紙を施した化粧箱に詰め合わせました。各種贈答品として重宝頂いております。大切な方への贈り物や、お中元・お歳暮などにも最適な一品です。
+          </p>
+          <div class="product-footer">
+            <div class="product-price">
+              <span class="yen">¥</span>—<span class="tax">（お問い合わせください）</span>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <a href="../shopping/index.html" class="btn btn-outline">詳細を見る</a>
+              <a href="../contact/index.html" class="btn btn-primary">お問い合わせ</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Product 3 -->
+      <article class="product-card">
+        <div class="product-image product-img-tairou">
+          <div class="product-image-placeholder">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+            <span>商品画像</span>
+          </div>
+        </div>
+        <div class="product-body">
+          <span class="product-tag">大容量・お得</span>
+          <h3 class="product-name">太白とろろ（180g）</h3>
+          <p class="product-desc">
+            ご家庭でたっぷりお使いいただける180gの大容量サイズ。毎日の食卓にとろろ昆布を取り入れたい方や、料理好きの方に喜ばれています。日常使いはもちろん、まとめ買いにもどうぞ。
+          </p>
+          <div class="product-footer">
+            <div class="product-price">
+              <span class="yen">¥</span>2,720<span class="tax">（税込）</span>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <a href="../shopping/index.html" class="btn btn-outline">詳細を見る</a>
+              <a href="../shopping/index.html" class="btn btn-primary">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96C5 16.1 6.9 18 9 18h12v-2H9.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H19c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0023.46 5H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                カートに入れる
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Product 4 -->
+      <article class="product-card">
+        <div class="product-image product-img-tairou">
+          <div class="product-image-placeholder">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+            <span>商品画像</span>
+          </div>
+        </div>
+        <div class="product-body">
+          <span class="product-tag">お試しサイズ</span>
+          <h3 class="product-name">太白とろろ（35g）</h3>
+          <p class="product-desc">
+            1枚ずつ丁寧に重ねて包装した小パック。はじめてのお客様のお試しや、少量ずつ使いたい方に最適なサイズです。お気軽に大老昆布の味をご体験ください。
+          </p>
+          <div class="product-footer">
+            <div class="product-price">
+              <span class="yen">¥</span>750<span class="tax">（税込）</span>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <a href="../shopping/index.html" class="btn btn-outline">詳細を見る</a>
+              <a href="../shopping/index.html" class="btn btn-primary">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96C5 16.1 6.9 18 9 18h12v-2H9.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H19c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0023.46 5H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                カートに入れる
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div><!-- /product-grid -->
+
+    <!-- CTA BANNER -->
+    <div class="cta-banner">
+      <h3>ご注文・お問い合わせはお気軽に</h3>
+      <p>商品についてご不明な点やご質問がございましたら、<br>お電話またはメールにてお気軽にお問い合わせください。</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <a href="../howto/index.html" class="btn btn-outline" style="border-color:rgba(255,255,255,0.5);color:#fff;">お買い物方法</a>
+        <a href="../contact/index.html" class="btn" style="background:var(--gold);color:#fff;">お問い合わせ</a>
+      </div>
+    </div>
+
+  </main>
+</div><!-- /page-body -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="name">大老昆布 – 株式会社明和</div>
+        <p class="tagline">
+          昭和55年創業。道南白口浜の真昆布を用いた<br>
+          とろろ昆布の加工・直販を行っております。
+        </p>
+        <address class="address" style="font-style:normal;">
+          〒522-0000 滋賀県彦根市中葛2丁目5-8<br>
+          TEL: 0749-23-3939　FAX: 0749-26-2786<br>
+          E-mail: kk-meiwa@proof.ocn.ne.jp
+        </address>
+      </div>
+      <div class="footer-col">
+        <h4>サイトマップ</h4>
+        <ul class="footer-links">
+          <li><a href="../index.html">TOP</a></li>
+          <li><a href="index.html">おすすめ商品</a></li>
+          <li><a href="../shopping/index.html">ショッピング</a></li>
+          <li><a href="../howto/index.html">お買い物方法</a></li>
+          <li><a href="../contact/index.html">お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>大老昆布について</h4>
+        <ul class="footer-links">
+          <li><a href="../about/index.html">大老昆布のご紹介</a></li>
+          <li><a href="../process/index.html">とろろ昆布の加工工程</a></li>
+          <li><a href="../quantity/index.html">包量について</a></li>
+          <li><a href="../company/index.html">会社案内</a></li>
+          <li><a href="../tourism/index.html">彦根観光おすすめ情報</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Copyright &copy; 2004 Meiwa Corporation. All Rights Reserved.</span>
+      <span>滋賀県彦根市の昆布専門店</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
