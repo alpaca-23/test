@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ショッピング | 大老昆布 – 株式会社明和</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/shopping.css">
+</head>
+<body>
+
+<div class="topbar">
+  <span>彦根市中葛2丁目5-8</span>
+  <span>TEL: <a href="tel:0749233939">0749-23-3939</a></span>
+  <span>FAX: 0749-26-2786</span>
+</div>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo">
+      <div class="logo-mark">大</div>
+      <div class="logo-text">
+        <span class="main">大老昆布</span>
+        <span class="sub">株式会社明和 — 彦根のとろろ昆布専門店</span>
+      </div>
+    </a>
+    <button class="hamburger" onclick="this.nextElementSibling.classList.toggle('open')" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html">TOP</a></li>
+      <li><a href="osusume.html">おすすめ商品</a></li>
+      <li><a href="shopping.html" class="active">ショッピング</a></li>
+      <li><a href="howto.html">お買い物方法</a></li>
+      <li><a href="contact.html">お問い合わせ</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-badge">SHOPPING</div>
+  <h1>ショッピング</h1>
+  <div class="hero-divider"></div>
+  <p>商品をお選びいただき、カートに入れてご注文ください。</p>
+</section>
+
+<div class="breadcrumb">
+  <a href="index.html">TOP</a>
+  <span class="breadcrumb-sep">›</span>
+  <span>ショッピング</span>
+</div>
+
+<div class="page-body">
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">メニュー</div>
+      <ul class="sidebar-nav">
+        <li><a href="about.html">大老昆布のご紹介</a></li>
+        <li><a href="osusume.html">おすすめ商品</a></li>
+        <li><a href="shopping.html" class="active">ショッピング</a></li>
+        <li><a href="howto.html">お買い物方法</a></li>
+        <li><a href="quantity.html">包装について</a></li>
+        <li><a href="process.html">とろろ昆布の加工工程</a></li>
+        <li><a href="company.html">会社案内</a></li>
+        <li><a href="tourism.html">彦根観光おすすめ情報</a></li>
+        <li><a href="links.html">Links</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-contact">
+      <strong>お電話でのお問い合わせ</strong>
+      <div class="tel">0749-23-3939</div>
+      <div>平日 9:00〜17:00</div>
+    </div>
+  </aside>
+
+  <main class="content">
+
+    <div class="notice-box">
+      <strong>ご注文方法について</strong><br>
+      商品をカートに入れていただいた後、送料と合わせてご請求金額をお知らせします。お支払いはゆうちょ銀行への事前振込みとなります。詳しくは<a href="howto.html" style="color:var(--gold);">お買い物方法</a>をご覧ください。
+    </div>
+
+    <div class="cart-bar">
+      <div class="cart-bar-left">
+        🛒 カートの中身：<span class="cart-count" id="cart-count">0</span>点
+      </div>
+      <button class="btn-cart-view" onclick="alert('カートの中身を確認するには、お電話（0749-23-3939）またはメールにてお問い合わせください。')">
+        カートを確認する
+      </button>
+    </div>
+
+    <div class="product-list">
+
+      <!-- 太白とろろ 60g -->
+      <div class="product-card">
+        <div class="product-inner">
+          <div class="product-img">🫙</div>
+          <div class="product-body">
+            <div class="product-name">太白とろろ（60g）</div>
+            <div class="product-meta">
+              <span class="meta-label">価格</span>
+              <span class="meta-value price">¥1,460<small style="font-size:0.7rem;font-weight:400;color:var(--text-muted);">（税込）</small></span>
+              <span class="meta-label">在庫</span>
+              <span class="meta-value stock">残り23個</span>
+            </div>
+            <div class="product-options">
+              <div class="option-group">
+                <span class="option-label">数量</span>
+                <input type="number" class="qty-input" value="1" min="1" max="23">
+              </div>
+              <div class="option-group">
+                <span class="option-label">包装紙</span>
+                <select class="option-select">
+                  <option>包装紙なし</option>
+                  <option>婚礼</option>
+                  <option>青（一般）</option>
+                  <option>ピンク</option>
+                  <option>仏事</option>
+                </select>
+              </div>
+              <div class="option-group">
+                <span class="option-label">のし紙</span>
+                <select class="option-select">
+                  <option>のし紙なし</option>
+                  <option>御中元</option>
+                  <option>御歳暮</option>
+                  <option>御礼</option>
+                  <option>粗品</option>
+                </select>
+              </div>
+            </div>
+            <p class="product-desc">1枚ずつ取り出せて食べ易く保存もし易い筒容器入り。手土産・引き出物にも最適です。</p>
+            <div class="product-actions">
+              <a href="osusume.html" class="btn-detail">詳細を見る</a>
+              <button class="btn-add-cart" onclick="addToCart(this, '太白とろろ（60g）')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96C5 16.1 6.9 18 9 18h12v-2H9.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H19c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0023.46 5H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                カートに入れる
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 太白とろろ 180g -->
+      <div class="product-card">
+        <div class="product-inner">
+          <div class="product-img" style="background: linear-gradient(135deg,#f0e8c8,#e0d090);">🌿</div>
+          <div class="product-body">
+            <div class="product-name">太白とろろ（180g）</div>
+            <div class="product-meta">
+              <span class="meta-label">価格</span>
+              <span class="meta-value price">¥2,720<small style="font-size:0.7rem;font-weight:400;color:var(--text-muted);">（税込）</small></span>
+              <span class="meta-label">在庫</span>
+              <span class="meta-value stock">残り11個</span>
+            </div>
+            <div class="product-options">
+              <div class="option-group">
+                <span class="option-label">数量</span>
+                <input type="number" class="qty-input" value="1" min="1" max="11">
+              </div>
+              <div class="option-group">
+                <span class="option-label">包装紙</span>
+                <select class="option-select">
+                  <option>包装紙なし</option>
+                  <option>婚礼</option>
+                  <option>青（一般）</option>
+                  <option>ピンク</option>
+                  <option>仏事</option>
+                </select>
+              </div>
+              <div class="option-group">
+                <span class="option-label">のし紙</span>
+                <select class="option-select">
+                  <option>のし紙なし</option>
+                  <option>御中元</option>
+                  <option>御歳暮</option>
+                  <option>御礼</option>
+                  <option>粗品</option>
+                </select>
+              </div>
+            </div>
+            <p class="product-desc">毎日の食卓にたっぷり使える大容量サイズ。まとめ買いにも最適です。</p>
+            <div class="product-actions">
+              <a href="osusume.html" class="btn-detail">詳細を見る</a>
+              <button class="btn-add-cart" onclick="addToCart(this, '太白とろろ（180g）')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96C5 16.1 6.9 18 9 18h12v-2H9.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H19c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0023.46 5H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                カートに入れる
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 太白とろろ 35g -->
+      <div class="product-card">
+        <div class="product-inner">
+          <div class="product-img" style="background: linear-gradient(135deg,#f0d8e8,#e0b8d0);">🫙</div>
+          <div class="product-body">
+            <div class="product-name">太白とろろ（35g）</div>
+            <div class="product-meta">
+              <span class="meta-label">価格</span>
+              <span class="meta-value price">¥750<small style="font-size:0.7rem;font-weight:400;color:var(--text-muted);">（税込）</small></span>
+              <span class="meta-label">在庫</span>
+              <span class="meta-value stock low">残り3個</span>
+            </div>
+            <div class="product-options">
+              <div class="option-group">
+                <span class="option-label">数量</span>
+                <input type="number" class="qty-input" value="1" min="1" max="3">
+              </div>
+              <div class="option-group">
+                <span class="option-label">包装紙</span>
+                <select class="option-select">
+                  <option>包装紙なし</option>
+                  <option>婚礼</option>
+                  <option>青（一般）</option>
+                  <option>ピンク</option>
+                  <option>仏事</option>
+                </select>
+              </div>
+              <div class="option-group">
+                <span class="option-label">のし紙</span>
+                <select class="option-select">
+                  <option>のし紙なし</option>
+                  <option>御中元</option>
+                  <option>御歳暮</option>
+                  <option>御礼</option>
+                  <option>粗品</option>
+                </select>
+              </div>
+            </div>
+            <p class="product-desc">1枚ずつ丁寧に重ねて包装した小パック。はじめての方のお試しに最適です。</p>
+            <div class="product-actions">
+              <a href="osusume.html" class="btn-detail">詳細を見る</a>
+              <button class="btn-add-cart" onclick="addToCart(this, '太白とろろ（35g）')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96C5 16.1 6.9 18 9 18h12v-2H9.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H19c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0023.46 5H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                カートに入れる
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="name">大老昆布 – 株式会社明和</div>
+        <p class="tagline">昭和55年創業。道南白口浜の真昆布を用いたとろろ昆布の加工・直販を行っております。</p>
+        <address class="address" style="font-style:normal;">
+          〒522-0000 彦根市中葛2丁目5-8<br>
+          TEL: 0749-23-3939　FAX: 0749-26-2786<br>
+          E-mail: kk-meiwa@proof.ocn.ne.jp
+        </address>
+      </div>
+      <div class="footer-col">
+        <h4>サイトマップ</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">TOP</a></li>
+          <li><a href="osusume.html">おすすめ商品</a></li>
+          <li><a href="index.html">ショッピング</a></li>
+          <li><a href="howto.html">お買い物方法</a></li>
+          <li><a href="contact.html">お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>大老昆布について</h4>
+        <ul class="footer-links">
+          <li><a href="about.html">大老昆布のご紹介</a></li>
+          <li><a href="process.html">とろろ昆布の加工工程</a></li>
+          <li><a href="quantity.html">包装について</a></li>
+          <li><a href="company.html">会社案内</a></li>
+          <li><a href="tourism.html">彦根観光おすすめ情報</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Copyright &copy; 2004 Meiwa Corporation. All Rights Reserved.</span>
+      <span>滋賀県彦根市の昆布専門店</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  let cartCount = 0;
+  function addToCart(btn, name) {
+    cartCount++;
+    document.getElementById('cart-count').textContent = cartCount;
+    btn.textContent = '✓ 追加しました';
+    btn.style.background = 'var(--gold)';
+    setTimeout(() => {
+      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96C5 16.1 6.9 18 9 18h12v-2H9.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H19c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0023.46 5H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg> カートに入れる';
+      btn.style.background = 'var(--green-deep)';
+    }, 2000);
+  }
+</script>
+
+</body>
+</html>
