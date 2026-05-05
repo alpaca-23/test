@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>とろろ昆布の加工工程 | 大老昆布 – 株式会社明和</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-deep: #2c5f2e; --green-mid: #3d7a40; --green-light: #e8f0e9;
+      --gold: #b8952a; --gold-light: #f0e6c0; --cream: #faf8f3;
+      --warm-gray: #f0ede6; --text: #2a2a2a; --text-muted: #6b6b6b;
+      --white: #ffffff; --radius: 8px; --shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans JP', sans-serif; background: var(--cream); color: var(--text); line-height: 1.8; }
+
+    .topbar { background: var(--green-deep); color: rgba(255,255,255,0.8); font-size: 0.72rem; padding: 6px 24px; display: flex; justify-content: flex-end; gap: 24px; }
+    .topbar a { color: inherit; text-decoration: none; }
+    header { position: sticky; top: 0; z-index: 100; background: var(--white); border-bottom: 1px solid #e0dbd0; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    nav { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-mark { width: 44px; height: 44px; background: var(--green-deep); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-family: 'Noto Serif JP', serif; font-size: 1.1rem; font-weight: 700; flex-shrink: 0; }
+    .logo-text { display: flex; flex-direction: column; line-height: 1.2; }
+    .logo-text .main { font-family: 'Noto Serif JP', serif; font-size: 1.1rem; font-weight: 700; color: var(--green-deep); }
+    .logo-text .sub { font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.05em; }
+    .nav-links { display: flex; list-style: none; }
+    .nav-links a { display: block; padding: 8px 16px; text-decoration: none; color: var(--text); font-size: 0.85rem; font-weight: 500; border-radius: var(--radius); transition: background 0.2s, color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { background: var(--green-light); color: var(--green-deep); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--green-deep); border-radius: 2px; }
+
+    .hero { background: linear-gradient(135deg, var(--green-deep) 0%, #1a3d1c 60%, #2c5f2e 100%); color: #fff; padding: 72px 24px 80px; text-align: center; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+    .hero-badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: #fff; font-size: 0.72rem; letter-spacing: 0.15em; padding: 4px 16px; border-radius: 20px; margin-bottom: 20px; }
+    .hero h1 { font-family: 'Noto Serif JP', serif; font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 700; letter-spacing: 0.08em; margin-bottom: 16px; text-shadow: 0 2px 12px rgba(0,0,0,0.3); }
+    .hero p { font-size: 0.95rem; color: rgba(255,255,255,0.8); max-width: 480px; margin: 0 auto; }
+    .hero-divider { width: 40px; height: 2px; background: var(--gold); margin: 20px auto; border-radius: 2px; }
+
+    .breadcrumb { max-width: 1100px; margin: 0 auto; padding: 16px 24px; font-size: 0.78rem; color: var(--text-muted); display: flex; gap: 8px; align-items: center; }
+    .breadcrumb a { color: var(--green-mid); text-decoration: none; }
+    .breadcrumb-sep { color: #ccc; }
+
+    .page-body { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: start; }
+
+    .sidebar { position: sticky; top: 80px; }
+    .sidebar-section { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 20px; }
+    .sidebar-title { background: var(--green-deep); color: #fff; font-family: 'Noto Serif JP', serif; font-size: 0.8rem; font-weight: 600; padding: 10px 16px; letter-spacing: 0.08em; }
+    .sidebar-nav { list-style: none; }
+    .sidebar-nav li { border-bottom: 1px solid var(--warm-gray); }
+    .sidebar-nav li:last-child { border-bottom: none; }
+    .sidebar-nav a { display: flex; align-items: center; gap: 8px; padding: 11px 16px; text-decoration: none; color: var(--text); font-size: 0.82rem; transition: background 0.15s, color 0.15s, padding-left 0.15s; }
+    .sidebar-nav a::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--green-mid); flex-shrink: 0; }
+    .sidebar-nav a:hover { background: var(--green-light); color: var(--green-deep); padding-left: 20px; }
+    .sidebar-nav a.active { background: var(--green-light); color: var(--green-deep); font-weight: 700; }
+    .sidebar-contact { padding: 16px; background: var(--gold-light); border-radius: var(--radius); font-size: 0.78rem; line-height: 2; }
+    .sidebar-contact strong { display: block; font-family: 'Noto Serif JP', serif; font-size: 0.85rem; color: var(--green-deep); margin-bottom: 6px; }
+    .sidebar-contact .tel { font-size: 1.05rem; font-weight: 700; color: var(--green-deep); }
+
+    .content { min-width: 0; }
+
+    /* PROCESS STEPS */
+    .process-intro { background: var(--white); border-radius: 12px; box-shadow: var(--shadow); padding: 20px 24px; margin-bottom: 32px; border-left: 4px solid var(--green-deep); font-size: 0.9rem; line-height: 2; }
+
+    .steps-container { position: relative; }
+
+    .step-item { display: grid; grid-template-columns: 64px 1fr; gap: 0; margin-bottom: 0; position: relative; }
+
+    .step-left { display: flex; flex-direction: column; align-items: center; }
+    .step-number {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: var(--green-deep); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Noto Serif JP', serif; font-size: 0.7rem; font-weight: 700;
+      flex-shrink: 0; z-index: 1; position: relative;
+      box-shadow: 0 2px 8px rgba(44,95,46,0.4);
+      flex-direction: column; line-height: 1.2;
+    }
+    .step-number .num { font-size: 1.1rem; }
+    .step-line { flex: 1; width: 2px; background: linear-gradient(to bottom, var(--green-deep), var(--green-light)); margin: 4px 0; min-height: 24px; }
+    .step-item:last-child .step-line { display: none; }
+
+    .step-card {
+      background: var(--white); border-radius: 12px; box-shadow: var(--shadow);
+      margin: 0 0 20px 16px; overflow: hidden;
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    .step-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.12); transform: translateX(3px); }
+
+    .step-card-header {
+      background: linear-gradient(135deg, var(--gold) 0%, #9a7820 100%);
+      color: #fff; padding: 12px 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .step-card-header h3 { font-family: 'Noto Serif JP', serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.04em; }
+
+    .step-card-body { padding: 18px 20px; font-size: 0.875rem; line-height: 1.95; color: var(--text); }
+
+    .step-card-body .highlight { background: var(--green-light); border-radius: var(--radius); padding: 10px 14px; margin-top: 12px; font-size: 0.82rem; color: var(--green-deep); font-weight: 500; }
+
+    .step-card-body .spec { display: inline-block; background: var(--gold-light); border: 1px solid var(--gold); border-radius: 4px; padding: 1px 8px; font-size: 0.78rem; font-weight: 700; color: var(--gold); margin: 2px 2px; }
+
+    footer { background: #1a2e1b; color: rgba(255,255,255,0.75); padding: 56px 24px 24px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+    .footer-brand .name { font-family: 'Noto Serif JP', serif; font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+    .footer-brand .tagline { font-size: 0.78rem; line-height: 1.9; margin-bottom: 16px; }
+    .footer-brand .address { font-size: 0.78rem; line-height: 2; }
+    .footer-col h4 { font-size: 0.8rem; font-weight: 700; color: #fff; margin-bottom: 14px; letter-spacing: 0.08em; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.15); }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-links a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.8rem; transition: color 0.2s; }
+    .footer-links a:hover { color: #fff; }
+    .footer-bottom { padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; font-size: 0.72rem; color: rgba(255,255,255,0.4); flex-wrap: wrap; gap: 8px; }
+
+    @media (max-width: 768px) {
+      .topbar { justify-content: center; flex-wrap: wrap; gap: 12px; }
+      .nav-links { display: none; flex-direction: column; }
+      .nav-links.open { display: flex; position: absolute; top: 64px; left: 0; right: 0; background: var(--white); border-bottom: 1px solid #e0dbd0; box-shadow: 0 8px 24px rgba(0,0,0,0.1); padding: 8px 16px 16px; z-index: 99; }
+      .hamburger { display: flex; }
+      .page-body { grid-template-columns: 1fr; padding: 0 16px 60px; }
+      .sidebar { position: static; order: 2; }
+      .content { order: 1; }
+      .step-item { grid-template-columns: 48px 1fr; }
+      .step-number { width: 40px; height: 40px; font-size: 0.65rem; }
+      .step-number .num { font-size: 0.9rem; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .hero { padding: 48px 20px 56px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <span>滋賀県彦根市中葛2丁目5-8</span>
+  <span>TEL: <a href="tel:0749233939">0749-23-3939</a></span>
+  <span>FAX: 0749-26-2786</span>
+</div>
+
+<header>
+  <nav>
+    <a href="../index.html" class="logo">
+      <div class="logo-mark">大</div>
+      <div class="logo-text">
+        <span class="main">大老昆布</span>
+        <span class="sub">株式会社明和 — 彦根のとろろ昆布専門店</span>
+      </div>
+    </a>
+    <button class="hamburger" onclick="this.nextElementSibling.classList.toggle('open')" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="../index.html">TOP</a></li>
+      <li><a href="../osusume/index.html">おすすめ商品</a></li>
+      <li><a href="../shopping/index.html">ショッピング</a></li>
+      <li><a href="../howto/index.html">お買い物方法</a></li>
+      <li><a href="../contact/index.html">お問い合わせ</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-badge">MANUFACTURING PROCESS</div>
+  <h1>とろろ昆布の加工工程</h1>
+  <div class="hero-divider"></div>
+  <p>8つの工程を経て、丁寧に仕上げられます。</p>
+</section>
+
+<div class="breadcrumb">
+  <a href="../index.html">TOP</a>
+  <span class="breadcrumb-sep">›</span>
+  <span>とろろ昆布の加工工程</span>
+</div>
+
+<div class="page-body">
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">メニュー</div>
+      <ul class="sidebar-nav">
+        <li><a href="../about/index.html">大老昆布のご紹介</a></li>
+        <li><a href="../osusume/index.html">おすすめ商品</a></li>
+        <li><a href="../shopping/index.html">ショッピング</a></li>
+        <li><a href="../howto/index.html">お買い物方法</a></li>
+        <li><a href="../quantity/index.html">包装について</a></li>
+        <li><a href="index.html" class="active">とろろ昆布の加工工程</a></li>
+        <li><a href="../company/index.html">会社案内</a></li>
+        <li><a href="../tourism/index.html">彦根観光おすすめ情報</a></li>
+        <li><a href="../links/index.html">Links</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-contact">
+      <strong>お電話でのお問い合わせ</strong>
+      <div class="tel">0749-23-3939</div>
+      <div>平日 9:00〜17:00</div>
+    </div>
+  </aside>
+
+  <main class="content">
+
+    <div class="process-intro">
+      とろろ昆布は繊細なイメージとは裏腹に、重機を用いた<strong>8つの工程</strong>を経てようやく完成します。加工品質は機械設備の精度とオペレーターの技術にゆだねられます。
+    </div>
+
+    <div class="steps-container">
+
+      <!-- Step 1 -->
+      <div class="step-item">
+        <div class="step-left">
+          <div class="step-number"><span class="num">1</span></div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-card">
+          <div class="step-card-header">
+            <h3>昆布原料の酢漬け</h3>
+          </div>
+          <div class="step-card-body">
+            <p>原料の昆布は「だし昆布」同様に乾燥した状態です。そこに酢酸をかけ酸味と水分を与えます。</p>
+            <div class="highlight">特にとろろ昆布の<strong>しっとり感</strong>に影響する重要な工程です。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step-item">
+        <div class="step-left">
+          <div class="step-number"><span class="num">2</span></div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-card">
+          <div class="step-card-header">
+            <h3>裁断</h3>
+          </div>
+          <div class="step-card-body">
+            <p>原料の昆布は主に長さ1メートル前後のものを用います。このままでは後の工程に不都合なので、適度な長さに裁断します。</p>
+            <div class="highlight">裁断サイズ：<span class="spec">20〜30cm</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step-item">
+        <div class="step-left">
+          <div class="step-number"><span class="num">3</span></div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-card">
+          <div class="step-card-header">
+            <h3>砂取り</h3>
+          </div>
+          <div class="step-card-body">
+            <p>海から採取した昆布は海岸で天日乾燥させます。その時に海岸の砂や石が付着します。砂取り工程はこれらの砂や石、表面の塩を取り除く目的と、原料を砂取りかく押する際の摩擦熱で昆布を柔らかくなめす目的もあります。</p>
+            <div class="highlight">砂や塩が多く残っていたり、原料が硬いとブロック成型の際に密着せず、削れた商品が籠の様にボロボロになります。これでは「こし」のあるとろろ昆布にはなりません。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="step-item">
+        <div class="step-left">
+          <div class="step-number"><span class="num">4</span></div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-card">
+          <div class="step-card-header">
+            <h3>調味・かく拌</h3>
+          </div>
+          <div class="step-card-body">
+            <p>ここで様々な原料や調味料を混ぜ合わせます。</p>
+            <div class="highlight">この工程で<strong>商品の味が決まります</strong>。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="step-item">
+        <div class="step-left">
+          <div class="step-number"><span class="num">5</span></div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-card">
+          <div class="step-card-header">
+            <h3>1次プレス</h3>
+          </div>
+          <div class="step-card-body">
+            <p>切削機の規格により60kgの原料をブロックにプレス成型します。しかしプレス前の原料60kg分の体積が大きく弾力性も強いため1度に上手くプレスする事ができません。従って型枠の中に5kgずつ加えながら徐々にプレスして2次プレスに入る大きさに仮プレスします。</p>
+            <div class="highlight">ブロック規格：<span class="spec">縦45cm</span> <span class="spec">横20cm</span> <span class="spec">深さ47cm</span> / 5kgずつ投入</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 6 -->
+      <div class="step-item">
+        <div class="step-left">
+          <div class="step-number"><span class="num">6</span></div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-card">
+          <div class="step-card-header">
+            <h3>2次プレス</h3>
+          </div>
+          <div class="step-card-body">
+            <p>1次プレスした60kg分の昆布を更に圧縮します。</p>
+            <div class="highlight">切削幅 <span class="spec">20cm</span> まで圧縮します。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 7 -->
+      <div class="step-item">
+        <div class="step-left">
+          <div class="step-number"><span class="num">7</span></div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-card">
+          <div class="step-card-header">
+            <h3>裁断</h3>
+          </div>
+          <div class="step-card-body">
+            <p>型枠からはみ出た余分なふちを断裁成型します。整った形のブロックに仕上げます。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 8 -->
+      <div class="step-item">
+        <div class="step-left">
+          <div class="step-number" style="background: var(--gold);"><span class="num">8</span></div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-card">
+          <div class="step-card-header" style="background: linear-gradient(135deg, var(--green-deep), #1a3d1c);">
+            <h3>切削機（完成）</h3>
+          </div>
+          <div class="step-card-body">
+            <p>いよいよ最終工程です。とろろ昆布は一般的に約0.02mmの厚さに切削します。</p>
+            <div class="highlight">1枚の<strong>形状・色・つや</strong>、さらには食感に至るまで、切削機の切れ味が大きく影響します。</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="name">大老昆布 – 株式会社明和</div>
+        <p class="tagline">昭和55年創業。道南白口浜の真昆布を用いた<br>とろろ昆布の加工・直販を行っております。</p>
+        <address class="address" style="font-style:normal;">
+          〒522-0000 滋賀県彦根市中葛2丁目5-8<br>
+          TEL: 0749-23-3939　FAX: 0749-26-2786<br>
+          E-mail: kk-meiwa@proof.ocn.ne.jp
+        </address>
+      </div>
+      <div class="footer-col">
+        <h4>サイトマップ</h4>
+        <ul class="footer-links">
+          <li><a href="../index.html">TOP</a></li>
+          <li><a href="../osusume/index.html">おすすめ商品</a></li>
+          <li><a href="../shopping/index.html">ショッピング</a></li>
+          <li><a href="../howto/index.html">お買い物方法</a></li>
+          <li><a href="../contact/index.html">お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>大老昆布について</h4>
+        <ul class="footer-links">
+          <li><a href="../about/index.html">大老昆布のご紹介</a></li>
+          <li><a href="index.html">とろろ昆布の加工工程</a></li>
+          <li><a href="../quantity/index.html">包装について</a></li>
+          <li><a href="../company/index.html">会社案内</a></li>
+          <li><a href="../tourism/index.html">彦根観光おすすめ情報</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Copyright &copy; 2004 Meiwa Corporation. All Rights Reserved.</span>
+      <span>滋賀県彦根市の昆布専門店</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
