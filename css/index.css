@@ -44,7 +44,7 @@
     .hero-eyebrow { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: #fff; font-size: 0.72rem; letter-spacing: 0.15em; padding: 4px 16px; border-radius: 20px; margin-bottom: 24px; }
     .hero-title { font-family: 'Noto Serif JP', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.5; letter-spacing: 0.06em; margin-bottom: 24px; text-shadow: 0 2px 12px rgba(0,0,0,0.3); }
     .hero-title em { color: var(--gold-light); font-style: normal; }
-    .hero-desc { font-size: 0.95rem; color: rgba(255,255,255,0.85); line-height: 2; margin-bottom: 32px; }
+    .hero-desc { font-size: 0.95rem; color: rgba(255,255,255,0.85); line-height: 2; margin-bottom: 32px; text-wrap: balance; overflow-wrap: break-word; }
     .hero-divider { width: 40px; height: 2px; background: var(--gold); margin-bottom: 28px; border-radius: 2px; }
     .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
     .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 6px; font-size: 0.88rem; font-weight: 700; text-decoration: none; transition: all 0.2s; letter-spacing: 0.04em; }

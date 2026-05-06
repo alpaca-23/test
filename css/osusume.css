@@ -178,6 +178,8 @@
       max-width: 480px;
       margin: 0 auto;
       line-height: 1.9;
+      text-wrap: balance;
+      overflow-wrap: break-word;
     }
     .hero-divider {
       width: 40px;
