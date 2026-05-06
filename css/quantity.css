@@ -69,11 +69,12 @@
     .packaging-card { background: var(--white); border-radius: 12px; box-shadow: var(--shadow); overflow: hidden; transition: box-shadow 0.3s, transform 0.3s; }
     .packaging-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.13); transform: translateY(-2px); }
 
-    .packaging-image { height: 160px; display: flex; align-items: center; justify-content: center; position: relative; }
-    .packaging-image.konrei { background: linear-gradient(135deg, #fdf5e0, #f5e6b8); }
-    .packaging-image.ao { background: linear-gradient(135deg, #e0ecf5, #b8d4e8); }
-    .packaging-image.pink { background: linear-gradient(135deg, #fde8ec, #f5c0cc); }
-    .packaging-image.buji { background: linear-gradient(135deg, #e8e8e8, #c8c8c8); }
+    .packaging-image { height: 160px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .packaging-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .packaging-image.konrei { background: #fdf5e0; }
+    .packaging-image.ao { background: #e0ecf5; }
+    .packaging-image.pink { background: #fde8ec; }
+    .packaging-image.buji { background: #e8e8e8; }
     .packaging-image.mihon { background: linear-gradient(135deg, #e8f0e9, #c8deca); }
     .packaging-image.mihon2 { background: linear-gradient(135deg, #fdf5e0, #f0e0b0); }
 
