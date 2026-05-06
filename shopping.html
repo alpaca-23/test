@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ショッピング | 大老昆布 – 株式会社明和</title>
-  <meta name="description" content="大老昆布のオンラインショッピング。Yahoo!ショッピング・BASEにてとろろ昆布をご注文いただけます。包装紙・のし紙対応。全国発送。">
-  <meta name="keywords" content="とろろ昆布,昆布,彦根,滋賀県,大老昆布,株式会社明和,ギフト,贈答品,通信販売,Yahoo!ショッピング,BASE,ネット注文">
+  <title>詰め合わせ商品 | 大老昆布 – 株式会社明和</title>
+  <meta name="description" content="大老昆布の詰め合わせ商品一覧。太白とろろ（60g）2個入り・寒天昆布セット・3個入りなど各種ギフト対応。包装紙・のし紙承ります。">
+  <meta name="keywords" content="とろろ昆布,詰め合わせ,ギフト,贈答品,御中元,御歳暮,彦根,滋賀県,大老昆布,株式会社明和">
   <meta name="author" content="株式会社明和">
   <meta name="robots" content="noindex, nofollow">
   <link rel="canonical" href="https://alpaca-23.github.io/test/shopping.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="大老昆布 – 株式会社明和">
-  <meta property="og:title" content="ショッピング | 大老昆布 – 株式会社明和">
-  <meta property="og:description" content="大老昆布のオンラインショッピング。Yahoo!ショッピング・BASEにてご注文いただけます。">
+  <meta property="og:title" content="詰め合わせ商品 | 大老昆布 – 株式会社明和">
+  <meta property="og:description" content="大老昆布の詰め合わせ商品。各種ギフト・贈答品に最適です。">
   <meta property="og:url" content="https://alpaca-23.github.io/test/shopping.html">
   <meta property="og:locale" content="ja_JP">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,55 +26,66 @@
     .topbar { justify-content: space-between; }
     .topbar-info { display: flex; gap: 24px; }
 
-    /* ── 注文方法カード ── */
-    .order-methods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
-    .method-card { background: var(--white); border-radius: 12px; box-shadow: var(--shadow); padding: 24px 20px; text-align: center; border: 2px solid transparent; transition: border-color 0.2s, box-shadow 0.2s; }
-    .method-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.12); }
-    .method-card.yahoo { border-color: #ff0033; }
-    .method-card.base  { border-color: #1a1a1a; }
-    .method-card.tel   { border-color: var(--gold); }
-    .method-icon { font-size: 2rem; margin-bottom: 10px; }
-    .method-name { font-family: 'Noto Serif JP', serif; font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
-    .method-card.yahoo .method-name { color: #cc0000; }
-    .method-card.base  .method-name { color: #1a1a1a; }
-    .method-card.tel   .method-name { color: var(--gold); }
-    .method-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 14px; }
-    .method-badge { display: inline-block; font-size: 0.68rem; font-weight: 700; padding: 2px 10px; border-radius: 20px; margin-bottom: 14px; }
-    .badge-open   { background: #e8f5e9; color: #2e7d32; }
-    .badge-soon   { background: #fff8e1; color: #f57f17; }
-    .badge-always { background: var(--gold-light); color: var(--gold); }
-
-    /* ── プラットフォームボタン ── */
-    .btn-yahoo { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 11px 16px; background: #ff0033; color: #fff; border-radius: 8px; font-size: 0.85rem; font-weight: 700; text-decoration: none; transition: background 0.2s, transform 0.15s; }
-    .btn-yahoo:hover { background: #cc0022; transform: translateY(-1px); }
-    .btn-base  { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 11px 16px; background: #1a1a1a; color: #fff; border-radius: 8px; font-size: 0.85rem; font-weight: 700; text-decoration: none; transition: background 0.2s, transform 0.15s; }
-    .btn-base:hover  { background: #333; transform: translateY(-1px); }
-    .btn-tel   { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 11px 16px; background: var(--gold); color: #fff; border-radius: 8px; font-size: 0.85rem; font-weight: 700; text-decoration: none; transition: background 0.2s; }
-    .btn-tel:hover  { background: #9a7d22; }
-    .btn-disabled { opacity: 0.55; pointer-events: none; }
-
-    /* ── 商品カード（プラットフォーム選択型） ── */
-    .product-list { display: flex; flex-direction: column; gap: 24px; }
-    .product-card { background: var(--white); border-radius: 12px; box-shadow: var(--shadow); overflow: hidden; }
-    .product-inner { display: grid; grid-template-columns: 160px 1fr; }
-    .product-img { background: linear-gradient(135deg,#f7ece0,#edd5b8); display: flex; align-items: center; justify-content: center; min-height: 180px; font-size: 3.5rem; }
-    .product-body { padding: 20px 24px; display: flex; flex-direction: column; gap: 12px; }
-    .product-name { font-family: 'Noto Serif JP', serif; font-size: 1.1rem; font-weight: 700; color: var(--green-deep); }
-    .product-price-row { display: flex; align-items: baseline; gap: 8px; }
-    .product-price { font-size: 1.4rem; font-weight: 700; color: var(--green-deep); }
-    .product-price small { font-size: 0.75rem; font-weight: 400; color: var(--text-muted); }
-    .product-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.8; }
-    .product-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-    .product-tag { background: var(--green-light); color: var(--green-deep); font-size: 0.72rem; font-weight: 700; padding: 2px 10px; border-radius: 20px; }
-    .product-buy { border-top: 1px solid var(--warm-gray); padding-top: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .buy-label { grid-column: 1 / -1; font-size: 0.75rem; color: var(--text-muted); font-weight: 700; margin-bottom: 2px; }
-
-    /* ── ギフトメモ ── */
-    .gift-note { background: var(--gold-light); border-left: 4px solid var(--gold); border-radius: 0 var(--radius) var(--radius) 0; padding: 14px 18px; margin-bottom: 24px; font-size: 0.83rem; line-height: 1.9; }
-    .gift-note strong { color: var(--gold); display: block; margin-bottom: 4px; }
-
     /* ── セクションタイトル ── */
     .section-title { font-family: 'Noto Serif JP', serif; font-size: 1.1rem; font-weight: 700; color: var(--green-deep); padding-bottom: 10px; border-bottom: 2px solid var(--green-light); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+
+    /* ── ギフトメモ ── */
+    .gift-note { background: var(--gold-light); border-left: 4px solid var(--gold); border-radius: 0 var(--radius) var(--radius) 0; padding: 14px 18px; margin-bottom: 28px; font-size: 0.83rem; line-height: 1.9; }
+    .gift-note strong { color: var(--gold); display: block; margin-bottom: 4px; font-size: 0.9rem; }
+
+    /* ── 商品カード（詰め合わせ専用） ── */
+    .product-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--warm-gray); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); }
+    .product-row { display: grid; grid-template-columns: 180px 1fr; background: var(--white); border-bottom: 1px solid var(--warm-gray); transition: background 0.15s; }
+    .product-row:last-child { border-bottom: none; }
+    .product-row:hover { background: #fdfcf8; }
+
+    .product-thumb { display: flex; align-items: center; justify-content: center; background: #f9f4ec; padding: 20px; min-height: 160px; }
+    .product-thumb img { max-width: 140px; max-height: 120px; object-fit: contain; display: block; }
+
+    .product-detail { padding: 20px 24px; display: flex; flex-direction: column; gap: 12px; }
+
+    .product-code { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.08em; font-weight: 700; text-transform: uppercase; }
+    .product-name { font-family: 'Noto Serif JP', serif; font-size: 1.05rem; font-weight: 700; color: var(--green-deep); }
+    .product-sub  { font-size: 0.82rem; color: var(--text-muted); margin-top: -6px; }
+
+    .product-info-table { font-size: 0.82rem; border-collapse: collapse; }
+    .product-info-table tr td { padding: 3px 0; vertical-align: top; }
+    .product-info-table tr td:first-child { color: var(--text-muted); width: 70px; white-space: nowrap; }
+    .product-info-table tr td:last-child  { font-weight: 500; color: var(--text); }
+    .price-value { font-size: 1.2rem; font-weight: 700; color: var(--green-deep); }
+    .price-tax   { font-size: 0.75rem; font-weight: 400; color: var(--text-muted); }
+
+    .product-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .product-tag { background: var(--green-light); color: var(--green-deep); font-size: 0.7rem; font-weight: 700; padding: 2px 10px; border-radius: 20px; }
+
+    .product-actions { display: flex; gap: 10px; flex-wrap: wrap; padding-top: 10px; border-top: 1px solid var(--warm-gray); }
+
+    /* ── ボタン ── */
+    .btn-yahoo { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 9px 20px; background: #ff0033; color: #fff; border-radius: 6px; font-size: 0.8rem; font-weight: 700; text-decoration: none; transition: background 0.2s, transform 0.15s; white-space: nowrap; }
+    .btn-yahoo:hover { background: #cc0022; transform: translateY(-1px); }
+    .btn-base  { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 9px 20px; background: #1a1a1a; color: #fff; border-radius: 6px; font-size: 0.8rem; font-weight: 700; text-decoration: none; transition: background 0.2s, transform 0.15s; white-space: nowrap; }
+    .btn-base:hover  { background: #333; transform: translateY(-1px); }
+    .btn-tel   { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 9px 20px; background: var(--gold); color: #fff; border-radius: 6px; font-size: 0.8rem; font-weight: 700; text-decoration: none; transition: background 0.2s; white-space: nowrap; }
+    .btn-tel:hover  { background: #9a7d22; }
+    .btn-disabled { opacity: 0.5; pointer-events: none; }
+
+    /* ── 注文案内バナー ── */
+    .order-banner { background: var(--white); border-radius: 12px; box-shadow: var(--shadow); padding: 20px 24px; margin-bottom: 24px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    .order-item { text-align: center; padding: 16px 12px; border-radius: 8px; }
+    .order-item.yahoo { background: #fff0f2; border: 1px solid #ffc0c8; }
+    .order-item.base  { background: #f4f4f4; border: 1px solid #ddd; }
+    .order-item.tel   { background: var(--gold-light); border: 1px solid #e0cc88; }
+    .order-item-icon { font-size: 1.6rem; margin-bottom: 6px; }
+    .order-item-name { font-size: 0.78rem; font-weight: 700; margin-bottom: 4px; }
+    .order-item.yahoo .order-item-name { color: #cc0000; }
+    .order-item.base  .order-item-name { color: #1a1a1a; }
+    .order-item.tel   .order-item-name { color: var(--gold); }
+    .order-item-desc { font-size: 0.72rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* 単品商品ページへのリンク */
+    .link-tanpin { display: flex; align-items: center; gap: 10px; background: var(--white); border: 1px solid var(--warm-gray); border-radius: 8px; padding: 14px 18px; margin-bottom: 24px; text-decoration: none; color: var(--text); font-size: 0.85rem; font-weight: 500; transition: background 0.15s; }
+    .link-tanpin:hover { background: var(--green-light); color: var(--green-deep); }
+    .link-tanpin svg { flex-shrink: 0; fill: var(--green-mid); }
 
     @media (max-width: 768px) {
       .topbar { justify-content: center; flex-wrap: wrap; gap: 12px; }
@@ -84,10 +95,9 @@
       .page-body { grid-template-columns: 1fr; padding: 0 16px 60px; }
       .sidebar { position: static; order: 2; }
       .content { order: 1; }
-      .order-methods { grid-template-columns: 1fr; }
-      .product-inner { grid-template-columns: 1fr; }
-      .product-img { min-height: 120px; }
-      .product-buy { grid-template-columns: 1fr; }
+      .order-banner { grid-template-columns: 1fr; }
+      .product-row { grid-template-columns: 1fr; }
+      .product-thumb { min-height: 140px; }
       .footer-grid { grid-template-columns: 1fr; gap: 32px; }
       .footer-bottom { flex-direction: column; text-align: center; }
     }
@@ -131,15 +141,15 @@
 
 <section class="hero">
   <div class="hero-badge">SHOPPING</div>
-  <h1>ショッピング</h1>
+  <h1>詰め合わせ商品</h1>
   <div class="hero-divider"></div>
-  <p>Yahoo!ショッピング・BASEにてクレジットカードでご購入いただけます。</p>
+  <p>贈り物・ご進物にぴったりな化粧箱入り詰め合わせです。包装紙・のし紙もご用意しております。</p>
 </section>
 
 <div class="breadcrumb">
   <a href="index.html">TOP</a>
   <span class="breadcrumb-sep">›</span>
-  <span>ショッピング</span>
+  <span>詰め合わせ商品</span>
 </div>
 
 <div class="page-body">
@@ -149,7 +159,7 @@
       <ul class="sidebar-nav">
         <li><a href="about.html">大老昆布のご紹介</a></li>
         <li><a href="osusume.html">おすすめ商品</a></li>
-        <li><a href="shopping.html" class="active">ショッピング</a></li>
+        <li><a href="shopping.html" class="active">詰め合わせ商品</a></li>
         <li><a href="howto.html">お買い物方法</a></li>
         <li><a href="quantity.html">包装について</a></li>
         <li><a href="process.html">とろろ昆布の加工工程</a></li>
@@ -167,160 +177,125 @@
   <main class="content">
 
     <!-- ご注文方法 -->
-    <div class="section-title">🛍️ ご注文方法を選んでください</div>
-
-    <div class="order-methods">
-
-      <!-- Yahoo!ショッピング -->
-      <div class="method-card yahoo">
-        <div class="method-icon">🛒</div>
-        <div class="method-name">Yahoo!ショッピング</div>
-        <span class="method-badge badge-open">出店準備中</span>
-        <p class="method-desc">クレジットカード・PayPay・各種ポイント払い対応。Tポイントも貯まります。</p>
-        <!-- ★ 出店後、href="#" を実際のショップURLに変更してください -->
-        <a href="#" class="btn-yahoo btn-disabled" target="_blank" rel="noopener">
-          Yahoo!ショッピングで購入
-        </a>
+    <div class="order-banner">
+      <div class="order-item yahoo">
+        <div class="order-item-icon">🛒</div>
+        <div class="order-item-name">Yahoo!ショッピング</div>
+        <div class="order-item-desc">クレジット・PayPay・<br>各種ポイント払い対応</div>
       </div>
-
-      <!-- BASE -->
-      <div class="method-card base">
-        <div class="method-icon">🏪</div>
-        <div class="method-name">BASE</div>
-        <span class="method-badge badge-open">出店準備中</span>
-        <p class="method-desc">クレジットカード・コンビニ払い・Amazon Pay対応。かんたんに注文できます。</p>
-        <!-- ★ 出店後、href="#" を実際のショップURLに変更してください -->
-        <a href="#" class="btn-base btn-disabled" target="_blank" rel="noopener">
-          BASEで購入
-        </a>
+      <div class="order-item base">
+        <div class="order-item-icon">🏪</div>
+        <div class="order-item-name">BASE</div>
+        <div class="order-item-desc">クレジット・コンビニ払い・<br>Amazon Pay対応</div>
       </div>
-
-      <!-- お電話 -->
-      <div class="method-card tel">
-        <div class="method-icon">📞</div>
-        <div class="method-name">お電話・FAX</div>
-        <span class="method-badge badge-always">いつでも受付</span>
-        <p class="method-desc">包装・のし紙のご相談も承ります。お気軽にお電話ください。平日9:00〜17:00</p>
-        <a href="tel:0749233939" class="btn-tel">
-          0749-23-3939 に電話する
-        </a>
+      <div class="order-item tel">
+        <div class="order-item-icon">📞</div>
+        <div class="order-item-name">お電話・FAX</div>
+        <div class="order-item-desc">0749-23-3939<br>平日 9:00〜17:00</div>
       </div>
-
     </div>
 
-    <!-- ギフトメモ -->
+    <!-- ギフト案内 -->
     <div class="gift-note">
-      <strong>🎁 包装・のし紙をご希望の方へ</strong>
-      婚礼・仏事・御中元・御歳暮など各種包装紙・のし紙に対応しています。ECサイトでのご注文時は備考欄にご記入いただくか、ご注文後にお電話（0749-23-3939）にてご相談ください。
+      <strong>🎁 包装紙・のし紙について</strong>
+      婚礼・仏事・御中元・御歳暮など各種のし紙・包装紙に対応しております。ECサイトのご注文時は備考欄にご記入いただくか、ご注文後にお電話（0749-23-3939）にてご相談ください。
     </div>
+
+    <!-- 単品商品へのリンク -->
+    <a href="osusume.html" class="link-tanpin">
+      <svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+      単品商品（太白とろろ 60g・180g・35g）はこちら
+    </a>
 
     <!-- 商品一覧 -->
-    <div class="section-title">🫙 商品一覧</div>
+    <div class="section-title">🎁 詰め合わせ商品一覧</div>
 
     <div class="product-list">
 
-      <!-- 太白とろろ 60g -->
-      <div class="product-card">
-        <div class="product-inner">
-          <div class="product-img">
-            <img src="images/product-tairou-box.jpg" alt="太白とろろ（60g）筒容器と化粧箱">
+      <!-- A2: 太白とろろ（60g）2個 -->
+      <div class="product-row">
+        <div class="product-thumb">
+          <img src="images/set-a2-two-containers.jpg" alt="詰め合わせ商品 A2 — 太白とろろ（60g）2個入り">
+        </div>
+        <div class="product-detail">
+          <div class="product-code">詰め合わせ商品　A2</div>
+          <div class="product-name">太白とろろ（60g）　2個</div>
+          <div class="product-tags">
+            <span class="product-tag">御中元</span>
+            <span class="product-tag">御歳暮</span>
+            <span class="product-tag">引き出物</span>
           </div>
-          <div class="product-body">
-            <div class="product-tags">
-              <span class="product-tag">人気 No.1</span>
-              <span class="product-tag">贈答品に最適</span>
-            </div>
-            <div class="product-name">太白とろろ（60g）</div>
-            <div class="product-price-row">
-              <span class="product-price">¥1,460 <small>（税込）</small></span>
-            </div>
-            <p class="product-desc">1枚ずつ取り出せる筒容器入り。削りたての新鮮な風味をそのままお届けします。手土産・引き出物にも大変ご好評いただいております。</p>
-            <div class="product-buy">
-              <span class="buy-label">購入サイトを選ぶ</span>
-              <!-- ★ 出店後、href="#" を各商品ページURLに変更してください -->
-              <a href="#" class="btn-yahoo btn-disabled" target="_blank" rel="noopener">Yahoo!で購入</a>
-              <a href="#" class="btn-base  btn-disabled" target="_blank" rel="noopener">BASEで購入</a>
-            </div>
+          <table class="product-info-table">
+            <tr><td>価　格</td><td><span class="price-value">¥3,100</span><span class="price-tax">（税込）</span></td></tr>
+            <tr><td>内　容</td><td>太白とろろ（60g）× 2個</td></tr>
+            <tr><td>包装紙</td><td>各種対応（ご注文時にご指定ください）</td></tr>
+            <tr><td>のし紙</td><td>各種対応（ご注文時にご指定ください）</td></tr>
+          </table>
+          <div class="product-actions">
+            <!-- ★ 出店後、href="#" を各商品ページURLに変更してください -->
+            <a href="#" class="btn-yahoo btn-disabled" target="_blank" rel="noopener">Yahoo!で購入</a>
+            <a href="#" class="btn-base  btn-disabled" target="_blank" rel="noopener">BASEで購入</a>
+            <a href="tel:0749233939" class="btn-tel">📞 お電話で注文</a>
           </div>
         </div>
       </div>
 
-      <!-- 太白とろろ 180g -->
-      <div class="product-card">
-        <div class="product-inner">
-          <div class="product-img" style="background:linear-gradient(135deg,#e8f0e9,#c8ddc8);">
-            <img src="images/product-tairou-single.jpg" alt="太白とろろ（180g）大容量サイズ">
+      <!-- A4: 太白とろろ（60g）と寒天昆布 -->
+      <div class="product-row">
+        <div class="product-thumb">
+          <img src="images/set-a4-konbu-candy.jpg" alt="詰め合わせ商品 A4 — 太白とろろ（60g）と寒天昆布">
+        </div>
+        <div class="product-detail">
+          <div class="product-code">詰め合わせ商品　A4</div>
+          <div class="product-name">太白とろろ（60g）　と　寒天昆布</div>
+          <div class="product-tags">
+            <span class="product-tag">御中元</span>
+            <span class="product-tag">御歳暮</span>
+            <span class="product-tag">プチギフト</span>
           </div>
-          <div class="product-body">
-            <div class="product-tags">
-              <span class="product-tag">大容量・お得</span>
-              <span class="product-tag">まとめ買い</span>
-            </div>
-            <div class="product-name">太白とろろ（180g）</div>
-            <div class="product-price-row">
-              <span class="product-price">¥2,720 <small>（税込）</small></span>
-            </div>
-            <p class="product-desc">毎日の食卓にたっぷり使える大容量サイズ。60g換算でお得です。ご家庭用や業務用のまとめ買いにも最適。</p>
-            <div class="product-buy">
-              <span class="buy-label">購入サイトを選ぶ</span>
-              <a href="#" class="btn-yahoo btn-disabled" target="_blank" rel="noopener">Yahoo!で購入</a>
-              <a href="#" class="btn-base  btn-disabled" target="_blank" rel="noopener">BASEで購入</a>
-            </div>
+          <table class="product-info-table">
+            <tr><td>価　格</td><td><span class="price-value">¥2,500</span><span class="price-tax">（税込）</span></td></tr>
+            <tr><td>内　容</td><td>太白とろろ（60g）× 1個 ＋ 寒天昆布</td></tr>
+            <tr><td>包装紙</td><td>各種対応（ご注文時にご指定ください）</td></tr>
+            <tr><td>のし紙</td><td>各種対応（ご注文時にご指定ください）</td></tr>
+          </table>
+          <div class="product-actions">
+            <a href="#" class="btn-yahoo btn-disabled" target="_blank" rel="noopener">Yahoo!で購入</a>
+            <a href="#" class="btn-base  btn-disabled" target="_blank" rel="noopener">BASEで購入</a>
+            <a href="tel:0749233939" class="btn-tel">📞 お電話で注文</a>
           </div>
         </div>
       </div>
 
-      <!-- 太白とろろ 35g -->
-      <div class="product-card">
-        <div class="product-inner">
-          <div class="product-img" style="background:linear-gradient(135deg,#f0e6c0,#e0d090);">
-            <img src="images/product-tairou-single.jpg" alt="太白とろろ（35g）お試しサイズ">
+      <!-- B2: 太白とろろ（60g）3個 -->
+      <div class="product-row">
+        <div class="product-thumb">
+          <img src="images/set-b2-three-containers.jpg" alt="詰め合わせ商品 B2 — 太白とろろ（60g）3個入り">
+        </div>
+        <div class="product-detail">
+          <div class="product-code">詰め合わせ商品　B2</div>
+          <div class="product-name">太白とろろ（60g）　3個</div>
+          <div class="product-tags">
+            <span class="product-tag">御中元</span>
+            <span class="product-tag">御歳暮</span>
+            <span class="product-tag">まとめ買い</span>
           </div>
-          <div class="product-body">
-            <div class="product-tags">
-              <span class="product-tag">お試しサイズ</span>
-              <span class="product-tag">プチギフト</span>
-            </div>
-            <div class="product-name">太白とろろ（35g）</div>
-            <div class="product-price-row">
-              <span class="product-price">¥750 <small>（税込）</small></span>
-            </div>
-            <p class="product-desc">はじめてご購入の方のお試しに最適な小サイズ。プチギフトや旅行のお土産にもどうぞ。</p>
-            <div class="product-buy">
-              <span class="buy-label">購入サイトを選ぶ</span>
-              <a href="#" class="btn-yahoo btn-disabled" target="_blank" rel="noopener">Yahoo!で購入</a>
-              <a href="#" class="btn-base  btn-disabled" target="_blank" rel="noopener">BASEで購入</a>
-            </div>
+          <table class="product-info-table">
+            <tr><td>価　格</td><td><span class="price-value">¥4,500</span><span class="price-tax">（税込）</span></td></tr>
+            <tr><td>内　容</td><td>太白とろろ（60g）× 3個</td></tr>
+            <tr><td>包装紙</td><td>各種対応（ご注文時にご指定ください）</td></tr>
+            <tr><td>のし紙</td><td>各種対応（ご注文時にご指定ください）</td></tr>
+          </table>
+          <div class="product-actions">
+            <a href="#" class="btn-yahoo btn-disabled" target="_blank" rel="noopener">Yahoo!で購入</a>
+            <a href="#" class="btn-base  btn-disabled" target="_blank" rel="noopener">BASEで購入</a>
+            <a href="tel:0749233939" class="btn-tel">📞 お電話で注文</a>
           </div>
         </div>
       </div>
 
-      <!-- 化粧箱詰め合わせ -->
-      <div class="product-card">
-        <div class="product-inner">
-          <div class="product-img" style="background:linear-gradient(135deg,#f0e6c0,#d4a853);">
-            <img src="images/product-box-a.jpg" alt="化粧箱詰め合わせ — 太白とろろ2個入り贈答品">
-          </div>
-          <div class="product-body">
-            <div class="product-tags">
-              <span class="product-tag">御中元</span>
-              <span class="product-tag">御歳暮</span>
-              <span class="product-tag">引き出物</span>
-            </div>
-            <div class="product-name">化粧箱詰め合わせ</div>
-            <div class="product-price-row">
-              <span class="product-price" style="font-size:1rem; color:var(--text-muted);">内容によって異なります</span>
-            </div>
-            <p class="product-desc">各種贈答・ギフトに最適な化粧箱入り詰め合わせ。のし紙・包装紙の種類もお選びいただけます。内容・価格についてはお電話にてご相談ください。</p>
-            <div class="product-buy">
-              <span class="buy-label">詳細はお電話でご相談ください</span>
-              <a href="tel:0749233939" class="btn-tel" style="grid-column:1/-1;">📞 0749-23-3939 に電話する</a>
-            </div>
-          </div>
-        </div>
-      </div>
+    </div><!-- /product-list -->
 
-    </div>
   </main>
 </div>
 
@@ -341,7 +316,7 @@
         <ul class="footer-links">
           <li><a href="index.html">TOP</a></li>
           <li><a href="osusume.html">おすすめ商品</a></li>
-          <li><a href="shopping.html">ショッピング</a></li>
+          <li><a href="shopping.html">詰め合わせ商品</a></li>
           <li><a href="howto.html">お買い物方法</a></li>
           <li><a href="contact.html">お問い合わせ</a></li>
         </ul>
