@@ -21,13 +21,26 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/shopping.css">
+  <style>
+  .lang-switch { display: flex; gap: 8px; align-items: center; }
+  .lang-switch a { color: rgba(255,255,255,0.7); text-decoration: none; padding: 2px 8px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.3); font-size: 0.72rem; transition: 0.2s; }
+  .lang-switch a:hover, .lang-switch a.active { background: rgba(255,255,255,0.2); color: #fff; }
+  .topbar { justify-content: space-between; }
+  .topbar-info { display: flex; gap: 24px; }
+  </style>
 </head>
 <body>
 
 <div class="topbar">
+  <div class="topbar-info">
   <span>彦根市中薮2丁目5-8</span>
   <span>TEL: <a href="tel:0749233939">0749-23-3939</a></span>
   <span>FAX: 0749-26-2786</span>
+  </div>
+  <div class="lang-switch">
+    <a href="./shopping.html" class="active">日本語</a>
+    <a href="en/index.html">English</a>
+  </div>
 </div>
 
 <header>
