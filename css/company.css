@@ -99,7 +99,13 @@
       .page-body { grid-template-columns: 1fr; padding: 0 16px 60px; }
       .sidebar { position: static; order: 2; }
       .content { order: 1; }
-      .company-table th { width: 100px; }
+      .company-table th,
+      .company-table td { display: block; width: 100%; box-sizing: border-box; }
+      .company-table th { white-space: normal; width: auto; padding-bottom: 4px; border-bottom: 1px solid #d0e0d1; }
+      .company-table td { padding-top: 4px; }
+      .company-table tr { display: block; border: 1px solid var(--warm-gray); border-radius: var(--radius); overflow: hidden; margin-bottom: 8px; }
+      .company-table tr th,
+      .company-table tr td { border: none; }
       .footer-grid { grid-template-columns: 1fr; gap: 32px; }
       .footer-bottom { flex-direction: column; text-align: center; }
       .hero { padding: 48px 20px 56px; }

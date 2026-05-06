@@ -109,5 +109,15 @@
       .footer-bottom { flex-direction: column; text-align: center; }
       .hero { padding: 48px 20px 56px; }
       .card-body { padding: 16px; }
-      .company-table th { width: auto; }
+      .company-table { display: block; overflow-x: auto; }
+      .company-table th { width: auto; white-space: normal; }
+      .company-table th,
+      .company-table td { display: block; width: 100%; box-sizing: border-box; border-left: 1px solid var(--warm-gray); border-right: 1px solid var(--warm-gray); }
+      .company-table th { border-bottom: none; padding-bottom: 6px; }
+      .company-table td { border-top: none; padding-top: 6px; margin-bottom: 4px; }
+      .company-table tr { display: block; border: 1px solid var(--warm-gray); border-radius: var(--radius); overflow: hidden; margin-bottom: 8px; }
+      .company-table tr th,
+      .company-table tr td { border: none; }
+      .company-table tr th { background: var(--green-light); border-bottom: 1px solid #d0e0d1; }
+      .company-table tr:nth-child(even) td { background: #fafaf8; }
     }
