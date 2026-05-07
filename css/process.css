@@ -89,6 +89,12 @@
     .step-card-header h3 { font-family: 'Noto Serif JP', serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.04em; }
 
     .step-card-body { padding: 18px 20px; font-size: 0.875rem; line-height: 1.95; color: var(--text); }
+    .step-card-body-inner { display: flex; gap: 16px; align-items: flex-start; }
+    .step-card-body-inner .step-text { flex: 1; }
+    .step-card-body-inner .step-illust { flex-shrink: 0; width: 120px; display: flex; align-items: center; justify-content: center; }
+    .step-card-body-inner .step-illust img { max-width: 120px; max-height: 100px; object-fit: contain; display: block; }
+    .step-illust-wide { flex-shrink: 0; width: 200px; }
+    .step-illust-wide img { max-width: 200px; max-height: 100px; object-fit: contain; display: block; }
 
     .step-card-body .highlight { background: var(--green-light); border-radius: var(--radius); padding: 10px 14px; margin-top: 12px; font-size: 0.82rem; color: var(--green-deep); font-weight: 500; }
 
