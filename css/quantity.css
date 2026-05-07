@@ -75,8 +75,8 @@
     .packaging-image.ao { background: #e0ecf5; }
     .packaging-image.pink { background: #fde8ec; }
     .packaging-image.buji { background: #e8e8e8; }
-    .packaging-image.mihon { background: linear-gradient(135deg, #e8f0e9, #c8deca); }
-    .packaging-image.mihon2 { background: linear-gradient(135deg, #fdf5e0, #f0e0b0); }
+    .packaging-image.mihon { background: #f0f4f0; }
+    .packaging-image.mihon2 { background: #fdf5e0; }
 
     .packaging-image-label { font-family: 'Noto Serif JP', serif; font-size: 2rem; font-weight: 700; opacity: 0.25; }
 
