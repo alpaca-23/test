@@ -91,10 +91,10 @@
     .step-card-body { padding: 18px 20px; font-size: 0.875rem; line-height: 1.95; color: var(--text); }
     .step-card-body-inner { display: flex; gap: 16px; align-items: flex-start; }
     .step-card-body-inner .step-text { flex: 1; }
-    .step-card-body-inner .step-illust { flex-shrink: 0; width: 120px; display: flex; align-items: center; justify-content: center; }
-    .step-card-body-inner .step-illust img { max-width: 120px; max-height: 100px; object-fit: contain; display: block; }
-    .step-illust-wide { flex-shrink: 0; width: 200px; }
-    .step-illust-wide img { max-width: 200px; max-height: 100px; object-fit: contain; display: block; }
+    .step-card-body-inner .step-illust { flex-shrink: 0; width: 150px; display: flex; align-items: center; justify-content: center; }
+    .step-card-body-inner .step-illust img { max-width: 150px; max-height: 130px; object-fit: contain; display: block; }
+    .step-illust-wide { flex-shrink: 0; width: 220px; }
+    .step-illust-wide img { max-width: 220px; max-height: 140px; object-fit: contain; display: block; }
 
     .step-card-body .highlight { background: var(--green-light); border-radius: var(--radius); padding: 10px 14px; margin-top: 12px; font-size: 0.82rem; color: var(--green-deep); font-weight: 500; }
 
@@ -120,9 +120,16 @@
       .page-body { grid-template-columns: 1fr; padding: 0 16px 60px; }
       .sidebar { position: static; order: 2; }
       .content { order: 1; }
-      .step-item { grid-template-columns: 48px 1fr; }
-      .step-number { width: 40px; height: 40px; font-size: 0.65rem; }
+      .step-item { grid-template-columns: 44px 1fr; }
+      .step-number { width: 36px; height: 36px; font-size: 0.65rem; }
       .step-number .num { font-size: 0.9rem; }
+      .step-card { margin: 0 0 16px 10px; }
+      .step-card-body { padding: 14px 16px; }
+      .step-card-body-inner { flex-direction: column; gap: 12px; }
+      .step-card-body-inner .step-illust { width: 100%; display: flex; justify-content: center; }
+      .step-card-body-inner .step-illust img { max-width: 100%; max-height: 180px; }
+      .step-illust-wide { width: 100%; }
+      .step-illust-wide img { max-width: 100%; max-height: 200px; }
       .footer-grid { grid-template-columns: 1fr; gap: 32px; }
       .footer-bottom { flex-direction: column; text-align: center; }
       .hero { padding: 48px 20px 56px; }
