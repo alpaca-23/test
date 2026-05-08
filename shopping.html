@@ -71,6 +71,16 @@
     .btn-detail { display: inline-flex; align-items: center; padding: 9px 18px; border: 2px solid var(--green-deep); color: #fff; background: var(--green-mid); border-radius: 6px; font-size: 0.8rem; font-weight: 700; text-decoration: none; transition: background 0.2s; white-space: nowrap; }
     .btn-detail:hover { background: var(--green-deep); }
 
+    /* ── カートフォーム（リスト内） ── */
+    .cart-mini-form { width: 100%; padding-top: 10px; border-top: 1px solid var(--warm-gray); }
+    .cart-form-selects { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 8px; }
+    .cart-form-selects label { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; }
+    .cart-form-select { padding: 5px 8px; border: 1px solid #ddd; border-radius: 6px; font-size: 0.78rem; background: var(--cream); color: var(--text); font-family: inherit; }
+    .cart-form-qty { padding: 5px 8px; border: 1px solid #ddd; border-radius: 6px; font-size: 0.82rem; width: 60px; text-align: center; background: var(--cream); font-family: inherit; }
+    .cart-form-actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .btn-add-cart { display: inline-flex; align-items: center; gap: 6px; padding: 9px 20px; background: var(--green-deep); color: #fff; border: none; border-radius: 6px; font-size: 0.82rem; font-weight: 700; cursor: pointer; transition: background 0.2s, transform 0.15s; font-family: inherit; white-space: nowrap; }
+    .btn-add-cart:hover { background: var(--green-mid); transform: translateY(-1px); }
+
     /* ── 注文案内バナー ── */
     .order-banner { background: var(--white); border-radius: 12px; box-shadow: var(--shadow); padding: 20px 24px; margin-bottom: 24px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
     .order-item { text-align: center; padding: 16px 12px; border-radius: 8px; }
@@ -237,11 +247,39 @@
           </table>
           <div class="product-actions">
             <a href="shopping-a2.html" class="btn-detail">詳細を見る</a>
-            <!-- ★ 出店後、href="#" を各商品ページURLに変更してください -->
-            <a href="#" class="btn-yahoo btn-disabled" target="_blank" rel="noopener">Yahoo!で購入</a>
-            <a href="#" class="btn-base  btn-disabled" target="_blank" rel="noopener">BASEで購入</a>
-            <a href="tel:0749233939" class="btn-tel">📞 お電話で注文</a>
           </div>
+          <form method="POST" action="http://shop2.global-websystem.net/tairou/cgi/shop.cgi" class="cart-mini-form">
+            <input type="hidden" name="mode" value="add_cart">
+            <input type="hidden" name="item_cd" value="B-0002">
+            <input type="hidden" name="item_nm" value="詰め合わせ商品 A2">
+            <input type="hidden" name="price" value="3100">
+            <div class="cart-form-selects">
+              <label>包装紙</label>
+              <select name="housoushi" class="cart-form-select">
+                <option value="包装紙なし">包装紙なし</option>
+                <option value="婚礼（赤・白）">婚礼（赤・白）</option>
+                <option value="青">青</option>
+                <option value="ピンク">ピンク</option>
+                <option value="仏事（白・黒）">仏事（白・黒）</option>
+              </select>
+              <label>のし紙</label>
+              <select name="noshi" class="cart-form-select">
+                <option value="のし紙なし">のし紙なし</option>
+                <option value="御中元">御中元</option>
+                <option value="御歳暮">御歳暮</option>
+                <option value="御礼">御礼</option>
+                <option value="内祝い">内祝い</option>
+                <option value="お見舞い">お見舞い</option>
+              </select>
+              <label>数量</label>
+              <input type="number" name="qty" value="1" min="1" max="99" class="cart-form-qty">
+              <span style="font-size:0.78rem;color:var(--text-muted);">個</span>
+            </div>
+            <div class="cart-form-actions">
+              <button type="submit" class="btn-add-cart">🛒 カートに入れる</button>
+              <a href="tel:0749233939" class="btn-tel">📞 お電話で注文</a>
+            </div>
+          </form>
         </div>
       </div>
 
@@ -266,10 +304,39 @@
           </table>
           <div class="product-actions">
             <a href="shopping-a4.html" class="btn-detail">詳細を見る</a>
-            <a href="#" class="btn-yahoo btn-disabled" target="_blank" rel="noopener">Yahoo!で購入</a>
-            <a href="#" class="btn-base  btn-disabled" target="_blank" rel="noopener">BASEで購入</a>
-            <a href="tel:0749233939" class="btn-tel">📞 お電話で注文</a>
           </div>
+          <form method="POST" action="http://shop2.global-websystem.net/tairou/cgi/shop.cgi" class="cart-mini-form">
+            <input type="hidden" name="mode" value="add_cart">
+            <input type="hidden" name="item_cd" value="B-0004">
+            <input type="hidden" name="item_nm" value="詰め合わせ商品 A4">
+            <input type="hidden" name="price" value="2500">
+            <div class="cart-form-selects">
+              <label>包装紙</label>
+              <select name="housoushi" class="cart-form-select">
+                <option value="包装紙なし">包装紙なし</option>
+                <option value="婚礼（赤・白）">婚礼（赤・白）</option>
+                <option value="青">青</option>
+                <option value="ピンク">ピンク</option>
+                <option value="仏事（白・黒）">仏事（白・黒）</option>
+              </select>
+              <label>のし紙</label>
+              <select name="noshi" class="cart-form-select">
+                <option value="のし紙なし">のし紙なし</option>
+                <option value="御中元">御中元</option>
+                <option value="御歳暮">御歳暮</option>
+                <option value="御礼">御礼</option>
+                <option value="内祝い">内祝い</option>
+                <option value="お見舞い">お見舞い</option>
+              </select>
+              <label>数量</label>
+              <input type="number" name="qty" value="1" min="1" max="99" class="cart-form-qty">
+              <span style="font-size:0.78rem;color:var(--text-muted);">個</span>
+            </div>
+            <div class="cart-form-actions">
+              <button type="submit" class="btn-add-cart">🛒 カートに入れる</button>
+              <a href="tel:0749233939" class="btn-tel">📞 お電話で注文</a>
+            </div>
+          </form>
         </div>
       </div>
 
@@ -294,10 +361,39 @@
           </table>
           <div class="product-actions">
             <a href="shopping-b2.html" class="btn-detail">詳細を見る</a>
-            <a href="#" class="btn-yahoo btn-disabled" target="_blank" rel="noopener">Yahoo!で購入</a>
-            <a href="#" class="btn-base  btn-disabled" target="_blank" rel="noopener">BASEで購入</a>
-            <a href="tel:0749233939" class="btn-tel">📞 お電話で注文</a>
           </div>
+          <form method="POST" action="http://shop2.global-websystem.net/tairou/cgi/shop.cgi" class="cart-mini-form">
+            <input type="hidden" name="mode" value="add_cart">
+            <input type="hidden" name="item_cd" value="B-0006">
+            <input type="hidden" name="item_nm" value="詰め合わせ商品 B2">
+            <input type="hidden" name="price" value="4500">
+            <div class="cart-form-selects">
+              <label>包装紙</label>
+              <select name="housoushi" class="cart-form-select">
+                <option value="包装紙なし">包装紙なし</option>
+                <option value="婚礼（赤・白）">婚礼（赤・白）</option>
+                <option value="青">青</option>
+                <option value="ピンク">ピンク</option>
+                <option value="仏事（白・黒）">仏事（白・黒）</option>
+              </select>
+              <label>のし紙</label>
+              <select name="noshi" class="cart-form-select">
+                <option value="のし紙なし">のし紙なし</option>
+                <option value="御中元">御中元</option>
+                <option value="御歳暮">御歳暮</option>
+                <option value="御礼">御礼</option>
+                <option value="内祝い">内祝い</option>
+                <option value="お見舞い">お見舞い</option>
+              </select>
+              <label>数量</label>
+              <input type="number" name="qty" value="1" min="1" max="99" class="cart-form-qty">
+              <span style="font-size:0.78rem;color:var(--text-muted);">個</span>
+            </div>
+            <div class="cart-form-actions">
+              <button type="submit" class="btn-add-cart">🛒 カートに入れる</button>
+              <a href="tel:0749233939" class="btn-tel">📞 お電話で注文</a>
+            </div>
+          </form>
         </div>
       </div>
 
