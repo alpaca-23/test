@@ -305,6 +305,7 @@
       if (res.ok) {
         form.style.display = 'none';
         document.getElementById('success-msg').style.display = 'block';
+        document.querySelector('.privacy-card').style.display = 'none';
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         var data = await res.json();
