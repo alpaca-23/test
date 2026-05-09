@@ -89,22 +89,22 @@
         <h2>Send us a Message</h2>
       </div>
       <div class="form-body">
-        <form onsubmit="handleSubmit(event)">
+        <form id="contact-form" onsubmit="handleSubmit(event)">
           <div class="form-row">
             <label class="form-label">Name <span class="required">Required</span></label>
-            <input type="text" class="form-input" placeholder="Your full name" required>
+            <input type="text" name="Name" class="form-input" placeholder="Your full name" required>
           </div>
           <div class="form-row">
             <label class="form-label">Email <span class="required">Required</span></label>
-            <input type="email" class="form-input" placeholder="your@email.com" required>
+            <input type="email" name="Email" class="form-input" placeholder="your@email.com" required>
           </div>
           <div class="form-row">
             <label class="form-label">Country</label>
-            <input type="text" class="form-input" placeholder="e.g. United States, Australia, UK">
+            <input type="text" name="Country" class="form-input" placeholder="e.g. United States, Australia, UK">
           </div>
           <div class="form-row">
             <label class="form-label">Enquiry Type</label>
-            <select class="form-select">
+            <select name="Enquiry Type" class="form-select">
               <option>Product Enquiry</option>
               <option>International Order</option>
               <option>Wholesale / Bulk Order</option>
@@ -114,10 +114,10 @@
           </div>
           <div class="form-row">
             <label class="form-label">Message <span class="required">Required</span></label>
-            <textarea class="form-textarea" rows="6" placeholder="Please describe your enquiry. For orders, please include product name and desired quantity." required></textarea>
+            <textarea name="Message" class="form-textarea" rows="6" placeholder="Please describe your enquiry. For orders, please include product name and desired quantity." required></textarea>
           </div>
           <div class="form-actions">
-            <button type="submit" class="btn-submit">Send Message</button>
+            <button type="submit" id="submit-btn" class="btn-submit">Send Message</button>
             <button type="reset" class="btn-reset">Clear</button>
           </div>
         </form>
@@ -195,10 +195,34 @@
 </footer>
 
 <script>
-function handleSubmit(e) {
+async function handleSubmit(e) {
   e.preventDefault();
-  document.querySelector('form').style.display = 'none';
-  document.getElementById('success').style.display = 'flex';
+  var form = document.getElementById('contact-form');
+  var btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  try {
+    var res = await fetch('https://formspree.io/f/xzdojozd', {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      form.style.display = 'none';
+      document.getElementById('success').style.display = 'flex';
+    } else {
+      var data = await res.json();
+      var msg = (data.errors || []).map(function(err){ return err.message; }).join('\n') || 'Submission failed. Please try again.';
+      alert(msg);
+      btn.disabled = false;
+      btn.textContent = 'Send Message';
+    }
+  } catch(err) {
+    alert('A network error occurred. Please try again later.');
+    btn.disabled = false;
+    btn.textContent = 'Send Message';
+  }
 }
 </script>
 

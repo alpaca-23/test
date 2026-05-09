@@ -117,34 +117,34 @@
             <label class="form-label" for="name">
               氏名 <span class="required">必須</span>
             </label>
-            <input type="text" id="name" class="form-input" placeholder="例：山田 太郎" required>
+            <input type="text" id="name" name="氏名" class="form-input" placeholder="例：山田 太郎" required>
           </div>
           <div class="form-row">
             <label class="form-label" for="address">住所</label>
-            <input type="text" id="address" class="form-input" placeholder="例：滋賀県彦根市〇〇町1-2-3">
+            <input type="text" id="address" name="住所" class="form-input" placeholder="例：滋賀県彦根市〇〇町1-2-3">
           </div>
           <div class="form-row">
             <label class="form-label" for="tel">TEL</label>
-            <input type="tel" id="tel" class="form-input" placeholder="例：0749-23-3939">
+            <input type="tel" id="tel" name="電話番号" class="form-input" placeholder="例：0749-23-3939">
           </div>
           <div class="form-row">
             <label class="form-label" for="fax">FAX</label>
-            <input type="text" id="fax" class="form-input" placeholder="例：0749-26-2786">
+            <input type="text" id="fax" name="FAX" class="form-input" placeholder="例：0749-26-2786">
           </div>
           <div class="form-row">
             <label class="form-label" for="email">
               メール <span class="required">必須</span>
             </label>
-            <input type="email" id="email" class="form-input" placeholder="例：info@example.com" required>
+            <input type="email" id="email" name="メールアドレス" class="form-input" placeholder="例：info@example.com" required>
           </div>
           <div class="form-row">
             <label class="form-label" for="message">
               お問い合わせ内容 <span class="required">必須</span>
             </label>
-            <textarea id="message" class="form-textarea" placeholder="ご質問・ご要望をご記入ください。" required></textarea>
+            <textarea id="message" name="お問い合わせ内容" class="form-textarea" placeholder="ご質問・ご要望をご記入ください。" required></textarea>
           </div>
           <div class="form-actions">
-            <button type="submit" class="btn-submit">
+            <button type="submit" id="submit-btn" class="btn-submit">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
               送信する
             </button>
@@ -288,10 +288,34 @@
 </footer>
 
 <script>
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    document.getElementById('contact-form').style.display = 'none';
-    document.getElementById('success-msg').style.display = 'block';
+    var form = document.getElementById('contact-form');
+    var btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.innerHTML = '送信中…';
+
+    try {
+      var res = await fetch('https://formspree.io/f/xzdojozd', {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        form.style.display = 'none';
+        document.getElementById('success-msg').style.display = 'block';
+      } else {
+        var data = await res.json();
+        var msg = (data.errors || []).map(function(err){ return err.message; }).join('\n') || '送信に失敗しました。';
+        alert(msg);
+        btn.disabled = false;
+        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg> 送信する';
+      }
+    } catch(err) {
+      alert('通信エラーが発生しました。しばらく経ってから再度お試しください。');
+      btn.disabled = false;
+      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg> 送信する';
+    }
   }
 </script>
 
