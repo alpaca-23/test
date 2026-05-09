@@ -304,9 +304,8 @@
       });
       if (res.ok) {
         form.style.display = 'none';
-        var msg = document.getElementById('success-msg');
-        msg.style.display = 'block';
-        msg.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.getElementById('success-msg').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         var data = await res.json();
         var msg = (data.errors || []).map(function(err){ return err.message; }).join('\n') || '送信に失敗しました。';
