@@ -240,10 +240,18 @@
       ['メールアドレス', esc(info.email)],
       ['ご住所', '〒' + esc(info.zip) + '<br>' + esc(info.pref) + esc(info.city) + '<br>' + esc(info.address)],
       ['お電話番号', esc(info.tel)],
+    ];
+    if (info.delivery) {
+      var d = info.delivery;
+      fields.push(['お届け先氏名', esc(d.sei_kanji) + '　' + esc(d.mei_kanji) + '（' + esc(d.sei_kana) + '　' + esc(d.mei_kana) + '）']);
+      fields.push(['お届け先住所', '〒' + esc(d.zip) + '<br>' + esc(d.pref) + esc(d.city) + '<br>' + esc(d.address)]);
+      fields.push(['お届け先電話', esc(d.tel)]);
+    }
+    fields = fields.concat([
       ['お支払い方法', esc(info.payment)],
       ['配送方法', '当店で設定させて頂きます。'],
       ['要望等', info.note ? esc(info.note) : '<span style="color:var(--text-muted)">なし</span>'],
-    ];
+    ]);
     var custHtml = '';
     fields.forEach(function(f) {
       custHtml += '<tr><th>' + f[0] + '</th><td>' + f[1] + '</td></tr>';

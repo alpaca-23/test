@@ -115,8 +115,10 @@
     .notice { background: var(--gold-light); border: 1px solid #e0cc88; border-radius: var(--radius); padding: 12px 16px; font-size: 0.82rem; text-align: center; font-weight: 700; color: var(--gold); margin-bottom: 20px; }
 
     /* 別住所 */
-    .alt-addr { display: flex; align-items: center; gap: 10px; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px 20px; margin-bottom: 20px; font-size: 0.85rem; }
-    .alt-addr input { margin-right: 6px; }
+    .alt-addr { display: flex; align-items: center; gap: 10px; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px 20px; margin-bottom: 12px; font-size: 0.85rem; }
+    .alt-addr input { margin-right: 6px; width: 18px; height: 18px; cursor: pointer; accent-color: var(--green-deep); }
+    .alt-addr-section { display: none; margin-bottom: 20px; }
+    .alt-addr-section.open { display: block; }
 
     /* BUTTONS */
     .form-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 24px; }
@@ -322,11 +324,91 @@
       </table>
     </div>
 
-    <!-- 別住所 -->
+    <!-- 別住所チェック -->
     <div class="alt-addr">
       <label>
-        <input type="checkbox" name="alt_addr"> お客様情報以外に配送する時は、コチラをチェックしてください
+        <input type="checkbox" name="alt_addr" id="alt-addr-chk" onchange="toggleAltAddr(this)"> お客様情報以外に配送する時は、コチラをチェックしてください
       </label>
+    </div>
+
+    <!-- お届け先住所フォーム（チェック時に表示） -->
+    <div class="alt-addr-section" id="alt-addr-section">
+      <div class="form-section">
+        <div class="form-title">お届け先住所を入力してください</div>
+        <div class="form-subtitle">お届け先　情報</div>
+        <table class="form-table">
+          <tr>
+            <th>お名前（漢字）<span class="required">※</span></th>
+            <td>
+              <div class="field-row">
+                <span class="field-label">（姓）</span>
+                <input type="text" name="d_sei_kanji" id="d_sei_kanji" class="mid" placeholder="山田">
+                <span class="field-label">（名）</span>
+                <input type="text" name="d_mei_kanji" id="d_mei_kanji" class="mid" placeholder="太郎">
+              </div>
+              <span class="error-msg" id="err-d-name-kanji">お名前（漢字）を入力してください。</span>
+              <span class="example">（例）山田　太郎</span>
+            </td>
+          </tr>
+          <tr>
+            <th>お名前（カナ）<span class="required">※</span></th>
+            <td>
+              <div class="field-row">
+                <span class="field-label">（姓）</span>
+                <input type="text" name="d_sei_kana" id="d_sei_kana" class="mid" placeholder="ヤマダ">
+                <span class="field-label">（名）</span>
+                <input type="text" name="d_mei_kana" id="d_mei_kana" class="mid" placeholder="タロウ">
+              </div>
+              <span class="error-msg" id="err-d-name-kana">お名前（カナ）を入力してください。</span>
+              <span class="example">（例）ヤマダ　タロウ</span>
+            </td>
+          </tr>
+          <tr>
+            <th>ご住所<span class="required">※</span></th>
+            <td>
+              <div class="field-row" style="margin-bottom:4px;">
+                〒 <input type="text" name="d_zip" id="d_zip" class="zip" placeholder="123-4567">
+                <span class="example">入力例：123-4567</span>
+              </div>
+              <span class="error-msg" id="err-d-zip" style="margin-bottom:6px;">郵便番号を入力してください。</span>
+              <div class="field-row" style="margin-bottom:4px;">
+                <select name="d_pref" id="d_pref" class="pref">
+                  <option value="">都道府県</option>
+                  <option>北海道</option><option>青森県</option><option>岩手県</option><option>宮城県</option><option>秋田県</option>
+                  <option>山形県</option><option>福島県</option><option>茨城県</option><option>栃木県</option><option>群馬県</option>
+                  <option>埼玉県</option><option>千葉県</option><option>東京都</option><option>神奈川県</option><option>新潟県</option>
+                  <option>富山県</option><option>石川県</option><option>福井県</option><option>山梨県</option><option>長野県</option>
+                  <option>岐阜県</option><option>静岡県</option><option>愛知県</option><option>三重県</option><option>滋賀県</option>
+                  <option>京都府</option><option>大阪府</option><option>兵庫県</option><option>奈良県</option><option>和歌山県</option>
+                  <option>鳥取県</option><option>島根県</option><option>岡山県</option><option>広島県</option><option>山口県</option>
+                  <option>徳島県</option><option>香川県</option><option>愛媛県</option><option>高知県</option><option>福岡県</option>
+                  <option>佐賀県</option><option>長崎県</option><option>熊本県</option><option>大分県</option><option>宮崎県</option>
+                  <option>鹿児島県</option><option>沖縄県</option>
+                </select>
+              </div>
+              <span class="error-msg" id="err-d-pref" style="margin-bottom:6px;">都道府県を選択してください。</span>
+              <input type="text" name="d_city" id="d_city" class="wide" placeholder="市区町村" style="margin-bottom:4px;display:block;">
+              <span class="error-msg" id="err-d-city" style="margin-bottom:4px;">市区町村を入力してください。</span>
+              <input type="text" name="d_address" id="d_address" class="wide" placeholder="それ以降の住所" style="display:block;">
+              <span class="error-msg" id="err-d-address">番地・建物名等を入力してください。</span>
+            </td>
+          </tr>
+          <tr>
+            <th>お電話番号<span class="required">※</span></th>
+            <td>
+              <div class="field-row">
+                <input type="tel" name="d_tel1" id="d_tel1" class="sml" placeholder="0749">
+                <span>-</span>
+                <input type="tel" name="d_tel2" id="d_tel2" class="sml" placeholder="23">
+                <span>-</span>
+                <input type="tel" name="d_tel3" id="d_tel3" class="sml" placeholder="3939">
+              </div>
+              <span class="error-msg" id="err-d-tel">電話番号を入力してください。</span>
+              <span class="example">入力例：0749-23-3939</span>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
 
     <!-- 支払・配送 -->
@@ -451,6 +533,33 @@
       showMsg('err-tel');
     }
 
+    /* お届け先（チェック時のみ） */
+    var useAlt = document.getElementById('alt-addr-chk').checked;
+    if (useAlt) {
+      var badDKanji = false;
+      if (!form.d_sei_kanji.value.trim()) { markField(document.getElementById('d_sei_kanji')); badDKanji = true; }
+      if (!form.d_mei_kanji.value.trim()) { markField(document.getElementById('d_mei_kanji')); badDKanji = true; }
+      if (badDKanji) showMsg('err-d-name-kanji');
+
+      var badDKana = false;
+      if (!form.d_sei_kana.value.trim()) { markField(document.getElementById('d_sei_kana')); badDKana = true; }
+      if (!form.d_mei_kana.value.trim()) { markField(document.getElementById('d_mei_kana')); badDKana = true; }
+      if (badDKana) showMsg('err-d-name-kana');
+
+      if (!form.d_zip.value.trim()) { markField(document.getElementById('d_zip')); showMsg('err-d-zip'); }
+      if (!form.d_pref.value) { markField(document.getElementById('d_pref')); showMsg('err-d-pref'); }
+      if (!form.d_city.value.trim()) { markField(document.getElementById('d_city')); showMsg('err-d-city'); }
+      if (!form.d_address.value.trim()) { markField(document.getElementById('d_address')); showMsg('err-d-address'); }
+
+      var badDTel = !form.d_tel1.value.trim() || !form.d_tel2.value.trim() || !form.d_tel3.value.trim();
+      if (badDTel) {
+        if (!form.d_tel1.value.trim()) markField(document.getElementById('d_tel1'));
+        if (!form.d_tel2.value.trim()) markField(document.getElementById('d_tel2'));
+        if (!form.d_tel3.value.trim()) markField(document.getElementById('d_tel3'));
+        showMsg('err-d-tel');
+      }
+    }
+
     if (hasError) {
       document.getElementById('form-error-banner').classList.add('show');
       document.getElementById('form-error-banner').scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -472,8 +581,31 @@
       note:      form.note.value.trim(),
       payment:   '郵便振替',
     };
+    if (useAlt) {
+      info.delivery = {
+        sei_kanji: form.d_sei_kanji.value.trim(),
+        mei_kanji: form.d_mei_kanji.value.trim(),
+        sei_kana:  form.d_sei_kana.value.trim(),
+        mei_kana:  form.d_mei_kana.value.trim(),
+        zip:       form.d_zip.value.trim(),
+        pref:      form.d_pref.value,
+        city:      form.d_city.value.trim(),
+        address:   form.d_address.value.trim(),
+        tel:       form.d_tel1.value.trim() + '-' + form.d_tel2.value.trim() + '-' + form.d_tel3.value.trim(),
+      };
+    }
     sessionStorage.setItem('tairou_customer', JSON.stringify(info));
     window.location.href = 'confirm.html';
+  }
+
+  function toggleAltAddr(chk) {
+    var section = document.getElementById('alt-addr-section');
+    section.classList.toggle('open', chk.checked);
+    /* チェックを外したときはエラーをクリア */
+    if (!chk.checked) {
+      section.querySelectorAll('.error').forEach(function(el){ el.classList.remove('error'); });
+      section.querySelectorAll('.error-msg.show').forEach(function(el){ el.classList.remove('show'); });
+    }
   }
 </script>
 
