@@ -45,23 +45,21 @@
     .cart-page { max-width: 800px; margin: 0 auto; padding: 32px 24px 80px; }
 
     /* ORDER FLOW */
-    .order-flow { display: flex; align-items: center; gap: 0; margin-bottom: 32px; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
-    .flow-step { flex: 1; padding: 14px 8px; text-align: center; font-size: 0.72rem; color: var(--text-muted); position: relative; border-right: 1px solid var(--warm-gray); }
+    .order-flow { display: flex; align-items: stretch; margin-bottom: 32px; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+    .flow-step { flex: 1; padding: 14px 6px; text-align: center; font-size: 0.72rem; color: var(--text-muted); border-right: 1px solid var(--warm-gray); }
     .flow-step:last-child { border-right: none; }
     .flow-step.active { background: var(--gold); color: #fff; font-weight: 700; }
-    .flow-step.active .flow-num { background: rgba(255,255,255,0.3); color: #fff; }
-    .flow-num { display: inline-block; font-size: 0.65rem; font-weight: 700; margin-bottom: 4px; }
-    .flow-arrow { color: var(--gold); font-size: 0.9rem; flex-shrink: 0; padding: 0 2px; }
+    .flow-num { display: block; font-size: 0.62rem; font-weight: 700; margin-bottom: 4px; letter-spacing: 0.05em; }
+    .flow-label { display: block; line-height: 1.4; word-break: keep-all; }
 
-    /* CART TABLE */
+    /* CART TABLE — desktop */
     .cart-section { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 20px; }
     .cart-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
     .cart-table th { background: var(--gold); color: #fff; padding: 10px 14px; text-align: center; font-weight: 700; font-size: 0.78rem; white-space: nowrap; }
     .cart-table th.left { text-align: left; }
-    .cart-table td { padding: 12px 14px; border-bottom: 1px solid var(--warm-gray); vertical-align: top; }
+    .cart-table td { padding: 12px 14px; border-bottom: 1px solid var(--warm-gray); vertical-align: middle; }
     .cart-table tr:last-child td { border-bottom: none; }
     .cart-table td.center { text-align: center; }
-    .cart-table td.right { text-align: right; }
     .cart-table tr.total-row td { background: var(--gold-light); font-weight: 700; font-size: 0.9rem; border-top: 2px solid var(--gold); }
 
     .product-name { font-weight: 700; color: var(--green-deep); }
@@ -69,10 +67,10 @@
     .tax-note { font-size: 0.7rem; color: var(--gold); }
 
     .qty-row { display: flex; align-items: center; justify-content: center; gap: 6px; }
-    .qty-input { width: 48px; padding: 4px 6px; border: 1px solid #ddd; border-radius: 4px; text-align: center; font-size: 0.85rem; font-family: inherit; }
-    .btn-change { padding: 4px 10px; background: var(--green-light); color: var(--green-deep); border: 1px solid var(--green-mid); border-radius: 4px; font-size: 0.75rem; cursor: pointer; font-family: inherit; font-weight: 700; transition: background 0.2s; }
-    .btn-change:hover { background: var(--green-mid); color: #fff; }
-    .btn-delete { padding: 4px 10px; background: #fff0f0; color: #c0392b; border: 1px solid #e0b0b0; border-radius: 4px; font-size: 0.75rem; cursor: pointer; font-family: inherit; transition: background 0.2s; }
+    .qty-input { width: 52px; padding: 6px 8px; border: 1px solid #ddd; border-radius: 4px; text-align: center; font-size: 0.9rem; font-family: inherit; }
+    .btn-change { padding: 6px 14px; background: var(--green-deep); color: #fff; border: none; border-radius: 4px; font-size: 0.8rem; cursor: pointer; font-family: inherit; font-weight: 700; transition: background 0.2s; }
+    .btn-change:hover { background: var(--green-mid); }
+    .btn-delete { padding: 6px 14px; background: #fff0f0; color: #c0392b; border: 1px solid #e0b0b0; border-radius: 4px; font-size: 0.8rem; cursor: pointer; font-family: inherit; transition: background 0.2s; }
     .btn-delete:hover { background: #c0392b; color: #fff; }
 
     /* NOTE */
@@ -95,6 +93,9 @@
     .footer-inner { max-width: 1100px; margin: 0 auto; }
     .footer-bottom { padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; font-size: 0.72rem; color: rgba(255,255,255,0.4); flex-wrap: wrap; gap: 8px; }
 
+    /* MOBILE CART CARD */
+    .cart-card { display: none; }
+
     @media (max-width: 640px) {
       .topbar { justify-content: center; flex-wrap: wrap; gap: 8px; }
       .topbar-info { gap: 12px; }
@@ -102,12 +103,40 @@
       .hamburger { display: flex; }
       .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--white); border-bottom: 1px solid #e0dbd0; box-shadow: 0 8px 24px rgba(0,0,0,0.1); padding: 8px 16px 16px; z-index: 99; }
       .cart-page { padding: 20px 16px 60px; }
-      .order-flow { flex-wrap: wrap; }
+
+      /* フロー：縦書き2行に */
       .flow-step { font-size: 0.65rem; padding: 10px 4px; }
-      .cart-table { font-size: 0.78rem; }
-      .cart-table th, .cart-table td { padding: 8px 10px; }
+      .flow-num { font-size: 0.58rem; }
+
+      /* テーブル非表示 → カード表示 */
+      .cart-table { display: none; }
+      .cart-card { display: block; }
+
+      .cart-card-item {
+        padding: 16px;
+        border-bottom: 1px solid var(--warm-gray);
+      }
+      .cart-card-name {
+        font-weight: 700; color: var(--green-deep); font-size: 0.95rem; margin-bottom: 6px;
+      }
+      .cart-card-option {
+        font-size: 0.78rem; color: var(--text-muted); margin-bottom: 12px; line-height: 1.8;
+      }
+      .cart-card-row {
+        display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+      }
+      .cart-card-price {
+        font-size: 1.05rem; font-weight: 700; color: var(--green-deep);
+      }
+      .cart-card-qty { display: flex; align-items: center; gap: 8px; }
+      .cart-card-total-row {
+        background: var(--gold-light); padding: 14px 16px;
+        display: flex; justify-content: space-between; align-items: center;
+        border-top: 2px solid var(--gold); font-weight: 700; font-size: 1rem;
+      }
+
       .cart-actions { flex-direction: column; }
-      .btn-proceed, .btn-continue { justify-content: center; }
+      .btn-proceed, .btn-continue { justify-content: center; width: 100%; }
       .footer-bottom { flex-direction: column; text-align: center; }
     }
   </style>
@@ -153,25 +182,26 @@
   <!-- ご注文のながれ -->
   <div class="order-flow">
     <div class="flow-step active">
-      <div class="flow-num">STEP 1</div>
-      <div>ショッピングカート</div>
+      <span class="flow-num">STEP 1</span>
+      <span class="flow-label">ショッピングカート</span>
     </div>
     <div class="flow-step">
-      <div class="flow-num">STEP 2</div>
-      <div>お客様情報等の入力</div>
+      <span class="flow-num">STEP 2</span>
+      <span class="flow-label">お客様情報等の入力</span>
     </div>
     <div class="flow-step">
-      <div class="flow-num">STEP 3</div>
-      <div>ご注文内容の確認</div>
+      <span class="flow-num">STEP 3</span>
+      <span class="flow-label">ご注文内容の確認</span>
     </div>
     <div class="flow-step">
-      <div class="flow-num">STEP 4</div>
-      <div>ご注文の完了</div>
+      <span class="flow-num">STEP 4</span>
+      <span class="flow-label">ご注文の完了</span>
     </div>
   </div>
 
   <!-- カート内容 -->
   <div class="cart-section" id="cart-section">
+    <!-- デスクトップ: テーブル -->
     <table class="cart-table">
       <thead>
         <tr>
@@ -179,14 +209,13 @@
           <th>単価</th>
           <th>数量</th>
           <th>小計</th>
-          <th>消費税/送料</th>
-          <th></th>
+          <th>削除</th>
         </tr>
       </thead>
-      <tbody id="cart-body">
-        <!-- JavaScriptで動的に描画 -->
-      </tbody>
+      <tbody id="cart-body"></tbody>
     </table>
+    <!-- モバイル: カード -->
+    <div class="cart-card" id="cart-card"></div>
   </div>
 
   <!-- 注意書き -->
@@ -246,25 +275,58 @@
           <div style="font-size:0.72rem;color:var(--text-muted);margin-top:4px;">個</div>
         </td>
         <td class="center" id="subtotal-cell">${subtotal.toLocaleString()}円</td>
-        <td class="center">${taxLabel} 別</td>
         <td class="center"><button class="btn-delete" onclick="removeItem()">削除</button></td>
       </tr>
       <tr class="total-row">
         <td colspan="3" style="text-align:right;">合　計</td>
         <td class="center" id="total-cell">${subtotal.toLocaleString()}円</td>
-        <td colspan="2"></td>
+        <td></td>
       </tr>
+    `;
+
+    /* モバイル用カード */
+    const card = document.getElementById('cart-card');
+    card.innerHTML = `
+      <div class="cart-card-item">
+        <div class="cart-card-name">${escHtml(itemNm)} <span class="tax-note">※</span></div>
+        <div class="cart-card-option">
+          包装紙：${escHtml(housoushi)}<br>のし紙：${escHtml(noshi)}
+        </div>
+        <div class="cart-card-row">
+          <div class="cart-card-price" id="card-subtotal">${subtotal.toLocaleString()}円</div>
+          <div class="cart-card-qty">
+            <input type="number" class="qty-input" value="${qty}" min="1" max="99" id="qty-input-m">
+            <span style="font-size:0.78rem;color:var(--text-muted);">個</span>
+            <button class="btn-change" onclick="updateQtyM()">変更</button>
+            <button class="btn-delete" onclick="removeItem()">削除</button>
+          </div>
+        </div>
+        <div style="font-size:0.72rem;color:var(--text-muted);margin-top:6px;">単価 ${price.toLocaleString()}円</div>
+      </div>
+      <div class="cart-card-total-row">
+        <span>合　計</span>
+        <span id="card-total">${subtotal.toLocaleString()}円</span>
+      </div>
     `;
 
     function escHtml(s) {
       return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
 
+    function setSubtotal(n) {
+      ['subtotal-cell','total-cell','card-subtotal','card-total'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = n.toLocaleString() + '円';
+      });
+    }
+
     window.updateQty = function() {
-      const newQty = parseInt(document.getElementById('qty-input').value, 10) || 1;
-      const newSubtotal = price * newQty;
-      document.getElementById('subtotal-cell').textContent = newSubtotal.toLocaleString() + '円';
-      document.getElementById('total-cell').textContent    = newSubtotal.toLocaleString() + '円';
+      const n = parseInt(document.getElementById('qty-input').value, 10) || 1;
+      setSubtotal(price * n);
+    };
+    window.updateQtyM = function() {
+      const n = parseInt(document.getElementById('qty-input-m').value, 10) || 1;
+      setSubtotal(price * n);
     };
 
     window.removeItem = function() {
