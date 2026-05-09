@@ -306,7 +306,9 @@
         form.style.display = 'none';
         document.getElementById('success-msg').style.display = 'block';
         document.querySelector('.privacy-card').style.display = 'none';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        var card = document.querySelector('.form-card');
+        var headerH = document.querySelector('header').offsetHeight;
+        window.scrollTo({ top: card.getBoundingClientRect().top + window.pageYOffset - headerH - 8, behavior: 'smooth' });
       } else {
         var data = await res.json();
         var msg = (data.errors || []).map(function(err){ return err.message; }).join('\n') || '送信に失敗しました。';
