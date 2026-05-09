@@ -16,6 +16,7 @@
     .lang-switch a { color: rgba(255,255,255,0.7); text-decoration: none; padding: 2px 8px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.3); font-size: 0.75rem; transition: 0.2s; }
     .lang-switch a:hover, .lang-switch a.active { background: rgba(255,255,255,0.2); color: #fff; }
     .topbar { justify-content: space-between; }
+    .topbar-info { display: flex; gap: 24px; }
     .usage-box { background: var(--green-light); border-left: 3px solid var(--green-mid); border-radius: var(--radius); padding: 16px 20px; margin-top: 24px; }
     .usage-box h3 { font-size: 0.9rem; color: var(--green-deep); margin-bottom: 8px; }
     .usage-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
@@ -25,7 +26,10 @@
 <body>
 
 <div class="topbar">
-  <span>Nakayabu 2-5-8, Hikone, Shiga, Japan　TEL: +81-749-23-3939</span>
+  <div class="topbar-info">
+    <span>Nakayabu 2-5-8, Hikone, Shiga, Japan</span>
+    <span>TEL: <a href="tel:+817492339393">+81-749-23-3939</a></span>
+  </div>
   <div class="lang-switch">
     <a href="../osusume.html">日本語</a>
     <a href="products.html" class="active">English</a>
@@ -45,9 +49,10 @@
       <span></span><span></span><span></span>
     </button>
     <ul class="nav-links">
-      <li><a href="index.html">HOME</a></li>
+      <li><a href="index.html">TOP</a></li>
       <li><a href="products.html" class="active">Products</a></li>
-      <li><a href="about.html">About</a></li>
+      <li><a href="tanpin.html">Single Items</a></li>
+      <li><a href="shopping.html">Gift Sets</a></li>
       <li><a href="howto.html">How to Order</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
@@ -63,7 +68,7 @@
 </section>
 
 <div class="breadcrumb">
-  <a href="index.html">Home</a>
+  <a href="index.html">TOP</a>
   <span class="breadcrumb-sep">›</span>
   <span>Products</span>
 </div>
@@ -75,13 +80,18 @@
       <ul class="sidebar-nav">
         <li><a href="about.html">About Tairou Kombu</a></li>
         <li><a href="products.html" class="active">Products</a></li>
+        <li><a href="tanpin.html">Single Items</a></li>
+        <li><a href="shopping.html">Gift Sets</a></li>
         <li><a href="howto.html">How to Order</a></li>
+        <li><a href="quantity.html">Packaging</a></li>
+        <li><a href="process.html">Production Process</a></li>
         <li><a href="company.html">Company Info</a></li>
+        <li><a href="tourism.html">Hikone Tourism</a></li>
         <li><a href="contact.html">Contact Us</a></li>
       </ul>
     </div>
     <div class="sidebar-contact">
-      <strong>International Enquiries</strong>
+      <strong>Order by Phone</strong>
       <div class="tel">+81-749-23-3939</div>
       <div>Mon–Fri 9:00–17:00 JST</div>
     </div>
@@ -118,7 +128,7 @@
             <div class="product-price">
               <span class="yen">¥</span>1,460<span class="tax"> (tax incl.)</span>
             </div>
-            <a href="contact.html" class="btn btn-primary">Enquire to Order</a>
+            <a href="tanpin-60g.html" class="btn btn-primary">View Details</a>
           </div>
         </div>
       </div>
@@ -136,7 +146,7 @@
             <div class="product-price">
               <span class="yen">¥</span>2,720<span class="tax"> (tax incl.)</span>
             </div>
-            <a href="contact.html" class="btn btn-primary">Enquire to Order</a>
+            <a href="tanpin-180g.html" class="btn btn-primary">View Details</a>
           </div>
         </div>
       </div>
@@ -154,7 +164,7 @@
             <div class="product-price">
               <span class="yen">¥</span>750<span class="tax"> (tax incl.)</span>
             </div>
-            <a href="contact.html" class="btn btn-primary">Enquire to Order</a>
+            <a href="tanpin-35g.html" class="btn btn-primary">View Details</a>
           </div>
         </div>
       </div>
@@ -170,7 +180,7 @@
           <p class="product-desc">A beautifully presented assortment of our tororo kombu products in a gift box — perfect for weddings, year-end gifts (Oseibo), mid-year gifts (Ochugen), or corporate gifting. Gift wrapping and noshi paper included.</p>
           <div class="product-footer">
             <div class="product-price" style="font-size:0.9rem; color: var(--text-muted);">Price varies by contents</div>
-            <a href="contact.html" class="btn btn-primary">Enquire</a>
+            <a href="shopping.html" class="btn btn-primary">View Gift Sets</a>
           </div>
         </div>
       </div>
@@ -202,23 +212,28 @@
       <div class="footer-col">
         <h4>Navigation</h4>
         <ul class="footer-links">
-          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html">TOP</a></li>
           <li><a href="products.html">Products</a></li>
-          <li><a href="about.html">About</a></li>
+          <li><a href="tanpin.html">Single Items</a></li>
+          <li><a href="shopping.html">Gift Sets</a></li>
           <li><a href="howto.html">How to Order</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Language</h4>
+        <h4>About</h4>
         <ul class="footer-links">
-          <li><a href="../index.html">日本語</a></li>
-          <li><a href="index.html">English</a></li>
+          <li><a href="about.html">About Tairou Kombu</a></li>
+          <li><a href="process.html">Production Process</a></li>
+          <li><a href="quantity.html">Packaging</a></li>
+          <li><a href="company.html">Company Info</a></li>
+          <li><a href="tourism.html">Hikone Tourism</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <span>Copyright &copy; 2004 Meiwa Corporation. All Rights Reserved.</span>
+      <span>Tororo Kombu Specialists — Hikone, Japan</span>
     </div>
   </div>
 </footer>
