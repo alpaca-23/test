@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>単品商品 | 大老昆布 – 株式会社明和</title>
+  <meta name="description" content="大老昆布の単品商品一覧。太白とろろ昆布（60g・180g・35g）を直販でお届けします。包装紙・のし紙承ります。">
+  <meta name="keywords" content="とろろ昆布,太白とろろ,単品,昆布,彦根,滋賀県,大老昆布,株式会社明和,通信販売">
+  <meta name="author" content="株式会社明和">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://alpaca-23.github.io/test/tanpin.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="大老昆布 – 株式会社明和">
+  <meta property="og:title" content="単品商品 | 大老昆布 – 株式会社明和">
+  <meta property="og:description" content="大老昆布の単品商品。太白とろろ昆布（60g・180g・35g）をお届けします。">
+  <meta property="og:url" content="https://alpaca-23.github.io/test/tanpin.html">
+  <meta property="og:locale" content="ja_JP">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/shopping.css">
+  <style>
+    /* ── 言語切替 ── */
+    .lang-switch { display: flex; gap: 8px; align-items: center; }
+    .lang-switch a { color: rgba(255,255,255,0.7); text-decoration: none; padding: 2px 8px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.3); font-size: 0.72rem; transition: 0.2s; }
+    .lang-switch a:hover, .lang-switch a.active { background: rgba(255,255,255,0.2); color: #fff; }
+    .topbar { justify-content: space-between; }
+    .topbar-info { display: flex; gap: 24px; }
+
+    /* ── セクションタイトル ── */
+    .section-title { font-family: 'Noto Serif JP', serif; font-size: 1.1rem; font-weight: 700; color: var(--green-deep); padding-bottom: 10px; border-bottom: 2px solid var(--green-light); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+
+    /* ── ギフトメモ ── */
+    .gift-note { background: var(--gold-light); border-left: 4px solid var(--gold); border-radius: 0 var(--radius) var(--radius) 0; padding: 14px 18px; margin-bottom: 28px; font-size: 0.83rem; line-height: 1.9; }
+    .gift-note strong { color: var(--gold); display: block; margin-bottom: 4px; font-size: 0.9rem; }
+
+    /* ── 商品カード（単品専用） ── */
+    .product-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--warm-gray); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); }
+    .product-row { display: grid; grid-template-columns: 180px 1fr; background: var(--white); border-bottom: 1px solid var(--warm-gray); transition: background 0.15s; }
+    .product-row:last-child { border-bottom: none; }
+    .product-row:hover { background: #fdfcf8; }
+
+    .product-thumb { display: flex; align-items: center; justify-content: center; background: #f9f4ec; padding: 20px; min-height: 160px; }
+    .product-thumb img { max-width: 140px; max-height: 120px; object-fit: contain; display: block; }
+
+    .product-detail { padding: 20px 24px; display: flex; flex-direction: column; gap: 12px; }
+
+    .product-code { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.08em; font-weight: 700; }
+    .product-name { font-family: 'Noto Serif JP', serif; font-size: 1.05rem; font-weight: 700; color: var(--green-deep); }
+
+    .product-info-table { font-size: 0.82rem; border-collapse: collapse; }
+    .product-info-table tr td { padding: 3px 0; vertical-align: top; }
+    .product-info-table tr td:first-child { color: var(--text-muted); width: 70px; white-space: nowrap; }
+    .product-info-table tr td:last-child  { font-weight: 500; color: var(--text); }
+    .price-value { font-size: 1.2rem; font-weight: 700; color: var(--green-deep); }
+    .price-tax   { font-size: 0.75rem; font-weight: 400; color: var(--text-muted); }
+
+    .product-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .product-tag { background: var(--green-light); color: var(--green-deep); font-size: 0.7rem; font-weight: 700; padding: 2px 10px; border-radius: 20px; }
+
+    .product-actions { display: flex; gap: 10px; flex-wrap: wrap; padding-top: 10px; border-top: 1px solid var(--warm-gray); }
+
+    /* ── ボタン ── */
+    .btn-yahoo { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 9px 20px; background: #ff0033; color: #fff; border-radius: 6px; font-size: 0.8rem; font-weight: 700; text-decoration: none; transition: background 0.2s, transform 0.15s; white-space: nowrap; }
+    .btn-yahoo:hover { background: #cc0022; transform: translateY(-1px); }
+    .btn-base  { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 9px 20px; background: #1a1a1a; color: #fff; border-radius: 6px; font-size: 0.8rem; font-weight: 700; text-decoration: none; transition: background 0.2s, transform 0.15s; white-space: nowrap; }
+    .btn-base:hover  { background: #333; transform: translateY(-1px); }
+    .btn-tel   { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 9px 20px; background: var(--gold); color: #fff; border-radius: 6px; font-size: 0.8rem; font-weight: 700; text-decoration: none; transition: background 0.2s; white-space: nowrap; }
+    .btn-tel:hover  { background: #9a7d22; }
+    .btn-disabled { opacity: 0.5; pointer-events: none; }
+
+    /* ── 詳細ボタン ── */
+    .btn-detail { display: inline-flex; align-items: center; padding: 9px 18px; border: 2px solid var(--green-deep); color: #fff; background: var(--green-mid); border-radius: 6px; font-size: 0.8rem; font-weight: 700; text-decoration: none; transition: background 0.2s; white-space: nowrap; }
+    .btn-detail:hover { background: var(--green-deep); }
+
+    /* ── カートフォーム（リスト内） ── */
+    .cart-mini-form { width: 100%; padding-top: 10px; border-top: 1px solid var(--warm-gray); }
+    .cart-form-selects { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 8px; }
+    .cart-form-selects label { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; }
+    .cart-form-select { padding: 5px 8px; border: 1px solid #ddd; border-radius: 6px; font-size: 0.78rem; background: var(--cream); color: var(--text); font-family: inherit; }
+    .cart-form-qty { padding: 5px 8px; border: 1px solid #ddd; border-radius: 6px; font-size: 0.82rem; width: 60px; text-align: center; background: var(--cream); font-family: inherit; }
+    .cart-form-actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .btn-add-cart { display: inline-flex; align-items: center; gap: 6px; padding: 9px 20px; background: var(--green-deep); color: #fff; border: none; border-radius: 6px; font-size: 0.82rem; font-weight: 700; cursor: pointer; transition: background 0.2s, transform 0.15s; font-family: inherit; white-space: nowrap; }
+    .btn-add-cart:hover { background: var(--green-mid); transform: translateY(-1px); }
+
+    /* ── 注文案内バナー ── */
+    .order-banner { background: var(--white); border-radius: 12px; box-shadow: var(--shadow); padding: 20px 24px; margin-bottom: 24px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    .order-item { text-align: center; padding: 16px 12px; border-radius: 8px; }
+    .order-item.yahoo { background: #fff0f2; border: 1px solid #ffc0c8; }
+    .order-item.base  { background: #f4f4f4; border: 1px solid #ddd; }
+    .order-item.tel   { background: var(--gold-light); border: 1px solid #e0cc88; }
+    .order-item-icon { font-size: 1.6rem; margin-bottom: 6px; }
+    .order-item-name { font-size: 0.78rem; font-weight: 700; margin-bottom: 4px; }
+    .order-item.yahoo .order-item-name { color: #cc0000; }
+    .order-item.base  .order-item-name { color: #1a1a1a; }
+    .order-item.tel   .order-item-name { color: var(--gold); }
+    .order-item-desc { font-size: 0.72rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* 詰め合わせ商品ページへのリンク */
+    .link-set { display: flex; align-items: center; gap: 10px; background: var(--white); border: 1px solid var(--warm-gray); border-radius: 8px; padding: 14px 18px; margin-bottom: 24px; text-decoration: none; color: var(--text); font-size: 0.85rem; font-weight: 500; transition: background 0.15s; }
+    .link-set:hover { background: var(--green-light); color: var(--green-deep); }
+    .link-set svg { flex-shrink: 0; fill: var(--green-mid); }
+
+    @media (max-width: 768px) {
+      .topbar { justify-content: center; flex-wrap: wrap; gap: 12px; }
+      .nav-links { display: none; flex-direction: column; }
+      .nav-links.open { display: flex; position: absolute; top: 64px; left: 0; right: 0; background: var(--white); border-bottom: 1px solid #e0dbd0; box-shadow: 0 8px 24px rgba(0,0,0,0.1); padding: 8px 16px 16px; z-index: 99; }
+      .hamburger { display: flex; }
+      .page-body { grid-template-columns: 1fr; padding: 0 16px 60px; }
+      .sidebar { position: static; order: 2; }
+      .content { order: 1; }
+      .order-banner { grid-template-columns: 1fr; }
+      .product-row { grid-template-columns: 1fr; }
+      .product-thumb { min-height: 140px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-info">
+    <span>彦根市中薮2丁目5-8</span>
+    <span>TEL: <a href="tel:0749233939">0749-23-3939</a></span>
+    <span>FAX: 0749-26-2786</span>
+  </div>
+  <div class="lang-switch">
+    <a href="./tanpin.html" class="active">日本語</a>
+    <a href="en/index.html">English</a>
+  </div>
+</div>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo">
+      <div class="logo-mark">大</div>
+      <div class="logo-text">
+        <span class="main">大老昆布</span>
+        <span class="sub">株式会社明和 — 彦根のとろろ昆布専門店</span>
+      </div>
+    </a>
+    <button class="hamburger" onclick="this.nextElementSibling.classList.toggle('open')" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html">TOP</a></li>
+      <li><a href="osusume.html">おすすめ商品</a></li>
+      <li><a href="tanpin.html" class="active">単品商品</a></li>
+      <li><a href="shopping.html">詰め合わせ商品</a></li>
+      <li><a href="howto.html">お買い物方法</a></li>
+      <li><a href="contact.html">お問い合わせ</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-badge">SHOPPING</div>
+  <h1>単品商品</h1>
+  <div class="hero-divider"></div>
+  <p>道南白口浜の真昆布を使用した削りたてのとろろ昆布です。各サイズからお選びください。</p>
+</section>
+
+<div class="breadcrumb">
+  <a href="index.html">TOP</a>
+  <span class="breadcrumb-sep">›</span>
+  <span>単品商品</span>
+</div>
+
+<div class="page-body">
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">メニュー</div>
+      <ul class="sidebar-nav">
+        <li><a href="about.html">大老昆布のご紹介</a></li>
+        <li><a href="osusume.html">おすすめ商品</a></li>
+        <li><a href="tanpin.html" class="active">単品商品</a></li>
+        <li><a href="shopping.html">詰め合わせ商品</a></li>
+        <li><a href="howto.html">お買い物方法</a></li>
+        <li><a href="quantity.html">包装について</a></li>
+        <li><a href="process.html">とろろ昆布の加工工程</a></li>
+        <li><a href="company.html">会社案内</a></li>
+        <li><a href="tourism.html">彦根観光おすすめ情報</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-contact">
+      <strong>お電話でのご注文</strong>
+      <div class="tel">0749-23-3939</div>
+      <div>平日 9:00〜17:00</div>
+    </div>
+  </aside>
+
+  <main class="content">
+
+    <!-- ご注文方法 -->
+    <div class="order-banner">
+      <div class="order-item yahoo" style="display:none">
+        <div class="order-item-icon">🛒</div>
+        <div class="order-item-name">Yahoo!ショッピング</div>
+        <div class="order-item-desc">クレジット・PayPay・<br>各種ポイント払い対応</div>
+      </div>
+      <div class="order-item base" style="display:none">
+        <div class="order-item-icon">🏪</div>
+        <div class="order-item-name">BASE</div>
+        <div class="order-item-desc">クレジット・コンビニ払い・<br>Amazon Pay対応</div>
+      </div>
+      <div class="order-item tel">
+        <div class="order-item-icon">📞</div>
+        <div class="order-item-name">お電話・FAX</div>
+        <div class="order-item-desc">0749-23-3939<br>平日 9:00〜17:00</div>
+      </div>
+    </div>
+
+    <!-- ギフト案内 -->
+    <div class="gift-note">
+      <strong>🎁 包装紙・のし紙について</strong>
+      各種のし紙・包装紙に対応しております。ECサイトのご注文時は備考欄にご記入いただくか、ご注文後にお電話（0749-23-3939）にてご相談ください。
+    </div>
+
+    <!-- 詰め合わせ商品へのリンク -->
+    <a href="shopping.html" class="link-set">
+      <svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+      詰め合わせ商品（ギフト・贈答品）はこちら
+    </a>
+
+    <!-- 商品一覧 -->
+    <div class="section-title">🫙 単品商品一覧</div>
+
+    <div class="product-list">
+
+      <!-- 太白とろろ 60g -->
+      <div class="product-row">
+        <div class="product-thumb">
+          <img src="../images/product-tairou-box.jpg" alt="太白とろろ（60g）筒容器と化粧箱">
+        </div>
+        <div class="product-detail">
+          <div class="product-code">単品商品</div>
+          <div class="product-name">太白とろろ（60g）</div>
+          <div class="product-tags">
+            <span class="product-tag">人気 No.1</span>
+            <span class="product-tag">手土産・引き出物に</span>
+          </div>
+          <table class="product-info-table">
+            <tr><td>価　格</td><td><span class="price-value">¥1,460</span><span class="price-tax">（税込）</span></td></tr>
+            <tr><td>内　容</td><td>太白とろろ　筒容器　60g</td></tr>
+            <tr><td>包装紙</td><td>各種対応（ご注文時にご指定ください）</td></tr>
+            <tr><td>のし紙</td><td>各種対応（ご注文時にご指定ください）</td></tr>
+          </table>
+          <div class="product-actions">
+            <a href="tanpin-60g.html" class="btn-detail">詳細を見る</a>
+          </div>
+          <form method="GET" action="cart.html" onsubmit="event.preventDefault();addToCartFromForm(this)" class="cart-mini-form">
+            <input type="hidden" name="mode" value="add_cart">
+            <input type="hidden" name="item_cd" value="A-0001">
+            <input type="hidden" name="item_nm" value="太白とろろ（60g）">
+            <input type="hidden" name="price" value="1460">
+            <div class="cart-form-selects">
+              <label>包装紙</label>
+              <select name="housoushi" class="cart-form-select">
+                <option value="包装紙なし">包装紙なし</option>
+                <option value="婚礼（赤・白）">婚礼（赤・白）</option>
+                <option value="青">青</option>
+                <option value="ピンク">ピンク</option>
+                <option value="仏事（白・黒）">仏事（白・黒）</option>
+              </select>
+              <label>のし紙</label>
+              <select name="noshi" class="cart-form-select">
+                <option value="のし紙なし">のし紙なし</option>
+                <option value="御中元">御中元</option>
+                <option value="御歳暮">御歳暮</option>
+                <option value="御礼">御礼</option>
+                <option value="内祝い">内祝い</option>
+                <option value="お見舞い">お見舞い</option>
+              </select>
+              <label>数量</label>
+              <input type="number" name="qty" value="1" min="1" max="99" class="cart-form-qty">
+              <span style="font-size:0.78rem;color:var(--text-muted);">個</span>
+            </div>
+            <div class="cart-form-actions">
+              <button type="submit" class="btn-add-cart">🛒 カートに入れる</button>
+              <a href="tel:0749233939" class="btn-tel">📞 お電話で注文</a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- 太白とろろ 180g -->
+      <div class="product-row">
+        <div class="product-thumb">
+          <img src="../images/product-tairou-180g.jpg" alt="太白とろろ（180g）大容量パック">
+        </div>
+        <div class="product-detail">
+          <div class="product-code">単品商品</div>
+          <div class="product-name">太白とろろ（180g）</div>
+          <div class="product-tags">
+            <span class="product-tag">大容量・お得</span>
+            <span class="product-tag">まとめ買い</span>
+          </div>
+          <table class="product-info-table">
+            <tr><td>価　格</td><td><span class="price-value">¥2,720</span><span class="price-tax">（税込）</span></td></tr>
+            <tr><td>内　容</td><td>太白とろろ　大容量パック　180g</td></tr>
+            <tr><td>包装紙</td><td>各種対応（ご注文時にご指定ください）</td></tr>
+            <tr><td>のし紙</td><td>各種対応（ご注文時にご指定ください）</td></tr>
+          </table>
+          <div class="product-actions">
+            <a href="tanpin-180g.html" class="btn-detail">詳細を見る</a>
+          </div>
+          <form method="GET" action="cart.html" onsubmit="event.preventDefault();addToCartFromForm(this)" class="cart-mini-form">
+            <input type="hidden" name="mode" value="add_cart">
+            <input type="hidden" name="item_cd" value="A-0003">
+            <input type="hidden" name="item_nm" value="太白とろろ（180g）">
+            <input type="hidden" name="price" value="2720">
+            <div class="cart-form-selects">
+              <label>包装紙</label>
+              <select name="housoushi" class="cart-form-select">
+                <option value="包装紙なし">包装紙なし</option>
+                <option value="婚礼（赤・白）">婚礼（赤・白）</option>
+                <option value="青">青</option>
+                <option value="ピンク">ピンク</option>
+                <option value="仏事（白・黒）">仏事（白・黒）</option>
+              </select>
+              <label>のし紙</label>
+              <select name="noshi" class="cart-form-select">
+                <option value="のし紙なし">のし紙なし</option>
+                <option value="御中元">御中元</option>
+                <option value="御歳暮">御歳暮</option>
+                <option value="御礼">御礼</option>
+                <option value="内祝い">内祝い</option>
+                <option value="お見舞い">お見舞い</option>
+              </select>
+              <label>数量</label>
+              <input type="number" name="qty" value="1" min="1" max="99" class="cart-form-qty">
+              <span style="font-size:0.78rem;color:var(--text-muted);">個</span>
+            </div>
+            <div class="cart-form-actions">
+              <button type="submit" class="btn-add-cart">🛒 カートに入れる</button>
+              <a href="tel:0749233939" class="btn-tel">📞 お電話で注文</a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- 太白とろろ 35g -->
+      <div class="product-row">
+        <div class="product-thumb">
+          <img src="../images/product-tairou-35g.jpg" alt="太白とろろ（35g）小パック">
+        </div>
+        <div class="product-detail">
+          <div class="product-code">単品商品</div>
+          <div class="product-name">太白とろろ（35g）</div>
+          <div class="product-tags">
+            <span class="product-tag">お試しサイズ</span>
+            <span class="product-tag">プチギフト</span>
+          </div>
+          <table class="product-info-table">
+            <tr><td>価　格</td><td><span class="price-value">¥750</span><span class="price-tax">（税込）</span></td></tr>
+            <tr><td>内　容</td><td>太白とろろ　小パック　35g</td></tr>
+            <tr><td>包装紙</td><td>各種対応（ご注文時にご指定ください）</td></tr>
+            <tr><td>のし紙</td><td>各種対応（ご注文時にご指定ください）</td></tr>
+          </table>
+          <div class="product-actions">
+            <a href="tanpin-35g.html" class="btn-detail">詳細を見る</a>
+          </div>
+          <form method="GET" action="cart.html" onsubmit="event.preventDefault();addToCartFromForm(this)" class="cart-mini-form">
+            <input type="hidden" name="mode" value="add_cart">
+            <input type="hidden" name="item_cd" value="A-0002">
+            <input type="hidden" name="item_nm" value="太白とろろ（35g）">
+            <input type="hidden" name="price" value="750">
+            <div class="cart-form-selects">
+              <label>包装紙</label>
+              <select name="housoushi" class="cart-form-select">
+                <option value="包装紙なし">包装紙なし</option>
+                <option value="婚礼（赤・白）">婚礼（赤・白）</option>
+                <option value="青">青</option>
+                <option value="ピンク">ピンク</option>
+                <option value="仏事（白・黒）">仏事（白・黒）</option>
+              </select>
+              <label>のし紙</label>
+              <select name="noshi" class="cart-form-select">
+                <option value="のし紙なし">のし紙なし</option>
+                <option value="御中元">御中元</option>
+                <option value="御歳暮">御歳暮</option>
+                <option value="御礼">御礼</option>
+                <option value="内祝い">内祝い</option>
+                <option value="お見舞い">お見舞い</option>
+              </select>
+              <label>数量</label>
+              <input type="number" name="qty" value="1" min="1" max="99" class="cart-form-qty">
+              <span style="font-size:0.78rem;color:var(--text-muted);">個</span>
+            </div>
+            <div class="cart-form-actions">
+              <button type="submit" class="btn-add-cart">🛒 カートに入れる</button>
+              <a href="tel:0749233939" class="btn-tel">📞 お電話で注文</a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div><!-- /product-list -->
+
+  </main>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="name">大老昆布 – 株式会社明和</div>
+        <p class="tagline">昭和55年創業。道南白口浜の真昆布を用いたとろろ昆布の加工・直販を行っております。</p>
+        <address class="address" style="font-style:normal;">
+          〒522-0000 彦根市中薮2丁目5-8<br>
+          TEL: 0749-23-3939　FAX: 0749-26-2786<br>
+          E-mail: kk-meiwa@proof.ocn.ne.jp
+        </address>
+      </div>
+      <div class="footer-col">
+        <h4>サイトマップ</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">TOP</a></li>
+          <li><a href="osusume.html">おすすめ商品</a></li>
+          <li><a href="tanpin.html">単品商品</a></li>
+          <li><a href="shopping.html">詰め合わせ商品</a></li>
+          <li><a href="howto.html">お買い物方法</a></li>
+          <li><a href="contact.html">お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>大老昆布について</h4>
+        <ul class="footer-links">
+          <li><a href="about.html">大老昆布のご紹介</a></li>
+          <li><a href="process.html">とろろ昆布の加工工程</a></li>
+          <li><a href="quantity.html">包装について</a></li>
+          <li><a href="company.html">会社案内</a></li>
+          <li><a href="tourism.html">彦根観光おすすめ情報</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Copyright &copy; 2004 Meiwa Corporation. All Rights Reserved.</span>
+      <span>滋賀県彦根市の昆布専門店</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/cart.js"></script>
+</body>
+</html>

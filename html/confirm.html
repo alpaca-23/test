@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ご注文内容の確認 | 大老昆布 – 株式会社明和</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-deep: #2c5f2e; --green-mid: #3d7a40; --green-light: #e8f0e9;
+      --gold: #b8952a; --gold-light: #f0e6c0; --cream: #faf8f3;
+      --warm-gray: #f0ede6; --text: #2a2a2a; --text-muted: #6b6b6b;
+      --white: #ffffff; --radius: 8px; --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --red: #c0392b;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans JP', sans-serif; background: var(--cream); color: var(--text); line-height: 1.8; }
+
+    /* TOPBAR */
+    .topbar { background: var(--green-deep); color: rgba(255,255,255,0.8); font-size: 0.72rem; padding: 6px 24px; display: flex; justify-content: space-between; gap: 24px; }
+    .topbar a { color: inherit; text-decoration: none; }
+    .topbar-info { display: flex; gap: 24px; }
+    .topbar span { white-space: nowrap; }
+    .lang-switch { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+    .lang-switch a { color: rgba(255,255,255,0.7); text-decoration: none; padding: 2px 8px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.3); font-size: 0.72rem; white-space: nowrap; }
+    .lang-switch a.active { background: rgba(255,255,255,0.2); color: #fff; }
+
+    /* HEADER */
+    header { position: sticky; top: 0; z-index: 100; background: var(--white); border-bottom: 1px solid #e0dbd0; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    nav { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-mark { width: 44px; height: 44px; background: var(--green-deep); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-family: 'Noto Serif JP', serif; font-size: 1.1rem; font-weight: 700; flex-shrink: 0; }
+    .logo-text { display: flex; flex-direction: column; line-height: 1.2; }
+    .logo-text .main { font-family: 'Noto Serif JP', serif; font-size: 1.1rem; font-weight: 700; color: var(--green-deep); }
+    .logo-text .sub { font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.05em; }
+    .nav-links { display: flex; list-style: none; }
+    .nav-links a { display: block; padding: 8px 14px; text-decoration: none; color: var(--text); font-size: 0.85rem; border-radius: var(--radius); transition: background 0.2s; }
+    .nav-links a:hover { background: var(--green-light); color: var(--green-deep); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--green-deep); border-radius: 2px; }
+
+    /* MAIN */
+    .page { max-width: 800px; margin: 0 auto; padding: 32px 24px 80px; }
+
+    /* ORDER FLOW */
+    .order-flow { display: flex; margin-bottom: 28px; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+    .flow-step { flex: 1; padding: 12px 6px; text-align: center; font-size: 0.72rem; color: var(--text-muted); border-right: 1px solid var(--warm-gray); }
+    .flow-step:last-child { border-right: none; }
+    .flow-step.active { background: var(--gold); color: #fff; font-weight: 700; }
+    .flow-num { display: block; font-size: 0.6rem; font-weight: 700; margin-bottom: 3px; letter-spacing: 0.05em; }
+    .flow-label { display: block; line-height: 1.4; }
+
+    /* SECTION */
+    .confirm-section { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 24px; }
+    .section-title { background: var(--gold); color: #fff; padding: 10px 20px; font-size: 0.88rem; font-weight: 700; }
+
+    /* ORDER TABLE */
+    .order-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .order-table th { background: var(--gold-light); padding: 9px 14px; text-align: center; font-weight: 700; font-size: 0.78rem; border-bottom: 1px solid #ddd; white-space: nowrap; }
+    .order-table th.left { text-align: left; }
+    .order-table td { padding: 10px 14px; border-bottom: 1px solid var(--warm-gray); vertical-align: top; }
+    .order-table td.center { text-align: center; }
+    .order-table tr.total-row td { background: var(--gold-light); font-weight: 700; border-top: 2px solid var(--gold); text-align: right; font-size: 1rem; }
+    .item-name { font-weight: 700; color: var(--green-deep); }
+    .item-opt { font-size: 0.75rem; color: var(--text-muted); }
+    .tax-note { font-size: 0.68rem; color: var(--gold); }
+
+    /* CUSTOMER TABLE */
+    .cust-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .cust-table tr { border-bottom: 1px solid var(--warm-gray); }
+    .cust-table tr:last-child { border-bottom: none; }
+    .cust-table th { background: var(--gold-light); padding: 11px 16px; text-align: left; width: 180px; font-weight: 700; font-size: 0.82rem; vertical-align: top; white-space: nowrap; }
+    .cust-table td { padding: 11px 16px; }
+
+    /* NOTICE */
+    .notice { background: var(--gold-light); border: 1px solid #e0cc88; border-radius: var(--radius); padding: 12px 16px; font-size: 0.82rem; text-align: center; font-weight: 700; color: var(--gold); margin-bottom: 24px; }
+
+    /* BUTTONS */
+    .form-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
+    .btn-order { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 16px 40px; background: var(--red); color: #fff; border: none; border-radius: 6px; font-size: 1rem; font-weight: 700; cursor: pointer; font-family: inherit; transition: opacity 0.2s, transform 0.15s; }
+    .btn-order:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-back { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 14px 24px; background: var(--white); color: var(--text); border: 1px solid #ccc; border-radius: 6px; font-size: 0.88rem; font-family: inherit; cursor: pointer; text-decoration: none; transition: background 0.2s; }
+    .btn-back:hover { background: var(--warm-gray); }
+
+    /* FOOTER */
+    footer { background: #1a2e1b; color: rgba(255,255,255,0.75); padding: 32px 24px 24px; }
+    .footer-bottom { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; font-size: 0.72rem; color: rgba(255,255,255,0.4); flex-wrap: wrap; gap: 8px; }
+
+    @media (max-width: 640px) {
+      .topbar { justify-content: center; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--white); border-bottom: 1px solid #e0dbd0; padding: 8px 16px 16px; z-index: 99; }
+      .page { padding: 20px 16px 60px; }
+      .flow-step { font-size: 0.62rem; padding: 10px 3px; }
+      .order-table { font-size: 0.75rem; }
+      .order-table th, .order-table td { padding: 8px 8px; }
+      .cust-table th { width: 110px; font-size: 0.78rem; padding: 9px 10px; }
+      .cust-table td { padding: 9px 10px; font-size: 0.82rem; }
+      .form-actions { flex-direction: column; }
+      .btn-order, .btn-back { width: 100%; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-info">
+    <span>彦根市中薮2丁目5-8</span>
+    <span>TEL: <a href="tel:0749233939">0749-23-3939</a></span>
+  </div>
+  <div class="lang-switch">
+    <a href="./confirm.html" class="active">日本語</a>
+    <a href="en/index.html">English</a>
+  </div>
+</div>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo">
+      <div class="logo-mark">大</div>
+      <div class="logo-text">
+        <span class="main">大老昆布</span>
+        <span class="sub">株式会社明和 — 彦根のとろろ昆布専門店</span>
+      </div>
+    </a>
+    <button class="hamburger" onclick="this.nextElementSibling.classList.toggle('open')" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html">TOP</a></li>
+      <li><a href="osusume.html">おすすめ商品</a></li>
+      <li><a href="tanpin.html">単品商品</a></li>
+      <li><a href="shopping.html">詰め合わせ商品</a></li>
+      <li><a href="howto.html">お買い物方法</a></li>
+      <li><a href="contact.html">お問い合わせ</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="page">
+
+  <!-- ご注文のながれ -->
+  <div class="order-flow">
+    <div class="flow-step">
+      <span class="flow-num">STEP 1</span>
+      <span class="flow-label">ショッピングカート</span>
+    </div>
+    <div class="flow-step">
+      <span class="flow-num">STEP 2</span>
+      <span class="flow-label">お客様情報等の入力</span>
+    </div>
+    <div class="flow-step active">
+      <span class="flow-num">STEP 3</span>
+      <span class="flow-label">ご注文内容の確認</span>
+    </div>
+    <div class="flow-step">
+      <span class="flow-num">STEP 4</span>
+      <span class="flow-label">ご注文の完了</span>
+    </div>
+  </div>
+
+  <!-- 注文内容 -->
+  <div class="confirm-section">
+    <div class="section-title">ご注文内容</div>
+    <table class="order-table">
+      <thead>
+        <tr>
+          <th class="left">商品<span class="tax-note">（※は軽減税率対象）</span></th>
+          <th>単価</th>
+          <th>数量</th>
+          <th>小計</th>
+        </tr>
+      </thead>
+      <tbody id="order-body"></tbody>
+    </table>
+  </div>
+
+  <!-- お客様情報 -->
+  <div class="confirm-section">
+    <div class="section-title">お客様情報</div>
+    <table class="cust-table" id="cust-table"></table>
+  </div>
+
+  <!-- 送料注意 -->
+  <div class="notice">送料に付きましては後程メールにてお知らせします。</div>
+
+  <div class="form-actions">
+    <button class="btn-order" onclick="placeOrder()">ご注文を確定する &raquo;</button>
+    <a href="customer.html" class="btn-back">戻って修正する</a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-bottom">
+    <span>Copyright &copy; 2004 Meiwa Corporation. All Rights Reserved.</span>
+    <span>滋賀県彦根市の昆布専門店</span>
+  </div>
+</footer>
+
+<script src="../js/cart.js"></script>
+<script>
+  (function () {
+    var cart = CartStore.get();
+    var info = null;
+    try { info = JSON.parse(sessionStorage.getItem('tairou_customer')); } catch(e) {}
+
+    if (!cart.length) { window.location.replace('cart.html'); return; }
+    if (!info) { window.location.replace('customer.html'); return; }
+
+    function esc(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    /* 注文内容テーブル */
+    var total = 0;
+    var rows = '';
+    cart.forEach(function (item) {
+      var sub = item.price * item.qty;
+      total += sub;
+      rows +=
+        '<tr>' +
+        '<td><div class="item-name">' + esc(item.item_nm) + ' <span class="tax-note">※</span></div>' +
+        '<div class="item-opt">包装紙：' + esc(item.housoushi) + '　のし紙：' + esc(item.noshi) + '</div></td>' +
+        '<td class="center">' + item.price.toLocaleString() + '円</td>' +
+        '<td class="center">' + item.qty + '個</td>' +
+        '<td class="center">' + sub.toLocaleString() + '円</td>' +
+        '</tr>';
+    });
+    rows += '<tr class="total-row"><td colspan="3">合　計（税込）</td><td>' + total.toLocaleString() + '円</td></tr>';
+    document.getElementById('order-body').innerHTML = rows;
+
+    /* お客様情報テーブル */
+    var fields = [
+      ['お名前（漢字）', esc(info.sei_kanji) + '　' + esc(info.mei_kanji)],
+      ['お名前（カナ）', esc(info.sei_kana) + '　' + esc(info.mei_kana)],
+      ['メールアドレス', esc(info.email)],
+      ['ご住所', '〒' + esc(info.zip) + '<br>' + esc(info.pref) + esc(info.city) + '<br>' + esc(info.address)],
+      ['お電話番号', esc(info.tel)],
+    ];
+    if (info.delivery) {
+      var d = info.delivery;
+      fields.push(['お届け先氏名', esc(d.sei_kanji) + '　' + esc(d.mei_kanji) + '（' + esc(d.sei_kana) + '　' + esc(d.mei_kana) + '）']);
+      fields.push(['お届け先住所', '〒' + esc(d.zip) + '<br>' + esc(d.pref) + esc(d.city) + '<br>' + esc(d.address)]);
+      fields.push(['お届け先電話', esc(d.tel)]);
+    }
+    fields = fields.concat([
+      ['お支払い方法', esc(info.payment)],
+      ['配送方法', '当店で設定させて頂きます。'],
+      ['要望等', info.note ? esc(info.note) : '<span style="color:var(--text-muted)">なし</span>'],
+    ]);
+    var custHtml = '';
+    fields.forEach(function(f) {
+      custHtml += '<tr><th>' + f[0] + '</th><td>' + f[1] + '</td></tr>';
+    });
+    document.getElementById('cust-table').innerHTML = custHtml;
+  })();
+
+  async function placeOrder() {
+    var btn = document.querySelector('.btn-order');
+    btn.disabled = true;
+    btn.textContent = '送信中…';
+
+    var cart = CartStore.get();
+    var info = null;
+    try { info = JSON.parse(sessionStorage.getItem('tairou_customer')); } catch(e) {}
+
+    /* 注文内容テキスト整形 */
+    var total = 0;
+    var itemLines = cart.map(function(item) {
+      var sub = item.price * item.qty;
+      total += sub;
+      return item.item_nm + '　×' + item.qty + '個　' + sub.toLocaleString() + '円'
+        + '\n  包装紙：' + item.housoushi + '　のし紙：' + item.noshi;
+    }).join('\n');
+
+    var deliveryText = 'なし（お客様住所へ配送）';
+    if (info.delivery) {
+      var d = info.delivery;
+      deliveryText = d.sei_kanji + ' ' + d.mei_kanji + '（' + d.sei_kana + ' ' + d.mei_kana + '）\n'
+        + '〒' + d.zip + ' ' + d.pref + d.city + ' ' + d.address + '\n'
+        + 'TEL：' + d.tel;
+    }
+
+    var payload = {
+      '_subject':   '【大老昆布】ご注文：' + info.sei_kanji + ' ' + info.mei_kanji,
+      '_replyto':   info.email,
+      '種別':       'ご注文',
+      'お名前':     info.sei_kanji + ' ' + info.mei_kanji + '（' + info.sei_kana + ' ' + info.mei_kana + '）',
+      'メール':     info.email,
+      'ご住所':     '〒' + info.zip + ' ' + info.pref + info.city + ' ' + info.address,
+      '電話番号':   info.tel,
+      'お届け先':   deliveryText,
+      'お支払い':   info.payment,
+      '注文内容':   itemLines,
+      '合計金額':   total.toLocaleString() + '円（税込）',
+      '要望等':     info.note || 'なし',
+    };
+
+    try {
+      var res = await fetch('https://formspree.io/f/xzdojozd', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (res.ok) {
+        CartStore.save([]);
+        sessionStorage.removeItem('tairou_customer');
+        window.location.href = 'complete.html';
+      } else {
+        alert('送信に失敗しました。しばらく経ってから再度お試しください。');
+        btn.disabled = false;
+        btn.textContent = 'ご注文を確定する »';
+      }
+    } catch(err) {
+      alert('通信エラーが発生しました。しばらく経ってから再度お試しください。');
+      btn.disabled = false;
+      btn.textContent = 'ご注文を確定する »';
+    }
+  }
+</script>
+
+</body>
+</html>

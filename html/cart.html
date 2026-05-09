@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ショッピングカート | 大老昆布 – 株式会社明和</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-deep: #2c5f2e; --green-mid: #3d7a40; --green-light: #e8f0e9;
+      --gold: #b8952a; --gold-light: #f0e6c0; --cream: #faf8f3;
+      --warm-gray: #f0ede6; --text: #2a2a2a; --text-muted: #6b6b6b;
+      --white: #ffffff; --radius: 8px; --shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans JP', sans-serif; background: var(--cream); color: var(--text); line-height: 1.8; }
+
+    /* TOPBAR */
+    .topbar { background: var(--green-deep); color: rgba(255,255,255,0.8); font-size: 0.72rem; padding: 6px 24px; display: flex; justify-content: space-between; gap: 24px; }
+    .topbar a { color: inherit; text-decoration: none; }
+    .topbar-info { display: flex; gap: 24px; }
+    .topbar span { white-space: nowrap; }
+    .lang-switch { display: flex; gap: 8px; align-items: center; }
+    .lang-switch a { color: rgba(255,255,255,0.7); text-decoration: none; padding: 2px 8px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.3); font-size: 0.72rem; transition: 0.2s; }
+    .lang-switch a:hover, .lang-switch a.active { background: rgba(255,255,255,0.2); color: #fff; }
+
+    /* HEADER */
+    header { position: sticky; top: 0; z-index: 100; background: var(--white); border-bottom: 1px solid #e0dbd0; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    nav { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-mark { width: 44px; height: 44px; background: var(--green-deep); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-family: 'Noto Serif JP', serif; font-size: 1.1rem; font-weight: 700; flex-shrink: 0; }
+    .logo-text { display: flex; flex-direction: column; line-height: 1.2; }
+    .logo-text .main { font-family: 'Noto Serif JP', serif; font-size: 1.1rem; font-weight: 700; color: var(--green-deep); }
+    .logo-text .sub { font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.05em; }
+    .nav-links { display: flex; list-style: none; }
+    .nav-links a { display: block; padding: 8px 16px; text-decoration: none; color: var(--text); font-size: 0.85rem; font-weight: 500; border-radius: var(--radius); transition: background 0.2s, color 0.2s; }
+    .nav-links a:hover { background: var(--green-light); color: var(--green-deep); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--green-deep); border-radius: 2px; }
+
+    /* MAIN */
+    .cart-page { max-width: 800px; margin: 0 auto; padding: 32px 24px 80px; }
+
+    /* ORDER FLOW */
+    .order-flow { display: flex; align-items: stretch; margin-bottom: 32px; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+    .flow-step { flex: 1; padding: 14px 6px; text-align: center; font-size: 0.72rem; color: var(--text-muted); border-right: 1px solid var(--warm-gray); }
+    .flow-step:last-child { border-right: none; }
+    .flow-step.active { background: var(--gold); color: #fff; font-weight: 700; }
+    .flow-num { display: block; font-size: 0.62rem; font-weight: 700; margin-bottom: 4px; letter-spacing: 0.05em; }
+    .flow-label { display: block; line-height: 1.4; word-break: keep-all; }
+
+    /* CART TABLE — desktop */
+    .cart-section { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 20px; }
+    .cart-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .cart-table th { background: var(--gold); color: #fff; padding: 10px 14px; text-align: center; font-weight: 700; font-size: 0.78rem; white-space: nowrap; }
+    .cart-table th.left { text-align: left; }
+    .cart-table td { padding: 12px 14px; border-bottom: 1px solid var(--warm-gray); vertical-align: middle; }
+    .cart-table tr:last-child td { border-bottom: none; }
+    .cart-table td.center { text-align: center; }
+    .cart-table tr.total-row td { background: var(--gold-light); font-weight: 700; font-size: 0.9rem; border-top: 2px solid var(--gold); }
+
+    .product-name { font-weight: 700; color: var(--green-deep); }
+    .product-option { font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; }
+    .tax-note { font-size: 0.7rem; color: var(--gold); }
+
+    .qty-row { display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .qty-input { width: 52px; padding: 6px 8px; border: 1px solid #ddd; border-radius: 4px; text-align: center; font-size: 0.9rem; font-family: inherit; }
+    .btn-change { padding: 6px 14px; background: var(--green-deep); color: #fff; border: none; border-radius: 4px; font-size: 0.8rem; cursor: pointer; font-family: inherit; font-weight: 700; transition: background 0.2s; }
+    .btn-change:hover { background: var(--green-mid); }
+    .btn-delete { padding: 6px 14px; background: #fff0f0; color: #c0392b; border: 1px solid #e0b0b0; border-radius: 4px; font-size: 0.8rem; cursor: pointer; font-family: inherit; transition: background 0.2s; }
+    .btn-delete:hover { background: #c0392b; color: #fff; }
+
+    /* NOTE */
+    .cart-note { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px 20px; margin-bottom: 24px; font-size: 0.82rem; color: var(--text-muted); line-height: 2; border-left: 4px solid var(--gold); }
+
+    /* ACTIONS */
+    .cart-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .btn-proceed { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: var(--green-deep); color: #fff; border: none; border-radius: 6px; font-size: 0.9rem; font-weight: 700; text-decoration: none; cursor: pointer; font-family: inherit; transition: background 0.2s, transform 0.15s; white-space: nowrap; }
+    .btn-proceed:hover { background: var(--green-mid); transform: translateY(-1px); }
+    .btn-continue { display: inline-flex; align-items: center; gap: 8px; padding: 14px 24px; background: var(--white); color: var(--text); border: 1px solid #ccc; border-radius: 6px; font-size: 0.88rem; font-weight: 500; text-decoration: none; cursor: pointer; font-family: inherit; transition: background 0.2s; white-space: nowrap; }
+    .btn-continue:hover { background: var(--warm-gray); }
+
+    /* EMPTY STATE */
+    .cart-empty { text-align: center; padding: 48px 24px; color: var(--text-muted); }
+    .cart-empty svg { opacity: 0.3; margin-bottom: 16px; }
+    .cart-empty p { font-size: 0.9rem; margin-bottom: 20px; }
+
+    /* FOOTER */
+    footer { background: #1a2e1b; color: rgba(255,255,255,0.75); padding: 40px 24px 24px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .footer-bottom { padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; font-size: 0.72rem; color: rgba(255,255,255,0.4); flex-wrap: wrap; gap: 8px; }
+
+    /* MOBILE CART CARD */
+    .cart-card { display: none; }
+
+    @media (max-width: 640px) {
+      .topbar { justify-content: center; flex-wrap: wrap; gap: 8px; }
+      .topbar-info { gap: 12px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--white); border-bottom: 1px solid #e0dbd0; box-shadow: 0 8px 24px rgba(0,0,0,0.1); padding: 8px 16px 16px; z-index: 99; }
+      .cart-page { padding: 20px 16px 60px; }
+
+      /* フロー：縦書き2行に */
+      .flow-step { font-size: 0.65rem; padding: 10px 4px; }
+      .flow-num { font-size: 0.58rem; }
+
+      /* テーブル非表示 → カード表示 */
+      .cart-table { display: none; }
+      .cart-card { display: block; }
+
+      .cart-card-item {
+        padding: 16px;
+        border-bottom: 1px solid var(--warm-gray);
+      }
+      .cart-card-name {
+        font-weight: 700; color: var(--green-deep); font-size: 0.95rem; margin-bottom: 6px;
+      }
+      .cart-card-option {
+        font-size: 0.78rem; color: var(--text-muted); margin-bottom: 12px; line-height: 1.8;
+      }
+      .cart-card-row {
+        display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+      }
+      .cart-card-price {
+        font-size: 1.05rem; font-weight: 700; color: var(--green-deep);
+      }
+      .cart-card-qty { display: flex; align-items: center; gap: 8px; }
+      .cart-card-total-row {
+        background: var(--gold-light); padding: 14px 16px;
+        display: flex; justify-content: space-between; align-items: center;
+        border-top: 2px solid var(--gold); font-weight: 700; font-size: 1rem;
+      }
+
+      .cart-actions { flex-direction: column; }
+      .btn-proceed, .btn-continue { justify-content: center; width: 100%; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-info">
+    <span>彦根市中薮2丁目5-8</span>
+    <span>TEL: <a href="tel:0749233939">0749-23-3939</a></span>
+  </div>
+  <div class="lang-switch">
+    <a href="./cart.html" class="active">日本語</a>
+    <a href="en/index.html">English</a>
+  </div>
+</div>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo">
+      <div class="logo-mark">大</div>
+      <div class="logo-text">
+        <span class="main">大老昆布</span>
+        <span class="sub">株式会社明和 — 彦根のとろろ昆布専門店</span>
+      </div>
+    </a>
+    <button class="hamburger" onclick="this.nextElementSibling.classList.toggle('open')" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html">TOP</a></li>
+      <li><a href="osusume.html">おすすめ商品</a></li>
+      <li><a href="tanpin.html">単品商品</a></li>
+      <li><a href="shopping.html">詰め合わせ商品</a></li>
+      <li><a href="howto.html">お買い物方法</a></li>
+      <li><a href="contact.html">お問い合わせ</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="cart-page">
+
+  <!-- ご注文のながれ -->
+  <div class="order-flow">
+    <div class="flow-step active">
+      <span class="flow-num">STEP 1</span>
+      <span class="flow-label">ショッピングカート</span>
+    </div>
+    <div class="flow-step">
+      <span class="flow-num">STEP 2</span>
+      <span class="flow-label">お客様情報等の入力</span>
+    </div>
+    <div class="flow-step">
+      <span class="flow-num">STEP 3</span>
+      <span class="flow-label">ご注文内容の確認</span>
+    </div>
+    <div class="flow-step">
+      <span class="flow-num">STEP 4</span>
+      <span class="flow-label">ご注文の完了</span>
+    </div>
+  </div>
+
+  <!-- カート内容 -->
+  <div class="cart-section" id="cart-section">
+    <!-- デスクトップ: テーブル -->
+    <table class="cart-table">
+      <thead>
+        <tr>
+          <th class="left">商品<span class="tax-note">（※は軽減税率対象）</span></th>
+          <th>単価</th>
+          <th>数量</th>
+          <th>小計</th>
+          <th>削除</th>
+        </tr>
+      </thead>
+      <tbody id="cart-body"></tbody>
+    </table>
+    <!-- モバイル: カード -->
+    <div class="cart-card" id="cart-card"></div>
+  </div>
+
+  <!-- 注意書き -->
+  <div class="cart-note">
+    送料、消費税の項目が『別』と表示されている場合はお客様情報入力後に合計金額に加算されます。<br>
+    数量変更を行った場合は、『変更』ボタンを押してください。
+  </div>
+
+  <!-- ボタン -->
+  <div class="cart-actions" id="cart-actions">
+    <a href="customer.html" class="btn-proceed">
+      お客様情報入力画面へ進む &raquo;
+    </a>
+    <a href="tanpin.html" class="btn-continue">
+      お買い物を続ける
+    </a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-bottom">
+      <span>Copyright &copy; 2004 Meiwa Corporation. All Rights Reserved.</span>
+      <span>滋賀県彦根市の昆布専門店</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/cart.js"></script>
+<script>
+  (function () {
+    function esc(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function render() {
+      var cart   = CartStore.get();
+      var tbody  = document.getElementById('cart-body');
+      var card   = document.getElementById('cart-card');
+      var actions= document.getElementById('cart-actions');
+
+      if (cart.length === 0) {
+        var empty =
+          '<div class="cart-empty">' +
+          '<svg width="48" height="48" viewBox="0 0 24 24" fill="#2c5f2e"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.17 14.99l.03-.12 1.1-2H17c.75 0 1.41-.41 1.75-1.03L21.7 5H5.21l-.94-2H1v2h2l3.6 7.59L5.25 14a1 1 0 00-.01.14C5.24 15.16 6.08 16 7.16 16H19v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>' +
+          '<p>カートは空です</p>' +
+          '<a href="tanpin.html" style="color:var(--green-deep);font-weight:700;">商品一覧に戻る</a>' +
+          '</div>';
+        document.getElementById('cart-section').innerHTML = empty;
+        actions.style.display = 'none';
+        return;
+      }
+
+      var total = 0;
+      var tbodyRows = '';
+      var cardItems = '';
+
+      cart.forEach(function (item, idx) {
+        var sub = item.price * item.qty;
+        total += sub;
+
+        /* テーブル行 */
+        tbodyRows +=
+          '<tr>' +
+          '<td>' +
+            '<div class="product-name">' + esc(item.item_nm) + ' <span class="tax-note">※</span></div>' +
+            '<div class="product-option">包装紙：' + esc(item.housoushi) + '</div>' +
+            '<div class="product-option">のし紙：' + esc(item.noshi) + '</div>' +
+          '</td>' +
+          '<td class="center">' + item.price.toLocaleString() + '円</td>' +
+          '<td class="center">' +
+            '<div class="qty-row">' +
+              '<input type="number" class="qty-input" value="' + item.qty + '" min="1" max="99" id="qty-' + idx + '">' +
+              '<button class="btn-change" onclick="changeQty(' + idx + ')">変更</button>' +
+            '</div>' +
+            '<div style="font-size:0.72rem;color:var(--text-muted);margin-top:4px;">個</div>' +
+          '</td>' +
+          '<td class="center">' + sub.toLocaleString() + '円</td>' +
+          '<td class="center"><button class="btn-delete" onclick="removeItem(' + idx + ')">削除</button></td>' +
+          '</tr>';
+
+        /* カード */
+        cardItems +=
+          '<div class="cart-card-item">' +
+          '<div class="cart-card-name">' + esc(item.item_nm) + ' <span class="tax-note">※</span></div>' +
+          '<div class="cart-card-option">包装紙：' + esc(item.housoushi) + '<br>のし紙：' + esc(item.noshi) + '</div>' +
+          '<div class="cart-card-row">' +
+            '<div class="cart-card-price">' + sub.toLocaleString() + '円</div>' +
+            '<div class="cart-card-qty">' +
+              '<input type="number" class="qty-input" value="' + item.qty + '" min="1" max="99" id="mqty-' + idx + '">' +
+              '<span style="font-size:0.78rem;color:var(--text-muted);">個</span>' +
+              '<button class="btn-change" onclick="changeQtyM(' + idx + ')">変更</button>' +
+              '<button class="btn-delete" onclick="removeItem(' + idx + ')">削除</button>' +
+            '</div>' +
+          '</div>' +
+          '<div style="font-size:0.72rem;color:var(--text-muted);margin-top:6px;">単価 ' + item.price.toLocaleString() + '円</div>' +
+          '</div>';
+      });
+
+      /* 合計行 */
+      tbodyRows +=
+        '<tr class="total-row">' +
+        '<td colspan="3" style="text-align:right;">合　計</td>' +
+        '<td class="center">' + total.toLocaleString() + '円</td>' +
+        '<td></td>' +
+        '</tr>';
+
+      var cardTotal =
+        '<div class="cart-card-total-row">' +
+        '<span>合　計</span>' +
+        '<span>' + total.toLocaleString() + '円</span>' +
+        '</div>';
+
+      tbody.innerHTML = tbodyRows;
+      card.innerHTML  = cardItems + cardTotal;
+    }
+
+    window.changeQty = function (idx) {
+      var cart = CartStore.get();
+      var n = parseInt(document.getElementById('qty-' + idx).value, 10) || 1;
+      cart[idx].qty = n;
+      CartStore.save(cart);
+      render();
+    };
+    window.changeQtyM = function (idx) {
+      var cart = CartStore.get();
+      var n = parseInt(document.getElementById('mqty-' + idx).value, 10) || 1;
+      cart[idx].qty = n;
+      CartStore.save(cart);
+      render();
+    };
+    window.removeItem = function (idx) {
+      var cart = CartStore.get();
+      cart.splice(idx, 1);
+      CartStore.save(cart);
+      render();
+    };
+
+    render();
+  })();
+
+</script>
+
+</body>
+</html>

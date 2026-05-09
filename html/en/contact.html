@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us – Tairou Kombu | Meiwa Corporation</title>
+  <meta name="description" content="Contact Tairou Kombu (Meiwa Corporation) for product enquiries, international orders, and wholesale. We welcome enquiries from overseas customers.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/contact.css">
+  <style>
+    body { font-family: 'Source Sans 3', sans-serif; }
+    h1, h2, h3 { font-family: 'Lora', serif; }
+    .lang-switch { display: flex; gap: 8px; align-items: center; }
+    .lang-switch a { color: rgba(255,255,255,0.7); text-decoration: none; padding: 2px 8px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.3); font-size: 0.75rem; transition: 0.2s; }
+    .lang-switch a:hover, .lang-switch a.active { background: rgba(255,255,255,0.2); color: #fff; }
+    .topbar { justify-content: space-between; }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <span>Nakayabu 2-5-8, Hikone, Shiga, Japan　TEL: +81-749-23-3939</span>
+  <div class="lang-switch">
+    <a href="../contact.html">日本語</a>
+    <a href="contact.html" class="active">English</a>
+  </div>
+</div>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo">
+      <div class="logo-mark">大</div>
+      <div class="logo-text">
+        <span class="main">Tairou Kombu</span>
+        <span class="sub">Meiwa Corporation — Tororo Kombu Specialists</span>
+      </div>
+    </a>
+    <button class="hamburger" onclick="this.nextElementSibling.classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html">HOME</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="howto.html">How to Order</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-badge">GET IN TOUCH</div>
+  <h1>Contact Us</h1>
+  <div class="hero-divider"></div>
+  <p>We welcome enquiries from customers worldwide. Please write in English or Japanese.</p>
+</section>
+
+<div class="breadcrumb">
+  <a href="index.html">Home</a>
+  <span class="breadcrumb-sep">›</span>
+  <span>Contact</span>
+</div>
+
+<div class="page-body">
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">Menu</div>
+      <ul class="sidebar-nav">
+        <li><a href="about.html">About Tairou Kombu</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="howto.html">How to Order</a></li>
+        <li><a href="company.html">Company Info</a></li>
+        <li><a href="contact.html" class="active">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-contact">
+      <strong>International Enquiries</strong>
+      <div class="tel">+81-749-23-3939</div>
+      <div>Mon–Fri 9:00–17:00 JST</div>
+    </div>
+  </aside>
+
+  <div class="content">
+    <div class="form-card" id="form-section">
+      <div class="form-card-header">
+        <span>✉️</span>
+        <h2>Send us a Message</h2>
+      </div>
+      <div class="form-body">
+        <form id="contact-form" onsubmit="handleSubmit(event)">
+          <input type="hidden" name="種別" value="お問い合わせ">
+          <div class="form-row">
+            <label class="form-label">Name <span class="required">Required</span></label>
+            <input type="text" name="Name" class="form-input" placeholder="Your full name" required>
+          </div>
+          <div class="form-row">
+            <label class="form-label">Email <span class="required">Required</span></label>
+            <input type="email" name="Email" class="form-input" placeholder="your@email.com" required>
+          </div>
+          <div class="form-row">
+            <label class="form-label">Country</label>
+            <input type="text" name="Country" class="form-input" placeholder="e.g. United States, Australia, UK">
+          </div>
+          <div class="form-row">
+            <label class="form-label">Enquiry Type</label>
+            <select name="Enquiry Type" class="form-select">
+              <option>Product Enquiry</option>
+              <option>International Order</option>
+              <option>Wholesale / Bulk Order</option>
+              <option>Shipping / Delivery</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label class="form-label">Message <span class="required">Required</span></label>
+            <textarea name="Message" class="form-textarea" rows="6" placeholder="Please describe your enquiry. For orders, please include product name and desired quantity." required></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="submit" id="submit-btn" class="btn-submit">Send Message</button>
+            <button type="reset" class="btn-reset">Clear</button>
+          </div>
+        </form>
+        <div class="success-msg" id="success" style="display:none;">
+          <span style="font-size:2rem;">✅</span>
+          <h3>Thank you for your message!</h3>
+          <p>We will reply to your email within 2–3 business days (Mon–Fri, Japan time). For urgent enquiries please call +81-749-23-3939.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-card" style="margin-top:24px;">
+      <div class="form-card-header">
+        <span>📞</span>
+        <h2>Direct Contact</h2>
+      </div>
+      <div class="form-body">
+        <table style="width:100%; border-collapse:collapse;">
+          <tr style="border-bottom:1px solid var(--warm-gray);">
+            <th style="text-align:left; padding:10px 0; color:var(--text-muted); font-weight:500; width:140px;">Phone</th>
+            <td style="padding:10px 0;"><a href="tel:+817492339393" style="color:var(--green-deep);">+81-749-23-3939</a></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--warm-gray);">
+            <th style="text-align:left; padding:10px 0; color:var(--text-muted); font-weight:500;">Fax</th>
+            <td style="padding:10px 0;">+81-749-26-2786</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--warm-gray);">
+            <th style="text-align:left; padding:10px 0; color:var(--text-muted); font-weight:500;">Email</th>
+            <td style="padding:10px 0;"><a href="mailto:kk-meiwa@proof.ocn.ne.jp" style="color:var(--green-deep);">kk-meiwa@proof.ocn.ne.jp</a></td>
+          </tr>
+          <tr>
+            <th style="text-align:left; padding:10px 0; color:var(--text-muted); font-weight:500;">Hours</th>
+            <td style="padding:10px 0;">Mon–Fri 9:00–17:00 JST</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="name">Tairou Kombu – Meiwa Corporation</div>
+        <p class="tagline">Est. 1980. Premium tororo kombu from Hikone, Shiga, Japan.</p>
+        <address class="address" style="font-style:normal;">
+          Nakayabu 2-5-8, Hikone, Shiga 522-0000, Japan<br>
+          TEL: +81-749-23-3939　FAX: +81-749-26-2786<br>
+          E-mail: kk-meiwa@proof.ocn.ne.jp
+        </address>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="howto.html">How to Order</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Language</h4>
+        <ul class="footer-links">
+          <li><a href="../index.html">日本語</a></li>
+          <li><a href="index.html">English</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Copyright &copy; 2004 Meiwa Corporation. All Rights Reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+async function handleSubmit(e) {
+  e.preventDefault();
+  var form = document.getElementById('contact-form');
+  var btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  try {
+    var formData = new FormData(form);
+    formData.append('_subject', '[Tairou Konbu] Enquiry from ' + formData.get('Name'));
+    formData.append('_replyto', formData.get('Email'));
+    var res = await fetch('https://formspree.io/f/xzdojozd', {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      form.style.display = 'none';
+      document.getElementById('success').style.display = 'flex';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      var data = await res.json();
+      var msg = (data.errors || []).map(function(err){ return err.message; }).join('\n') || 'Submission failed. Please try again.';
+      alert(msg);
+      btn.disabled = false;
+      btn.textContent = 'Send Message';
+    }
+  } catch(err) {
+    alert('A network error occurred. Please try again later.');
+    btn.disabled = false;
+    btn.textContent = 'Send Message';
+  }
+}
+</script>
+
+</body>
+</html>
