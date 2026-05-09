@@ -211,7 +211,9 @@ async function handleSubmit(e) {
     });
     if (res.ok) {
       form.style.display = 'none';
-      document.getElementById('success').style.display = 'flex';
+      var msg = document.getElementById('success');
+      msg.style.display = 'flex';
+      msg.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } else {
       var data = await res.json();
       var msg = (data.errors || []).map(function(err){ return err.message; }).join('\n') || 'Submission failed. Please try again.';
