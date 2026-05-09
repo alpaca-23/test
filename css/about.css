@@ -34,7 +34,6 @@
       display: flex;
       justify-content: flex-end;
       gap: 24px;
-      letter-spacing: 0.04em;
     }
     .topbar a { color: inherit; text-decoration: none; }
     .topbar span { white-space: nowrap; }
