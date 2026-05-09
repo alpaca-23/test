@@ -261,10 +261,65 @@
     document.getElementById('cust-table').innerHTML = custHtml;
   })();
 
-  function placeOrder() {
-    CartStore.save([]);
-    sessionStorage.removeItem('tairou_customer');
-    window.location.href = 'complete.html';
+  async function placeOrder() {
+    var btn = document.querySelector('.btn-order');
+    btn.disabled = true;
+    btn.textContent = '送信中…';
+
+    var cart = CartStore.get();
+    var info = null;
+    try { info = JSON.parse(sessionStorage.getItem('tairou_customer')); } catch(e) {}
+
+    /* 注文内容テキスト整形 */
+    var total = 0;
+    var itemLines = cart.map(function(item) {
+      var sub = item.price * item.qty;
+      total += sub;
+      return item.item_nm + '　×' + item.qty + '個　' + sub.toLocaleString() + '円'
+        + '\n  包装紙：' + item.housoushi + '　のし紙：' + item.noshi;
+    }).join('\n');
+
+    var deliveryText = 'なし（お客様住所へ配送）';
+    if (info.delivery) {
+      var d = info.delivery;
+      deliveryText = d.sei_kanji + ' ' + d.mei_kanji + '（' + d.sei_kana + ' ' + d.mei_kana + '）\n'
+        + '〒' + d.zip + ' ' + d.pref + d.city + ' ' + d.address + '\n'
+        + 'TEL：' + d.tel;
+    }
+
+    var payload = {
+      '種別':       'ご注文',
+      'お名前':     info.sei_kanji + ' ' + info.mei_kanji + '（' + info.sei_kana + ' ' + info.mei_kana + '）',
+      'メール':     info.email,
+      'ご住所':     '〒' + info.zip + ' ' + info.pref + info.city + ' ' + info.address,
+      '電話番号':   info.tel,
+      'お届け先':   deliveryText,
+      'お支払い':   info.payment,
+      '注文内容':   itemLines,
+      '合計金額':   total.toLocaleString() + '円（税込）',
+      '要望等':     info.note || 'なし',
+    };
+
+    try {
+      var res = await fetch('https://formspree.io/f/xzdojozd', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (res.ok) {
+        CartStore.save([]);
+        sessionStorage.removeItem('tairou_customer');
+        window.location.href = 'complete.html';
+      } else {
+        alert('送信に失敗しました。しばらく経ってから再度お試しください。');
+        btn.disabled = false;
+        btn.textContent = 'ご注文を確定する »';
+      }
+    } catch(err) {
+      alert('通信エラーが発生しました。しばらく経ってから再度お試しください。');
+      btn.disabled = false;
+      btn.textContent = 'ご注文を確定する »';
+    }
   }
 </script>
 
