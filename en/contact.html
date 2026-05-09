@@ -204,9 +204,12 @@ async function handleSubmit(e) {
   btn.textContent = 'Sending…';
 
   try {
+    var formData = new FormData(form);
+    formData.append('_subject', '[Tairou Konbu] Enquiry from ' + formData.get('Name'));
+    formData.append('_replyto', formData.get('Email'));
     var res = await fetch('https://formspree.io/f/xzdojozd', {
       method: 'POST',
-      body: new FormData(form),
+      body: formData,
       headers: { 'Accept': 'application/json' }
     });
     if (res.ok) {

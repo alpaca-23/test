@@ -288,6 +288,8 @@
     }
 
     var payload = {
+      '_subject':   '【大老昆布】ご注文：' + info.sei_kanji + ' ' + info.mei_kanji,
+      '_replyto':   info.email,
       '種別':       'ご注文',
       'お名前':     info.sei_kanji + ' ' + info.mei_kanji + '（' + info.sei_kana + ' ' + info.mei_kana + '）',
       'メール':     info.email,

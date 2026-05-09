@@ -297,9 +297,12 @@
     btn.innerHTML = '送信中…';
 
     try {
+      var formData = new FormData(form);
+      formData.append('_subject', '【大老昆布】お問い合わせ：' + formData.get('氏名'));
+      formData.append('_replyto', formData.get('メールアドレス'));
       var res = await fetch('https://formspree.io/f/xzdojozd', {
         method: 'POST',
-        body: new FormData(form),
+        body: formData,
         headers: { 'Accept': 'application/json' }
       });
       if (res.ok) {
