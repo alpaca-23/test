@@ -92,6 +92,18 @@
     select.pref { width: 140px; }
     textarea.memo { width: 100%; max-width: 400px; height: 80px; resize: vertical; }
     .example { font-size: 0.72rem; color: var(--text-muted); margin-left: 6px; }
+    input.error, select.error, textarea.error {
+      border-color: var(--red) !important;
+      background: #fff0f0 !important;
+    }
+    .error-msg { display: none; color: var(--red); font-size: 0.72rem; margin-top: 3px; }
+    .error-msg.show { display: block; }
+    .form-error-banner {
+      display: none; background: #fff0f0; border: 1px solid var(--red);
+      border-radius: var(--radius); padding: 12px 16px; color: var(--red);
+      font-size: 0.85rem; font-weight: 700; margin-bottom: 16px; text-align: center;
+    }
+    .form-error-banner.show { display: block; }
 
     /* 支払・配送 */
     .info-section { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 20px; }
@@ -215,7 +227,8 @@
   <div class="notice">送料、消費税の項目が『別』と表示されている場合はお客様情報入力後に合計金額に加算されます</div>
 
   <!-- お客様情報フォーム -->
-  <form id="customer-form" onsubmit="submitForm(event)">
+  <form id="customer-form" onsubmit="submitForm(event)" novalidate>
+    <div id="form-error-banner" class="form-error-banner">入力内容に不備があります。赤くなっている項目をご確認ください。</div>
     <div class="form-section">
       <div class="form-title">お客様情報をご入力ください（※は、必須入力となります）</div>
       <div class="form-subtitle">お客様　情報</div>
@@ -225,10 +238,11 @@
           <td>
             <div class="field-row">
               <span class="field-label">（姓）</span>
-              <input type="text" name="sei_kanji" class="mid" placeholder="山田" required>
+              <input type="text" name="sei_kanji" id="sei_kanji" class="mid" placeholder="山田">
               <span class="field-label">（名）</span>
-              <input type="text" name="mei_kanji" class="mid" placeholder="太郎" required>
+              <input type="text" name="mei_kanji" id="mei_kanji" class="mid" placeholder="太郎">
             </div>
+            <span class="error-msg" id="err-name-kanji">お名前（漢字）を入力してください。</span>
             <span class="example">（例）山田　太郎</span>
           </td>
         </tr>
@@ -237,30 +251,34 @@
           <td>
             <div class="field-row">
               <span class="field-label">（姓）</span>
-              <input type="text" name="sei_kana" class="mid" placeholder="ヤマダ" required>
+              <input type="text" name="sei_kana" id="sei_kana" class="mid" placeholder="ヤマダ">
               <span class="field-label">（名）</span>
-              <input type="text" name="mei_kana" class="mid" placeholder="タロウ" required>
+              <input type="text" name="mei_kana" id="mei_kana" class="mid" placeholder="タロウ">
             </div>
+            <span class="error-msg" id="err-name-kana">お名前（カナ）を入力してください。</span>
             <span class="example">（例）ヤマダ　タロウ</span>
           </td>
         </tr>
         <tr>
           <th>メールアドレス<span class="required">※</span></th>
           <td>
-            <input type="email" name="email" class="wide" placeholder="aaa@bbbbb.cc.jp" required>
+            <input type="email" name="email" id="inp-email" class="wide" placeholder="aaa@bbbbb.cc.jp">
+            <span class="error-msg" id="err-email">メールアドレスを正しく入力してください。</span>
             <br><span class="example">確認の為もう一度ご入力下さい</span><br>
-            <input type="email" name="email_confirm" class="wide" placeholder="aaa@bbbbb.cc.jp" required style="margin-top:6px;">
+            <input type="email" name="email_confirm" id="inp-email-confirm" class="wide" placeholder="aaa@bbbbb.cc.jp" style="margin-top:6px;">
+            <span class="error-msg" id="err-email-confirm">メールアドレスが一致しません。</span>
           </td>
         </tr>
         <tr>
           <th>ご住所<span class="required">※</span></th>
           <td>
-            <div class="field-row" style="margin-bottom:8px;">
-              〒 <input type="text" name="zip" class="zip" placeholder="123-4567" pattern="\d{3}-?\d{4}" required>
+            <div class="field-row" style="margin-bottom:4px;">
+              〒 <input type="text" name="zip" id="inp-zip" class="zip" placeholder="123-4567">
               <span class="example">入力例：123-4567</span>
             </div>
-            <div class="field-row" style="margin-bottom:8px;">
-              <select name="pref" class="pref" required>
+            <span class="error-msg" id="err-zip" style="margin-bottom:6px;">郵便番号を入力してください。</span>
+            <div class="field-row" style="margin-bottom:4px;">
+              <select name="pref" id="inp-pref" class="pref">
                 <option value="">都道府県</option>
                 <option>北海道</option><option>青森県</option><option>岩手県</option><option>宮城県</option><option>秋田県</option>
                 <option>山形県</option><option>福島県</option><option>茨城県</option><option>栃木県</option><option>群馬県</option>
@@ -274,20 +292,24 @@
                 <option>鹿児島県</option><option>沖縄県</option>
               </select>
             </div>
-            <input type="text" name="city" class="wide" placeholder="市区町村" required style="margin-bottom:6px;display:block;">
-            <input type="text" name="address" class="wide" placeholder="それ以降の住所" required style="display:block;">
+            <span class="error-msg" id="err-pref" style="margin-bottom:6px;">都道府県を選択してください。</span>
+            <input type="text" name="city" id="inp-city" class="wide" placeholder="市区町村" style="margin-bottom:4px;display:block;">
+            <span class="error-msg" id="err-city" style="margin-bottom:4px;">市区町村を入力してください。</span>
+            <input type="text" name="address" id="inp-address" class="wide" placeholder="それ以降の住所" style="display:block;">
+            <span class="error-msg" id="err-address">番地・建物名等を入力してください。</span>
           </td>
         </tr>
         <tr>
           <th>お電話番号<span class="required">※</span></th>
           <td>
             <div class="field-row">
-              <input type="tel" name="tel1" class="sml" placeholder="0749">
+              <input type="tel" name="tel1" id="inp-tel1" class="sml" placeholder="0749">
               <span>-</span>
-              <input type="tel" name="tel2" class="sml" placeholder="23">
+              <input type="tel" name="tel2" id="inp-tel2" class="sml" placeholder="23">
               <span>-</span>
-              <input type="tel" name="tel3" class="sml" placeholder="3939">
+              <input type="tel" name="tel3" id="inp-tel3" class="sml" placeholder="3939">
             </div>
+            <span class="error-msg" id="err-tel">電話番号を入力してください。</span>
             <span class="example">入力例：0749-23-3939</span>
           </td>
         </tr>
@@ -373,25 +395,81 @@
   function submitForm(e) {
     e.preventDefault();
     var form = document.getElementById('customer-form');
-    /* メールアドレス一致チェック */
-    if (form.email.value !== form.email_confirm.value) {
-      alert('メールアドレスが一致しません。\nご確認の上、再度入力してください。');
-      form.email_confirm.focus();
+    var hasError = false;
+    var firstErrEl = null;
+
+    function clearAll() {
+      form.querySelectorAll('.error').forEach(function(el){ el.classList.remove('error'); });
+      form.querySelectorAll('.error-msg.show').forEach(function(el){ el.classList.remove('show'); });
+      document.getElementById('form-error-banner').classList.remove('show');
+    }
+    function markField(el) {
+      el.classList.add('error');
+      if (!firstErrEl) firstErrEl = el;
+      hasError = true;
+    }
+    function showMsg(id) { document.getElementById(id).classList.add('show'); }
+
+    clearAll();
+
+    /* 氏名（漢字） */
+    var badKanji = false;
+    if (!form.sei_kanji.value.trim()) { markField(form.sei_kanji); badKanji = true; }
+    if (!form.mei_kanji.value.trim()) { markField(form.mei_kanji); badKanji = true; }
+    if (badKanji) showMsg('err-name-kanji');
+
+    /* 氏名（カナ） */
+    var badKana = false;
+    if (!form.sei_kana.value.trim()) { markField(form.sei_kana); badKana = true; }
+    if (!form.mei_kana.value.trim()) { markField(form.mei_kana); badKana = true; }
+    if (badKana) showMsg('err-name-kana');
+
+    /* メール */
+    var emailVal = form.email.value.trim();
+    if (!emailVal || emailVal.indexOf('@') < 0) {
+      markField(document.getElementById('inp-email'));
+      showMsg('err-email');
+    }
+    var confirmVal = form.email_confirm.value.trim();
+    if (emailVal && emailVal.indexOf('@') >= 0 && (!confirmVal || confirmVal !== emailVal)) {
+      markField(document.getElementById('inp-email-confirm'));
+      showMsg('err-email-confirm');
+    }
+
+    /* 住所 */
+    if (!form.zip.value.trim()) { markField(document.getElementById('inp-zip')); showMsg('err-zip'); }
+    if (!form.pref.value) { markField(document.getElementById('inp-pref')); showMsg('err-pref'); }
+    if (!form.city.value.trim()) { markField(document.getElementById('inp-city')); showMsg('err-city'); }
+    if (!form.address.value.trim()) { markField(document.getElementById('inp-address')); showMsg('err-address'); }
+
+    /* 電話番号 */
+    var badTel = !form.tel1.value.trim() || !form.tel2.value.trim() || !form.tel3.value.trim();
+    if (badTel) {
+      if (!form.tel1.value.trim()) markField(document.getElementById('inp-tel1'));
+      if (!form.tel2.value.trim()) markField(document.getElementById('inp-tel2'));
+      if (!form.tel3.value.trim()) markField(document.getElementById('inp-tel3'));
+      showMsg('err-tel');
+    }
+
+    if (hasError) {
+      document.getElementById('form-error-banner').classList.add('show');
+      document.getElementById('form-error-banner').scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
+
     /* お客様情報をsessionStorageに保存して確認ページへ */
     var info = {
-      sei_kanji: form.sei_kanji.value,
-      mei_kanji: form.mei_kanji.value,
-      sei_kana:  form.sei_kana.value,
-      mei_kana:  form.mei_kana.value,
-      email:     form.email.value,
-      zip:       form.zip.value,
+      sei_kanji: form.sei_kanji.value.trim(),
+      mei_kanji: form.mei_kanji.value.trim(),
+      sei_kana:  form.sei_kana.value.trim(),
+      mei_kana:  form.mei_kana.value.trim(),
+      email:     form.email.value.trim(),
+      zip:       form.zip.value.trim(),
       pref:      form.pref.value,
-      city:      form.city.value,
-      address:   form.address.value,
-      tel:       form.tel1.value + '-' + form.tel2.value + '-' + form.tel3.value,
-      note:      form.note.value,
+      city:      form.city.value.trim(),
+      address:   form.address.value.trim(),
+      tel:       form.tel1.value.trim() + '-' + form.tel2.value.trim() + '-' + form.tel3.value.trim(),
+      note:      form.note.value.trim(),
       payment:   '郵便振替',
     };
     sessionStorage.setItem('tairou_customer', JSON.stringify(info));

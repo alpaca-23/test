@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ご注文完了 | 大老昆布 – 株式会社明和</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-deep: #2c5f2e; --green-mid: #3d7a40; --green-light: #e8f0e9;
+      --gold: #b8952a; --gold-light: #f0e6c0; --cream: #faf8f3;
+      --warm-gray: #f0ede6; --text: #2a2a2a; --text-muted: #6b6b6b;
+      --white: #ffffff; --radius: 8px; --shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans JP', sans-serif; background: var(--cream); color: var(--text); line-height: 1.8; }
+
+    .topbar { background: var(--green-deep); color: rgba(255,255,255,0.8); font-size: 0.72rem; padding: 6px 24px; display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    .topbar a { color: inherit; text-decoration: none; }
+    .topbar-info { display: flex; gap: 24px; flex-wrap: wrap; }
+
+    header { position: sticky; top: 0; z-index: 100; background: var(--white); border-bottom: 1px solid #e0dbd0; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    nav { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-mark { width: 44px; height: 44px; background: var(--green-deep); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-family: 'Noto Serif JP', serif; font-size: 1.1rem; font-weight: 700; flex-shrink: 0; }
+    .logo-text .main { font-family: 'Noto Serif JP', serif; font-size: 1.1rem; font-weight: 700; color: var(--green-deep); }
+    .logo-text .sub { font-size: 0.65rem; color: var(--text-muted); }
+    .nav-links { display: flex; list-style: none; }
+    .nav-links a { display: block; padding: 8px 14px; text-decoration: none; color: var(--text); font-size: 0.85rem; border-radius: var(--radius); transition: background 0.2s; }
+    .nav-links a:hover { background: var(--green-light); color: var(--green-deep); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--green-deep); border-radius: 2px; }
+
+    .page { max-width: 680px; margin: 0 auto; padding: 48px 24px 80px; }
+
+    .order-flow { display: flex; margin-bottom: 40px; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+    .flow-step { flex: 1; padding: 12px 6px; text-align: center; font-size: 0.72rem; color: var(--text-muted); border-right: 1px solid var(--warm-gray); }
+    .flow-step:last-child { border-right: none; }
+    .flow-step.active { background: var(--gold); color: #fff; font-weight: 700; }
+    .flow-num { display: block; font-size: 0.6rem; font-weight: 700; margin-bottom: 3px; letter-spacing: 0.05em; }
+    .flow-label { display: block; line-height: 1.4; }
+
+    .complete-card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 48px 32px; text-align: center; }
+    .check-icon { width: 64px; height: 64px; background: var(--green-deep); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
+    .check-icon svg { width: 32px; height: 32px; fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+    .complete-heading { font-family: 'Noto Serif JP', serif; font-size: 1.4rem; font-weight: 700; color: var(--green-deep); margin-bottom: 16px; }
+    .complete-text { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px; line-height: 1.9; }
+    .divider { border: none; border-top: 1px solid var(--warm-gray); margin: 28px 0; }
+    .order-num { background: var(--gold-light); border-radius: var(--radius); padding: 14px 20px; font-size: 0.85rem; margin-bottom: 28px; }
+    .order-num strong { font-weight: 700; color: var(--gold); }
+
+    .btn-top { display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; background: var(--green-deep); color: #fff; border-radius: 6px; text-decoration: none; font-size: 0.92rem; font-weight: 700; transition: background 0.2s; }
+    .btn-top:hover { background: var(--green-mid); }
+
+    footer { background: #1a2e1b; color: rgba(255,255,255,0.75); padding: 32px 24px 24px; }
+    .footer-bottom { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; font-size: 0.72rem; color: rgba(255,255,255,0.4); flex-wrap: wrap; gap: 8px; }
+
+    @media (max-width: 640px) {
+      .topbar { justify-content: center; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--white); border-bottom: 1px solid #e0dbd0; padding: 8px 16px 16px; z-index: 99; }
+      .page { padding: 28px 16px 60px; }
+      .flow-step { font-size: 0.62rem; padding: 10px 3px; }
+      .complete-card { padding: 32px 20px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-info">
+    <span>彦根市中薮2丁目5-8</span>
+    <span>TEL: <a href="tel:0749233939">0749-23-3939</a></span>
+  </div>
+</div>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo">
+      <div class="logo-mark">大</div>
+      <div class="logo-text">
+        <span class="main">大老昆布</span>
+        <span class="sub">株式会社明和 — 彦根のとろろ昆布専門店</span>
+      </div>
+    </a>
+    <button class="hamburger" onclick="this.nextElementSibling.classList.toggle('open')" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html">TOP</a></li>
+      <li><a href="osusume.html">おすすめ商品</a></li>
+      <li><a href="tanpin.html">単品商品</a></li>
+      <li><a href="shopping.html">詰め合わせ商品</a></li>
+      <li><a href="howto.html">お買い物方法</a></li>
+      <li><a href="contact.html">お問い合わせ</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="page">
+
+  <div class="order-flow">
+    <div class="flow-step">
+      <span class="flow-num">STEP 1</span>
+      <span class="flow-label">ショッピングカート</span>
+    </div>
+    <div class="flow-step">
+      <span class="flow-num">STEP 2</span>
+      <span class="flow-label">お客様情報等の入力</span>
+    </div>
+    <div class="flow-step">
+      <span class="flow-num">STEP 3</span>
+      <span class="flow-label">ご注文内容の確認</span>
+    </div>
+    <div class="flow-step active">
+      <span class="flow-num">STEP 4</span>
+      <span class="flow-label">ご注文の完了</span>
+    </div>
+  </div>
+
+  <div class="complete-card">
+    <div class="check-icon">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    </div>
+    <h1 class="complete-heading">ご注文ありがとうございます</h1>
+    <p class="complete-text">
+      ご注文を承りました。<br>
+      確認メールをご登録のメールアドレス宛にお送りしております。<br>
+      今しばらくお待ちください。
+    </p>
+    <hr class="divider">
+    <div class="order-num">
+      <strong>送料について</strong><br>
+      送料は後程メールにてご案内いたします。<br>
+      お支払い方法：郵便振替
+    </div>
+    <p class="complete-text" style="margin-bottom:28px;">
+      お問い合わせはお電話（0749-23-3939）または<br>
+      <a href="contact.html" style="color:var(--green-deep);">お問い合わせフォーム</a>よりお気軽にどうぞ。
+    </p>
+    <a href="index.html" class="btn-top">&#8592; トップページへ戻る</a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-bottom">
+    <span>Copyright &copy; 2004 Meiwa Corporation. All Rights Reserved.</span>
+    <span>滋賀県彦根市の昆布専門店</span>
+  </div>
+</footer>
+
+</body>
+</html>
