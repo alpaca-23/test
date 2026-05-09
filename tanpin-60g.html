@@ -195,7 +195,7 @@
             </tr>
           </table>
 
-          <form method="GET" action="cart.html" class="cart-form">
+          <form method="GET" action="cart.html" onsubmit="event.preventDefault();addToCartFromForm(this)" class="cart-form">
             <div class="cart-form-title">🛒 カートに入れる</div>
             <input type="hidden" name="mode" value="add_cart">
             <input type="hidden" name="item_cd" value="A-0001">
@@ -279,5 +279,6 @@
   </div>
 </footer>
 
+<script src="cart.js"></script>
 </body>
 </html>

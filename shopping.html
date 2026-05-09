@@ -248,7 +248,7 @@
           <div class="product-actions">
             <a href="shopping-a2.html" class="btn-detail">詳細を見る</a>
           </div>
-          <form method="GET" action="cart.html" class="cart-mini-form">
+          <form method="GET" action="cart.html" onsubmit="event.preventDefault();addToCartFromForm(this)" class="cart-mini-form">
             <input type="hidden" name="mode" value="add_cart">
             <input type="hidden" name="item_cd" value="B-0002">
             <input type="hidden" name="item_nm" value="詰め合わせ商品 A2">
@@ -305,7 +305,7 @@
           <div class="product-actions">
             <a href="shopping-a4.html" class="btn-detail">詳細を見る</a>
           </div>
-          <form method="GET" action="cart.html" class="cart-mini-form">
+          <form method="GET" action="cart.html" onsubmit="event.preventDefault();addToCartFromForm(this)" class="cart-mini-form">
             <input type="hidden" name="mode" value="add_cart">
             <input type="hidden" name="item_cd" value="B-0004">
             <input type="hidden" name="item_nm" value="詰め合わせ商品 A4">
@@ -362,7 +362,7 @@
           <div class="product-actions">
             <a href="shopping-b2.html" class="btn-detail">詳細を見る</a>
           </div>
-          <form method="GET" action="cart.html" class="cart-mini-form">
+          <form method="GET" action="cart.html" onsubmit="event.preventDefault();addToCartFromForm(this)" class="cart-mini-form">
             <input type="hidden" name="mode" value="add_cart">
             <input type="hidden" name="item_cd" value="B-0006">
             <input type="hidden" name="item_nm" value="詰め合わせ商品 B2">
@@ -442,5 +442,6 @@
   </div>
 </footer>
 
+<script src="cart.js"></script>
 </body>
 </html>

@@ -225,12 +225,12 @@
   </div>
 
   <!-- ボタン -->
-  <div class="cart-actions">
+  <div class="cart-actions" id="cart-actions">
     <a href="https://shop2.global-websystem.net/tairou/cgi/shop.cgi?mode=customer_info" class="btn-proceed">
       お客様情報入力画面へ進む &raquo;
     </a>
-    <a href="javascript:history.back()" class="btn-continue">
-      閉じる（お買い物を続ける）
+    <a href="tanpin.html" class="btn-continue">
+      お買い物を続ける
     </a>
   </div>
 
@@ -245,99 +245,119 @@
   </div>
 </footer>
 
+<script src="cart.js"></script>
 <script>
-  // URLパラメータからカート情報を取得して表示
-  (function() {
-    const params = new URLSearchParams(location.search);
-    const itemNm  = params.get('item_nm')   || '太白とろろ（60g）';
-    const price   = parseInt(params.get('price') || '1460', 10);
-    const qty     = parseInt(params.get('qty')   || '1',    10);
-    const housoushi = params.get('housoushi') || '包装紙なし';
-    const noshi     = params.get('noshi')     || 'のし紙なし';
-    const subtotal  = price * qty;
-
-    const taxLabel = (price <= 2000) ? '込' : '込';
-
-    const tbody = document.getElementById('cart-body');
-    tbody.innerHTML = `
-      <tr>
-        <td>
-          <div class="product-name">${escHtml(itemNm)} <span class="tax-note">※</span></div>
-          <div class="product-option">包装紙：${escHtml(housoushi)}</div>
-          <div class="product-option">のし紙：${escHtml(noshi)}</div>
-        </td>
-        <td class="center">${price.toLocaleString()}円</td>
-        <td class="center">
-          <div class="qty-row">
-            <input type="number" class="qty-input" value="${qty}" min="1" max="99" id="qty-input">
-            <button class="btn-change" onclick="updateQty()">変更</button>
-          </div>
-          <div style="font-size:0.72rem;color:var(--text-muted);margin-top:4px;">個</div>
-        </td>
-        <td class="center" id="subtotal-cell">${subtotal.toLocaleString()}円</td>
-        <td class="center"><button class="btn-delete" onclick="removeItem()">削除</button></td>
-      </tr>
-      <tr class="total-row">
-        <td colspan="3" style="text-align:right;">合　計</td>
-        <td class="center" id="total-cell">${subtotal.toLocaleString()}円</td>
-        <td></td>
-      </tr>
-    `;
-
-    /* モバイル用カード */
-    const card = document.getElementById('cart-card');
-    card.innerHTML = `
-      <div class="cart-card-item">
-        <div class="cart-card-name">${escHtml(itemNm)} <span class="tax-note">※</span></div>
-        <div class="cart-card-option">
-          包装紙：${escHtml(housoushi)}<br>のし紙：${escHtml(noshi)}
-        </div>
-        <div class="cart-card-row">
-          <div class="cart-card-price" id="card-subtotal">${subtotal.toLocaleString()}円</div>
-          <div class="cart-card-qty">
-            <input type="number" class="qty-input" value="${qty}" min="1" max="99" id="qty-input-m">
-            <span style="font-size:0.78rem;color:var(--text-muted);">個</span>
-            <button class="btn-change" onclick="updateQtyM()">変更</button>
-            <button class="btn-delete" onclick="removeItem()">削除</button>
-          </div>
-        </div>
-        <div style="font-size:0.72rem;color:var(--text-muted);margin-top:6px;">単価 ${price.toLocaleString()}円</div>
-      </div>
-      <div class="cart-card-total-row">
-        <span>合　計</span>
-        <span id="card-total">${subtotal.toLocaleString()}円</span>
-      </div>
-    `;
-
-    function escHtml(s) {
-      return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  (function () {
+    function esc(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
 
-    function setSubtotal(n) {
-      ['subtotal-cell','total-cell','card-subtotal','card-total'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = n.toLocaleString() + '円';
+    function render() {
+      var cart   = CartStore.get();
+      var tbody  = document.getElementById('cart-body');
+      var card   = document.getElementById('cart-card');
+      var actions= document.getElementById('cart-actions');
+
+      if (cart.length === 0) {
+        var empty =
+          '<div class="cart-empty">' +
+          '<svg width="48" height="48" viewBox="0 0 24 24" fill="#2c5f2e"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.17 14.99l.03-.12 1.1-2H17c.75 0 1.41-.41 1.75-1.03L21.7 5H5.21l-.94-2H1v2h2l3.6 7.59L5.25 14a1 1 0 00-.01.14C5.24 15.16 6.08 16 7.16 16H19v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>' +
+          '<p>カートは空です</p>' +
+          '<a href="tanpin.html" style="color:var(--green-deep);font-weight:700;">商品一覧に戻る</a>' +
+          '</div>';
+        document.getElementById('cart-section').innerHTML = empty;
+        actions.style.display = 'none';
+        return;
+      }
+
+      var total = 0;
+      var tbodyRows = '';
+      var cardItems = '';
+
+      cart.forEach(function (item, idx) {
+        var sub = item.price * item.qty;
+        total += sub;
+
+        /* テーブル行 */
+        tbodyRows +=
+          '<tr>' +
+          '<td>' +
+            '<div class="product-name">' + esc(item.item_nm) + ' <span class="tax-note">※</span></div>' +
+            '<div class="product-option">包装紙：' + esc(item.housoushi) + '</div>' +
+            '<div class="product-option">のし紙：' + esc(item.noshi) + '</div>' +
+          '</td>' +
+          '<td class="center">' + item.price.toLocaleString() + '円</td>' +
+          '<td class="center">' +
+            '<div class="qty-row">' +
+              '<input type="number" class="qty-input" value="' + item.qty + '" min="1" max="99" id="qty-' + idx + '">' +
+              '<button class="btn-change" onclick="changeQty(' + idx + ')">変更</button>' +
+            '</div>' +
+            '<div style="font-size:0.72rem;color:var(--text-muted);margin-top:4px;">個</div>' +
+          '</td>' +
+          '<td class="center">' + sub.toLocaleString() + '円</td>' +
+          '<td class="center"><button class="btn-delete" onclick="removeItem(' + idx + ')">削除</button></td>' +
+          '</tr>';
+
+        /* カード */
+        cardItems +=
+          '<div class="cart-card-item">' +
+          '<div class="cart-card-name">' + esc(item.item_nm) + ' <span class="tax-note">※</span></div>' +
+          '<div class="cart-card-option">包装紙：' + esc(item.housoushi) + '<br>のし紙：' + esc(item.noshi) + '</div>' +
+          '<div class="cart-card-row">' +
+            '<div class="cart-card-price">' + sub.toLocaleString() + '円</div>' +
+            '<div class="cart-card-qty">' +
+              '<input type="number" class="qty-input" value="' + item.qty + '" min="1" max="99" id="mqty-' + idx + '">' +
+              '<span style="font-size:0.78rem;color:var(--text-muted);">個</span>' +
+              '<button class="btn-change" onclick="changeQtyM(' + idx + ')">変更</button>' +
+              '<button class="btn-delete" onclick="removeItem(' + idx + ')">削除</button>' +
+            '</div>' +
+          '</div>' +
+          '<div style="font-size:0.72rem;color:var(--text-muted);margin-top:6px;">単価 ' + item.price.toLocaleString() + '円</div>' +
+          '</div>';
       });
+
+      /* 合計行 */
+      tbodyRows +=
+        '<tr class="total-row">' +
+        '<td colspan="3" style="text-align:right;">合　計</td>' +
+        '<td class="center">' + total.toLocaleString() + '円</td>' +
+        '<td></td>' +
+        '</tr>';
+
+      var cardTotal =
+        '<div class="cart-card-total-row">' +
+        '<span>合　計</span>' +
+        '<span>' + total.toLocaleString() + '円</span>' +
+        '</div>';
+
+      tbody.innerHTML = tbodyRows;
+      card.innerHTML  = cardItems + cardTotal;
     }
 
-    window.updateQty = function() {
-      const n = parseInt(document.getElementById('qty-input').value, 10) || 1;
-      setSubtotal(price * n);
+    window.changeQty = function (idx) {
+      var cart = CartStore.get();
+      var n = parseInt(document.getElementById('qty-' + idx).value, 10) || 1;
+      cart[idx].qty = n;
+      CartStore.save(cart);
+      render();
     };
-    window.updateQtyM = function() {
-      const n = parseInt(document.getElementById('qty-input-m').value, 10) || 1;
-      setSubtotal(price * n);
+    window.changeQtyM = function (idx) {
+      var cart = CartStore.get();
+      var n = parseInt(document.getElementById('mqty-' + idx).value, 10) || 1;
+      cart[idx].qty = n;
+      CartStore.save(cart);
+      render();
+    };
+    window.removeItem = function (idx) {
+      var cart = CartStore.get();
+      cart.splice(idx, 1);
+      CartStore.save(cart);
+      render();
     };
 
-    window.removeItem = function() {
-      document.getElementById('cart-section').innerHTML =
-        '<div class="cart-empty">' +
-        '<svg width="48" height="48" viewBox="0 0 24 24" fill="#2c5f2e"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.17 14.99l.03-.12 1.1-2H17c.75 0 1.41-.41 1.75-1.03L21.7 5H5.21l-.94-2H1v2h2l3.6 7.59L5.25 14a1 1 0 00-.01.14C5.24 15.16 6.08 16 7.16 16H19v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>' +
-        '<p>カートは空です</p>' +
-        '<a href="tanpin.html" style="color:var(--green-deep);font-weight:700;">商品一覧に戻る</a>' +
-        '</div>';
-    };
+    render();
   })();
+
 </script>
 
 </body>
