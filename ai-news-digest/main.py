@@ -125,10 +125,22 @@ def _score(article: Article) -> tuple[int, datetime]:
     return (SOURCE_PRIORITY.get(article.source, 1), article.published)
 
 
+MAX_PER_SOURCE = 2
+
+
 def fetch_and_rank(hours: int) -> list[Article]:
     articles = fetch_rss(hours) + fetch_ledgeai()
     articles.sort(key=_score, reverse=True)
-    return articles[:TOP_N * 3]  # keep buffer for dedup/filter
+    seen: dict[str, int] = {}
+    result: list[Article] = []
+    for a in articles:
+        if seen.get(a.source, 0) >= MAX_PER_SOURCE:
+            continue
+        seen[a.source] = seen.get(a.source, 0) + 1
+        result.append(a)
+        if len(result) >= TOP_N:
+            break
+    return result
 
 
 def _translate(text: str) -> str:
