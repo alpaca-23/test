@@ -11,7 +11,22 @@ pip install -r requirements.txt
 cp .env.example .env   # SMTP の認証情報と宛先を編集
 ```
 
-Gmail を使う場合は [App Password](https://myaccount.google.com/apppasswords) を発行し `SMTP_PASSWORD` に設定してください。
+### iCloud から送信する場合 (推奨設定)
+
+1. Apple ID で **2ファクタ認証** を有効化（必須）
+2. <https://account.apple.com/account/manage> → 「サインインとセキュリティ」→ **「App用パスワード」** を生成（例: `abcd-efgh-ijkl-mnop`）
+3. `.env` を以下のように設定:
+
+   ```env
+   SMTP_HOST=smtp.mail.me.com
+   SMTP_PORT=587
+   SMTP_USER=you@icloud.com
+   SMTP_PASSWORD=abcd-efgh-ijkl-mnop   # App用パスワード（Apple IDのパスワードではない）
+   MAIL_FROM=you@icloud.com            # @icloud.com / @me.com / @mac.com のみ
+   MAIL_TO=you@icloud.com
+   ```
+
+   注意: `MAIL_FROM` は `SMTP_USER` と同じドメイン (`@icloud.com` / `@me.com` / `@mac.com`) の自分のアドレスである必要があります。エイリアスや別ドメインは使えません。
 
 ## 動作確認 (送信せず HTML を標準出力)
 
@@ -33,8 +48,14 @@ python main.py
 このリポジトリには `.github/workflows/ai-news-digest.yml` が含まれており、毎日 UTC 23:00 (JST 08:00) に自動配信します。
 リポジトリの **Settings → Secrets and variables → Actions** に以下を登録してください。
 
-- `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`
-- `MAIL_FROM`, `MAIL_TO`
+| Secret 名       | iCloud の例                |
+| --------------- | -------------------------- |
+| `SMTP_HOST`     | `smtp.mail.me.com`         |
+| `SMTP_PORT`     | `587`                      |
+| `SMTP_USER`     | `you@icloud.com`           |
+| `SMTP_PASSWORD` | App用パスワード            |
+| `MAIL_FROM`     | `you@icloud.com`           |
+| `MAIL_TO`       | `you@icloud.com`           |
 
 ### cron (自前サーバ)
 
