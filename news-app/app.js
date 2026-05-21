@@ -2,8 +2,8 @@
   'use strict';
 
   const FEEDS = {
-    politics:  'https://www.nhk.or.jp/rss/news/cat4.xml',
-    economics: 'https://www.nhk.or.jp/rss/news/cat5.xml',
+    politics:  'https://news.yahoo.co.jp/rss/topics/politics.xml',
+    economics: 'https://news.yahoo.co.jp/rss/topics/business.xml',
   };
 
   const PROXY = 'https://api.rss2json.com/v1/api.json?rss_url=';

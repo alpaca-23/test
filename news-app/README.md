@@ -6,7 +6,7 @@
 
 - **朝刊 / 夕刊**: 現在時刻から自動判定（5:00–14:00 は朝刊、それ以外は夕刊）。手動切り替えも可能。
 - **政治 / 経済** の2カテゴリをタブで切り替え。
-- NHK NEWS WEB の RSS フィードを `api.rss2json.com`（CORS 対応の公開プロキシ）経由で取得。
+- Yahoo!ニュースの RSS フィード（無料記事）を `api.rss2json.com`（CORS 対応の公開プロキシ）経由で取得。
 - ビルド不要の静的サイト（HTML / CSS / JS のみ）。
 
 ## 使い方
@@ -30,5 +30,7 @@ python3 -m http.server 8000
 
 ## データソース
 
-- 政治: <https://www.nhk.or.jp/rss/news/cat4.xml>
-- 経済: <https://www.nhk.or.jp/rss/news/cat5.xml>
+- 政治: <https://news.yahoo.co.jp/rss/topics/politics.xml>
+- 経済: <https://news.yahoo.co.jp/rss/topics/business.xml>
+
+いずれも Yahoo!ニュースの無料公開記事です。
