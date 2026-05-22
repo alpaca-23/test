@@ -1,17 +1,8 @@
 (() => {
   'use strict';
 
-  const FEEDS = {
-    politics:  'https://news.google.com/rss/search?q=' + encodeURIComponent('日本 政治 when:2d') + '&hl=ja&gl=JP&ceid=JP:ja',
-    economics: 'https://news.google.com/rss/search?q=' + encodeURIComponent('日本 経済 when:2d') + '&hl=ja&gl=JP&ceid=JP:ja',
-  };
-
-  // 複数のCORSプロキシをフォールバック。先頭から順に試す。
-  const PROXIES = [
-    url => `https://corsproxy.io/?url=${encodeURIComponent(url)}`,
-    url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-    url => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
-  ];
+  // 静的JSONを読み込む（ビルド時にGitHub Actionsが生成）
+  const DATA_URL = category => `./data/${category}.json`;
 
   const state = {
     category: 'politics',
@@ -74,43 +65,10 @@
   }
 
   async function fetchFeed(category) {
-    const feedUrl = FEEDS[category];
-    const xml = await fetchViaProxies(feedUrl);
-    return parseRss(xml);
-  }
-
-  async function fetchViaProxies(url) {
-    let lastErr;
-    for (const build of PROXIES) {
-      try {
-        const res = await fetch(build(url), { redirect: 'follow' });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const text = await res.text();
-        if (!text || text.length < 200) throw new Error('応答が空です');
-        return text;
-      } catch (err) {
-        lastErr = err;
-      }
-    }
-    throw lastErr || new Error('全てのプロキシが失敗しました');
-  }
-
-  function parseRss(xml) {
-    const doc = new DOMParser().parseFromString(xml, 'application/xml');
-    if (doc.querySelector('parsererror')) throw new Error('RSSの解析に失敗しました');
-    const itemNodes = doc.querySelectorAll('item');
-    if (itemNodes.length === 0) throw new Error('記事が見つかりませんでした');
-    return Array.from(itemNodes).map(node => ({
-      title:       text(node, 'title'),
-      link:        text(node, 'link'),
-      pubDate:     text(node, 'pubDate'),
-      description: text(node, 'description'),
-    }));
-  }
-
-  function text(parent, tag) {
-    const el = parent.querySelector(tag);
-    return el ? (el.textContent || '').trim() : '';
+    const res = await fetch(DATA_URL(category), { cache: 'no-store' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    return { items: data.items || [], fetchedAt: data.fetched_at };
   }
 
   async function loadNews(force = false) {
@@ -119,15 +77,15 @@
     els.refreshBtn.disabled = true;
 
     const cacheKey = state.category;
-    let items = state.cache[cacheKey];
+    let cached = state.cache[cacheKey];
 
-    if (!items || force) {
+    if (!cached || force) {
       showStatus('<div class="spinner" role="status" aria-label="読み込み中"></div>記事を取得しています…');
       els.leadWrap.innerHTML = '';
       els.newsList.innerHTML = '';
       try {
-        items = await fetchFeed(state.category);
-        state.cache[cacheKey] = items;
+        cached = await fetchFeed(state.category);
+        state.cache[cacheKey] = cached;
       } catch (err) {
         showError(`記事を取得できませんでした: ${err.message}`);
         state.loading = false;
@@ -136,10 +94,20 @@
       }
     }
 
-    render(items);
-    clearStatus();
+    render(cached.items);
+    showFetchedAt(cached.fetchedAt);
     state.loading = false;
     els.refreshBtn.disabled = false;
+  }
+
+  function showFetchedAt(iso) {
+    if (!iso) { clearStatus(); return; }
+    const d = new Date(iso);
+    if (isNaN(d)) { clearStatus(); return; }
+    const hh = String(d.getHours()).padStart(2, '0');
+    const mm = String(d.getMinutes()).padStart(2, '0');
+    els.status.className = 'status';
+    els.status.textContent = `最終更新: ${d.getMonth() + 1}/${d.getDate()} ${hh}:${mm}`;
   }
 
   function render(items) {
@@ -244,8 +212,9 @@
       btn.addEventListener('click', () => {
         state.edition = btn.dataset.edition;
         updateEditionUI();
-        const items = state.cache[state.category];
-        if (items) render(items); else loadNews();
+        const cached = state.cache[state.category];
+        if (cached) { render(cached.items); showFetchedAt(cached.fetchedAt); }
+        else loadNews();
       });
     });
 

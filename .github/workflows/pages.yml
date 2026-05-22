@@ -5,6 +5,10 @@ on:
     branches:
       - main
       - claude/news-app-politics-economics-qhDHT
+  schedule:
+    # 朝刊（JST 5:00 = UTC 20:00 前日）と夕刊（JST 14:00 = UTC 5:00）にニュースを再取得
+    - cron: '0 20 * * *'
+    - cron: '0 5 * * *'
   workflow_dispatch:
 
 permissions:
@@ -21,6 +25,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Fetch latest news
+        run: python news-app/fetch_news.py
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
