@@ -33,9 +33,7 @@ python3 -m http.server 8000
 
 ## データソース
 
-Google ニュース RSS の検索クエリを利用しています:
+Google ニュースの検索ベース RSS（複数の無料媒体から集約）を利用しています。
+動画中心のサイト（TBS NEWS DIG、テレ朝、FNN、日テレ、YouTube 等）は検索クエリと Python 側フィルタで除外し、**記事として読めるもの**だけを抽出します。
 
-- 政治: `https://news.google.com/rss/search?q=日本+政治+when:2d&hl=ja&gl=JP&ceid=JP:ja`
-- 経済: `https://news.google.com/rss/search?q=日本+経済+when:2d&hl=ja&gl=JP&ceid=JP:ja`
-
-各記事のリンク先は元の媒体（共同通信、産経、朝日、日経電子版の無料部分など）へ飛び、いずれも無料で閲覧可能です。
+各記事のリンク先は元の媒体（共同通信、産経、朝日、東洋経済、ロイター日本など）へ飛び、いずれも無料で閲覧可能です。
