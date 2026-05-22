@@ -16,19 +16,37 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 from urllib.parse import quote
 
-# 動画ベースのニュースサイト（記事ではなくプレイヤー中心）を除外する
-EXCLUDE_SITES = [
-    "newsdig.tbs.co.jp",        # TBS NEWS DIG
-    "news.tv-asahi.co.jp",      # テレ朝news
-    "www.fnn.jp",               # FNNプライムオンライン
-    "news.ntv.co.jp",           # 日テレNEWS
-    "www.nnn.co.jp",            # 日テレ系NNN
-    "news.yahoo.co.jp",         # Yahoo!（オリジナル記事へ飛ぶがリンク切れが多い）
-    "www.youtube.com",
+# 動画ベースのニュースサイト（記事ではなくプレイヤー中心）
+VIDEO_DOMAINS = {
+    "tbs.co.jp",        # TBS NEWS DIG など
+    "tv-asahi.co.jp",   # テレ朝news
+    "fnn.jp",           # FNNプライムオンライン
+    "ntv.co.jp",        # 日テレNEWS
+    "nnn.co.jp",        # 日テレ系NNN
+    "yahoo.co.jp",      # Yahoo!（オリジナル記事へ飛ぶがリンク切れも多い）
+    "youtube.com",
     "youtu.be",
-]
+}
 
-EXCLUDE_DOMAINS = set(EXCLUDE_SITES)
+# 有料記事中心のサイト（無料部分のみ提供する媒体も含む）
+PAYWALL_DOMAINS = {
+    "nikkei.com",       # 日経電子版
+    "asahi.com",        # 朝日新聞デジタル（digital.asahi.com含む）
+    "mainichi.jp",      # 毎日新聞 / 毎日新聞プレミア
+    "yomiuri.co.jp",    # 読売新聞オンライン（会員限定多数）
+    "bloomberg.co.jp",  # ブルームバーグ日本
+    "wsj.com",          # WSJ Japan / WSJ
+    "ft.com",           # Financial Times
+    "bunshun.jp",       # 週刊文春
+    "gendai.media",     # 現代ビジネス
+    "diamond.jp",       # ダイヤモンド・オンライン
+    "toyokeizai.net",   # 東洋経済オンライン
+    "president.jp",     # PRESIDENT Online
+    "shogakukan.co.jp", # 小学館系（NEWSポストセブン等）
+    "newspostseven.com",
+}
+
+EXCLUDE_DOMAINS = VIDEO_DOMAINS | PAYWALL_DOMAINS
 
 # 動画・ライブ中継のキーワード
 VIDEO_KEYWORDS = re.compile(
@@ -36,7 +54,14 @@ VIDEO_KEYWORDS = re.compile(
     r"ニュース動画|現場中継|記者会見\s*ライブ)"
 )
 
-EXCLUDE_QUERY = " ".join(f"-site:{s}" for s in EXCLUDE_SITES)
+# 有料記事のキーワード（タイトルに含まれていれば除外）
+PAYWALL_KEYWORDS = re.compile(
+    r"(\(有料(?:記事|会員)?\)|（有料(?:記事|会員)?）|\[有料\]|【有料】|"
+    r"有料会員|会員限定|会員専用|プレミアム会員|プレミア記事|プレミアム記事|"
+    r"メンバー限定|サブスク(?:会員|限定)?|有料配信|有料閲覧|Premium)"
+)
+
+EXCLUDE_QUERY = " ".join(f"-site:{s}" for s in sorted(EXCLUDE_DOMAINS))
 
 
 def build_url(query: str) -> str:
@@ -100,16 +125,19 @@ def parse_pubdate(s: str) -> float:
 
 
 def is_article(item: dict) -> bool:
-    if VIDEO_KEYWORDS.search(item.get("title", "")):
+    title = item.get("title", "")
+    if VIDEO_KEYWORDS.search(title):
+        return False
+    if PAYWALL_KEYWORDS.search(title):
         return False
     src = item.get("sourceUrl", "")
     if src:
-        host = urllib.parse.urlparse(src).hostname or ""
+        host = (urllib.parse.urlparse(src).hostname or "").lower()
         if host in EXCLUDE_DOMAINS:
             return False
-        # サブドメイン違いも除外
+        # サブドメインも除外（例: digital.asahi.com → asahi.com）
         for d in EXCLUDE_DOMAINS:
-            if host.endswith("." + d) or host == d:
+            if host.endswith("." + d):
                 return False
     return True
 
