@@ -33,35 +33,46 @@
     return `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日（${days[d.getDay()]}）`;
   }
 
-  function formatPubDate(iso) {
-    if (!iso) return '';
-    const d = new Date(iso);
-    if (isNaN(d)) return '';
+  function pubTime(item) {
+    if (item && typeof item.pubTimestamp === 'number' && item.pubTimestamp > 0) {
+      return item.pubTimestamp * 1000;
+    }
+    const t = new Date(item && item.pubDate).getTime();
+    return isNaN(t) ? 0 : t;
+  }
+
+  function formatAbsolute(ms) {
+    if (!ms) return '';
+    const d = new Date(ms);
     const hh = String(d.getHours()).padStart(2, '0');
     const mm = String(d.getMinutes()).padStart(2, '0');
     return `${d.getMonth() + 1}/${d.getDate()} ${hh}:${mm}`;
   }
 
-  // 朝刊/夕刊フィルタ: 記事の公開時刻から該当版を判定
-  // 朝刊 = 前日14時 〜 当日14時に出た記事
-  // 夕刊 = 当日5時 〜 翌5時に出た記事のうち主に午後のもの
-  // シンプルに「直近24時間のうち、現在の版に該当する時間帯のもの」とする
+  // 相対時刻表記。直近のものは「N分前」「N時間前」、24h超は絶対時刻
+  function formatRelative(ms) {
+    if (!ms) return '';
+    const diff = Date.now() - ms;
+    const min = 60 * 1000, hour = 60 * min, day = 24 * hour;
+    if (diff < 0) return 'まもなく';
+    if (diff < min) return 'たった今';
+    if (diff < hour) return `${Math.floor(diff / min)}分前`;
+    if (diff < day) return `${Math.floor(diff / hour)}時間前`;
+    return formatAbsolute(ms);
+  }
+
+  // 朝刊/夕刊フィルタ
+  //   朝刊: 直近24時間のニュース（前日夕方〜当日朝までの動き）
+  //   夕刊: 直近12時間のニュース（その日の動きにフォーカス）
+  // 該当が3件未満なら全件にフォールバック（記事不足で空にならないように）
   function filterByEdition(items, edition) {
     const now = Date.now();
-    const dayMs = 24 * 60 * 60 * 1000;
-    return items.filter(item => {
-      const t = new Date(item.pubDate).getTime();
-      if (isNaN(t)) return true;
-      if (now - t > 2 * dayMs) return false; // 48時間より古いものは除外
-      const hour = new Date(t).getHours();
-      if (edition === 'morning') {
-        // 朝刊: 前日午後〜当日午前のニュース
-        return hour >= 14 || hour < 14;
-      } else {
-        // 夕刊: 当日午後のニュースを優先
-        return true;
-      }
+    const windowMs = edition === 'morning' ? 24 * 60 * 60 * 1000 : 12 * 60 * 60 * 1000;
+    const filtered = items.filter(item => {
+      const t = pubTime(item);
+      return t > 0 && (now - t) <= windowMs;
     });
+    return filtered.length >= 3 ? filtered : items;
   }
 
   async function fetchFeed(category) {
@@ -102,33 +113,32 @@
 
   function showFetchedAt(iso) {
     if (!iso) { clearStatus(); return; }
-    const d = new Date(iso);
-    if (isNaN(d)) { clearStatus(); return; }
-    const hh = String(d.getHours()).padStart(2, '0');
-    const mm = String(d.getMinutes()).padStart(2, '0');
+    const ms = new Date(iso).getTime();
+    if (!ms || ms < 946684800000) { clearStatus(); return; } // 2000年以前は無効値とみなす
     els.status.className = 'status';
-    els.status.textContent = `最終更新: ${d.getMonth() + 1}/${d.getDate()} ${hh}:${mm}`;
+    els.status.textContent = `データ取得: ${formatRelative(ms)}（${formatAbsolute(ms)}）`;
   }
 
   function render(items) {
-    const filtered = filterByEdition(items, state.edition);
-    const list = filtered.length ? filtered : items;
+    const sorted = [...items].sort((a, b) => pubTime(b) - pubTime(a));
+    const filtered = filterByEdition(sorted, state.edition);
 
     els.leadWrap.innerHTML = '';
     els.newsList.innerHTML = '';
 
-    if (list.length === 0) {
+    if (filtered.length === 0) {
       showStatus('この版の記事は見つかりませんでした。');
       return;
     }
 
-    const [lead, ...rest] = list;
+    const [lead, ...rest] = filtered;
     els.leadWrap.appendChild(buildLead(lead));
     rest.slice(0, 11).forEach(item => els.newsList.appendChild(buildCard(item)));
   }
 
   function buildLead(item) {
     const { title, source } = splitTitle(item.title);
+    const ms = pubTime(item);
     const a = document.createElement('a');
     a.className = 'lead';
     a.href = item.link;
@@ -137,15 +147,21 @@
     a.innerHTML = `
       <span class="lead-tag">トップニュース</span>
       <h2 class="lead-title"></h2>
-      <div class="lead-meta"></div>
+      <div class="lead-meta">
+        <span class="meta-time"></span>
+        <span class="meta-sep">・</span>
+        <span class="meta-source"></span>
+      </div>
     `;
     a.querySelector('.lead-title').textContent = title;
-    a.querySelector('.lead-meta').textContent = [source, formatPubDate(item.pubDate)].filter(Boolean).join(' ・ ');
+    a.querySelector('.meta-time').textContent = ms ? `${formatRelative(ms)}（${formatAbsolute(ms)}）` : '';
+    a.querySelector('.meta-source').textContent = source || item.sourceName || '';
     return a;
   }
 
   function buildCard(item) {
     const { title, source } = splitTitle(item.title);
+    const ms = pubTime(item);
     const a = document.createElement('a');
     a.className = 'news-card';
     a.href = item.link;
@@ -153,10 +169,15 @@
     a.rel = 'noopener noreferrer';
     a.innerHTML = `
       <h3 class="news-card-title"></h3>
-      <div class="news-card-meta"></div>
+      <div class="news-card-meta">
+        <span class="meta-time"></span>
+        <span class="meta-sep">・</span>
+        <span class="meta-source"></span>
+      </div>
     `;
     a.querySelector('.news-card-title').textContent = title;
-    a.querySelector('.news-card-meta').textContent = [source, formatPubDate(item.pubDate)].filter(Boolean).join(' ・ ');
+    a.querySelector('.meta-time').textContent = formatRelative(ms);
+    a.querySelector('.meta-source').textContent = source || item.sourceName || '';
     return a;
   }
 

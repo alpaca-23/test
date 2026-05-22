@@ -211,10 +211,17 @@ body {
   margin-bottom: 14px;
 }
 .lead-meta {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--ink-muted);
   letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
 }
+.lead-meta .meta-time { color: var(--accent); font-weight: 700; }
+.news-card-meta .meta-time { color: var(--accent); font-weight: 700; }
+.meta-sep { opacity: 0.5; }
 
 /* News list */
 .news-list {
@@ -263,6 +270,10 @@ body {
   letter-spacing: 0.05em;
   border-top: 1px dashed var(--line);
   padding-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
 /* Status */

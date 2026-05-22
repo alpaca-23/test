@@ -5,6 +5,7 @@ GitHub ActionsのPagesデプロイ前に実行され、news-app/data/{category}.
 ブラウザ側ではこの静的JSONを取得するだけなので、CORSプロキシ等は不要。
 """
 import datetime as dt
+import email.utils
 import json
 import re
 import sys
@@ -39,7 +40,8 @@ EXCLUDE_QUERY = " ".join(f"-site:{s}" for s in EXCLUDE_SITES)
 
 
 def build_url(query: str) -> str:
-    q = f"{query} when:2d {EXCLUDE_QUERY}"
+    # 直近24時間の記事に絞る（最新ニュース重視）
+    q = f"{query} when:1d {EXCLUDE_QUERY}"
     return (
         "https://news.google.com/rss/search?q="
         + quote(q)
@@ -72,14 +74,29 @@ def parse(xml: str) -> list[dict]:
         source_el = node.find("source")
         source_url = (source_el.get("url") if source_el is not None else "") or ""
         source_name = (source_el.text if source_el is not None else "") or ""
+        pub_raw = (node.findtext("pubDate") or "").strip()
         items.append({
             "title":   (node.findtext("title") or "").strip(),
             "link":    (node.findtext("link") or "").strip(),
-            "pubDate": (node.findtext("pubDate") or "").strip(),
+            "pubDate": pub_raw,
+            "pubTimestamp": parse_pubdate(pub_raw),
             "sourceUrl":  source_url.strip(),
             "sourceName": source_name.strip(),
         })
     return items
+
+
+def parse_pubdate(s: str) -> float:
+    """RFC2822形式の pubDate を Unix epoch 秒に変換。失敗時は 0。"""
+    if not s:
+        return 0.0
+    try:
+        d = email.utils.parsedate_to_datetime(s)
+        if d.tzinfo is None:
+            d = d.replace(tzinfo=dt.timezone.utc)
+        return d.timestamp()
+    except (TypeError, ValueError):
+        return 0.0
 
 
 def is_article(item: dict) -> bool:
@@ -112,6 +129,8 @@ def main() -> int:
             continue
         before = len(items)
         items = [i for i in items if is_article(i)]
+        # 新しい順にソート
+        items.sort(key=lambda i: i.get("pubTimestamp", 0), reverse=True)
         out = OUT_DIR / f"{name}.json"
         out.write_text(
             json.dumps(
