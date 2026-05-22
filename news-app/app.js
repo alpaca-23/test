@@ -2,8 +2,8 @@
   'use strict';
 
   const FEEDS = {
-    politics:  'https://news.yahoo.co.jp/rss/topics/politics.xml',
-    economics: 'https://news.yahoo.co.jp/rss/topics/business.xml',
+    politics:  'https://news.google.com/rss/search?q=' + encodeURIComponent('日本 政治 when:2d') + '&hl=ja&gl=JP&ceid=JP:ja',
+    economics: 'https://news.google.com/rss/search?q=' + encodeURIComponent('日本 経済 when:2d') + '&hl=ja&gl=JP&ceid=JP:ja',
   };
 
   const PROXY = 'https://api.rss2json.com/v1/api.json?rss_url=';
@@ -124,6 +124,7 @@
   }
 
   function buildLead(item) {
+    const { title, source } = splitTitle(item.title);
     const a = document.createElement('a');
     a.className = 'lead';
     a.href = item.link;
@@ -132,16 +133,15 @@
     a.innerHTML = `
       <span class="lead-tag">トップニュース</span>
       <h2 class="lead-title"></h2>
-      <p class="lead-desc"></p>
       <div class="lead-meta"></div>
     `;
-    a.querySelector('.lead-title').textContent = item.title || '';
-    a.querySelector('.lead-desc').textContent = stripHtml(item.description || '').slice(0, 140);
-    a.querySelector('.lead-meta').textContent = formatPubDate(item.pubDate);
+    a.querySelector('.lead-title').textContent = title;
+    a.querySelector('.lead-meta').textContent = [source, formatPubDate(item.pubDate)].filter(Boolean).join(' ・ ');
     return a;
   }
 
   function buildCard(item) {
+    const { title, source } = splitTitle(item.title);
     const a = document.createElement('a');
     a.className = 'news-card';
     a.href = item.link;
@@ -149,13 +149,19 @@
     a.rel = 'noopener noreferrer';
     a.innerHTML = `
       <h3 class="news-card-title"></h3>
-      <p class="news-card-desc"></p>
       <div class="news-card-meta"></div>
     `;
-    a.querySelector('.news-card-title').textContent = item.title || '';
-    a.querySelector('.news-card-desc').textContent = stripHtml(item.description || '');
-    a.querySelector('.news-card-meta').textContent = formatPubDate(item.pubDate);
+    a.querySelector('.news-card-title').textContent = title;
+    a.querySelector('.news-card-meta').textContent = [source, formatPubDate(item.pubDate)].filter(Boolean).join(' ・ ');
     return a;
+  }
+
+  // Google ニュースのタイトルは「記事見出し - 媒体名」形式なので分離する
+  function splitTitle(raw) {
+    if (!raw) return { title: '', source: '' };
+    const idx = raw.lastIndexOf(' - ');
+    if (idx === -1) return { title: raw, source: '' };
+    return { title: raw.slice(0, idx).trim(), source: raw.slice(idx + 3).trim() };
   }
 
   function stripHtml(s) {

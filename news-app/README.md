@@ -6,7 +6,7 @@
 
 - **朝刊 / 夕刊**: 現在時刻から自動判定（5:00–14:00 は朝刊、それ以外は夕刊）。手動切り替えも可能。
 - **政治 / 経済** の2カテゴリをタブで切り替え。
-- Yahoo!ニュースの RSS フィード（無料記事）を `api.rss2json.com`（CORS 対応の公開プロキシ）経由で取得。
+- Google ニュースの検索ベース RSS（複数の無料媒体から集約）を `api.rss2json.com`（CORS 対応の公開プロキシ）経由で取得。
 - ビルド不要の静的サイト（HTML / CSS / JS のみ）。
 
 ## 使い方
@@ -30,7 +30,9 @@ python3 -m http.server 8000
 
 ## データソース
 
-- 政治: <https://news.yahoo.co.jp/rss/topics/politics.xml>
-- 経済: <https://news.yahoo.co.jp/rss/topics/business.xml>
+Google ニュース RSS の検索クエリを利用しています:
 
-いずれも Yahoo!ニュースの無料公開記事です。
+- 政治: `https://news.google.com/rss/search?q=日本+政治+when:2d&hl=ja&gl=JP&ceid=JP:ja`
+- 経済: `https://news.google.com/rss/search?q=日本+経済+when:2d&hl=ja&gl=JP&ceid=JP:ja`
+
+各記事のリンク先は元の媒体（共同通信、産経、朝日、日経電子版の無料部分など）へ飛び、いずれも無料で閲覧可能です。
