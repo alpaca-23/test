@@ -6,7 +6,12 @@
     economics: 'https://news.google.com/rss/search?q=' + encodeURIComponent('日本 経済 when:2d') + '&hl=ja&gl=JP&ceid=JP:ja',
   };
 
-  const PROXY = 'https://api.rss2json.com/v1/api.json?rss_url=';
+  // 複数のCORSプロキシをフォールバック。先頭から順に試す。
+  const PROXIES = [
+    url => `https://corsproxy.io/?url=${encodeURIComponent(url)}`,
+    url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+    url => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
+  ];
 
   const state = {
     category: 'politics',
@@ -69,12 +74,43 @@
   }
 
   async function fetchFeed(category) {
-    const url = PROXY + encodeURIComponent(FEEDS[category]);
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    if (data.status !== 'ok') throw new Error(data.message || 'フィードの取得に失敗しました');
-    return data.items || [];
+    const feedUrl = FEEDS[category];
+    const xml = await fetchViaProxies(feedUrl);
+    return parseRss(xml);
+  }
+
+  async function fetchViaProxies(url) {
+    let lastErr;
+    for (const build of PROXIES) {
+      try {
+        const res = await fetch(build(url), { redirect: 'follow' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const text = await res.text();
+        if (!text || text.length < 200) throw new Error('応答が空です');
+        return text;
+      } catch (err) {
+        lastErr = err;
+      }
+    }
+    throw lastErr || new Error('全てのプロキシが失敗しました');
+  }
+
+  function parseRss(xml) {
+    const doc = new DOMParser().parseFromString(xml, 'application/xml');
+    if (doc.querySelector('parsererror')) throw new Error('RSSの解析に失敗しました');
+    const itemNodes = doc.querySelectorAll('item');
+    if (itemNodes.length === 0) throw new Error('記事が見つかりませんでした');
+    return Array.from(itemNodes).map(node => ({
+      title:       text(node, 'title'),
+      link:        text(node, 'link'),
+      pubDate:     text(node, 'pubDate'),
+      description: text(node, 'description'),
+    }));
+  }
+
+  function text(parent, tag) {
+    const el = parent.querySelector(tag);
+    return el ? (el.textContent || '').trim() : '';
   }
 
   async function loadNews(force = false) {
