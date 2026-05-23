@@ -18,8 +18,15 @@
     newsList:     document.getElementById('news-list'),
     status:       document.getElementById('status'),
     refreshBtn:   document.getElementById('refresh-btn'),
+    sourceNote:   document.getElementById('source-note'),
     editionBtns:  document.querySelectorAll('.edition-btn'),
     catBtns:      document.querySelectorAll('.cat-btn'),
+  };
+
+  const SOURCE_NOTES = {
+    politics:  '出典: Google ニュース（共同通信・時事通信・ロイター・産経・東京新聞ほかの無料記事を集約）',
+    economics: '出典: Google ニュース（共同通信・時事通信・ロイター・産経・東京新聞ほかの無料記事を集約）',
+    ai:        '出典: Anthropic / OpenAI / Google AI / Hugging Face / MIT News / arXiv / ITmedia AI+ / Ledge.ai',
   };
 
   function detectEdition() {
@@ -222,6 +229,9 @@
     els.catBtns.forEach(btn => {
       btn.classList.toggle('active', btn.dataset.category === state.category);
     });
+    if (els.sourceNote && SOURCE_NOTES[state.category]) {
+      els.sourceNote.textContent = SOURCE_NOTES[state.category];
+    }
   }
 
   function init() {

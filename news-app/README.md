@@ -1,11 +1,11 @@
 # 朝夕ニュース
 
-政治・経済のニュースを朝刊・夕刊形式で届けるシンプルなウェブアプリです。
+政治・経済・生成AIのニュースを朝刊・夕刊形式で届けるシンプルなウェブアプリです。
 
 ## 特徴
 
 - **朝刊 / 夕刊**: 現在時刻から自動判定（5:00–14:00 は朝刊、それ以外は夕刊）。手動切り替えも可能。
-- **政治 / 経済** の2カテゴリをタブで切り替え。
+- **政治 / 経済 / AI** の3カテゴリをタブで切り替え。
 - Google ニュースの検索ベース RSS（複数の無料媒体から集約）を **GitHub Actions のビルド時に取得**し、静的 JSON として配信。
 - ブラウザ側は静的 JSON を読むだけなので、CORS プロキシ不要・確実に動く。
 - スケジュール実行（毎日 JST 5:00 / 14:00）と手動トリガで自動更新。
@@ -29,7 +29,8 @@ python3 -m http.server 8000
 - `styles.css` — スタイル
 - `app.js` — JSON 読み込み・描画・状態管理
 - `fetch_news.py` — RSS を取得して `data/*.json` を生成（CI で実行）
-- `data/politics.json`, `data/economics.json` — ビルド時に上書きされる記事データ
+- `requirements.txt` — fetch_news.py の依存（feedparser, requests, beautifulsoup4, deep-translator）
+- `data/politics.json`, `data/economics.json`, `data/ai.json` — ビルド時に上書きされる記事データ
 
 ## データソース
 
@@ -47,3 +48,14 @@ Google ニュースの検索ベース RSS（複数の無料媒体から集約）
 - **新聞**: 産経ニュース、東京新聞、中日新聞、北海道新聞、西日本新聞 等の地方紙
 - **国際媒体の日本版**: BBC 日本、Newsweek 日本版、Forbes JAPAN、JBpress
 - **その他**: HUFFPOST 日本、AERA dot.、CNN 日本 等
+
+### AI カテゴリ
+
+`ai-news-digest` プロジェクトと同じソース構成で、生成 AI 周辺の最新動向を集約します。
+
+- **公式ブログ**: Anthropic、OpenAI、Google AI、Hugging Face
+- **研究機関**: MIT News (AI)、arXiv cs.AI
+- **日本語媒体**: ITmedia AI+、Ledge.ai
+
+ソース別に最大 2 件まで、ソースの信頼度と新着順で上位 16 件を抽出。
+英語ソースは Google 翻訳でタイトルを日本語化してから表示します（失敗時は原文）。

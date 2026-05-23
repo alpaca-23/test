@@ -203,7 +203,184 @@ def main() -> int:
             encoding="utf-8",
         )
         print(f"  wrote {out.name} ({len(items)}/{before} items after filter)")
-    return 1 if failures == len(FEEDS) else 0
+
+    # 生成AIカテゴリ（別ロジック）
+    print("[ai] fetching generative-AI feeds")
+    try:
+        ai_items = fetch_ai_articles(hours=72)
+    except Exception as err:  # noqa: BLE001
+        print(f"  ERROR: {err}", file=sys.stderr)
+        failures += 1
+    else:
+        (OUT_DIR / "ai.json").write_text(
+            json.dumps(
+                {"fetched_at": fetched_at, "items": ai_items},
+                ensure_ascii=False,
+                indent=2,
+            ),
+            encoding="utf-8",
+        )
+        print(f"  wrote ai.json ({len(ai_items)} items)")
+
+    total = len(FEEDS) + 1
+    return 1 if failures == total else 0
+
+
+# =====================================================================
+# 生成AIニュース（ai-news-digest と同じソース）
+# =====================================================================
+
+AI_FEEDS = [
+    ("Anthropic",     "https://www.anthropic.com/news/rss.xml"),
+    ("OpenAI",        "https://openai.com/blog/rss.xml"),
+    ("Google AI",     "https://blog.google/technology/ai/rss/"),
+    ("Hugging Face",  "https://huggingface.co/blog/feed.xml"),
+    ("MIT News (AI)", "https://news.mit.edu/topic/mitartificial-intelligence2-rss.xml"),
+    ("arXiv cs.AI",   "https://export.arxiv.org/rss/cs.AI"),
+    ("ITmedia AI+",   "https://rss.itmedia.co.jp/rss/2.0/aiplus.xml"),
+]
+
+AI_SOURCE_PRIORITY = {
+    "Anthropic":     5,
+    "OpenAI":        5,
+    "Google AI":     4,
+    "ITmedia AI+":   4,
+    "Hugging Face":  3,
+    "Ledge.ai":      3,
+    "MIT News (AI)": 2,
+    "arXiv cs.AI":   1,
+}
+
+AI_JA_SOURCES = {"ITmedia AI+", "Ledge.ai"}
+AI_MAX_PER_SOURCE = 2
+AI_TOP_N = 16
+
+
+def _ai_translate(text: str, _cache: dict = {}) -> str:
+    if not text:
+        return ""
+    if text in _cache:
+        return _cache[text]
+    try:
+        from deep_translator import GoogleTranslator
+        result = GoogleTranslator(source="auto", target="ja").translate(text[:4500])
+        _cache[text] = result or text
+        return _cache[text]
+    except Exception as err:  # noqa: BLE001
+        print(f"  translate failed: {err}", file=sys.stderr)
+        return text
+
+
+def fetch_ai_articles(hours: int) -> list[dict]:
+    try:
+        import feedparser
+    except ImportError:
+        print("  feedparser is not installed; skipping AI feeds", file=sys.stderr)
+        return []
+
+    cutoff = dt.datetime.now(dt.timezone.utc) - dt.timedelta(hours=hours)
+    raw: list[dict] = []
+
+    for source, url in AI_FEEDS:
+        try:
+            feed = feedparser.parse(url)
+            count = 0
+            for entry in feed.entries:
+                parsed = entry.get("published_parsed") or entry.get("updated_parsed")
+                if not parsed:
+                    continue
+                published = dt.datetime(*parsed[:6], tzinfo=dt.timezone.utc)
+                if published < cutoff:
+                    continue
+                raw.append({
+                    "source":    source,
+                    "title":     (entry.get("title") or "").strip(),
+                    "link":      (entry.get("link") or "").strip(),
+                    "published": published,
+                })
+                count += 1
+            print(f"  [{source}] {count} new entries")
+        except Exception as err:  # noqa: BLE001
+            print(f"  [{source}] ERROR: {err}", file=sys.stderr)
+
+    raw.extend(_fetch_ledgeai(cutoff))
+
+    # 優先度＋新しい順
+    raw.sort(
+        key=lambda x: (AI_SOURCE_PRIORITY.get(x["source"], 1), x["published"]),
+        reverse=True,
+    )
+
+    # ソースごとに上限を設けて多様性を確保
+    per_source: dict[str, int] = {}
+    selected: list[dict] = []
+    for a in raw:
+        s = a["source"]
+        if per_source.get(s, 0) >= AI_MAX_PER_SOURCE:
+            continue
+        per_source[s] = per_source.get(s, 0) + 1
+        selected.append(a)
+        if len(selected) >= AI_TOP_N:
+            break
+
+    # 表示用に整形（必要なら日本語化）
+    result: list[dict] = []
+    for a in selected:
+        title_orig = a["title"]
+        title_ja = title_orig if a["source"] in AI_JA_SOURCES else _ai_translate(title_orig)
+        pub = a["published"]
+        result.append({
+            "title":        title_ja,
+            "titleOriginal": title_orig if title_orig != title_ja else "",
+            "link":         a["link"],
+            "pubDate":      pub.strftime("%a, %d %b %Y %H:%M:%S +0000"),
+            "pubTimestamp": pub.timestamp(),
+            "sourceName":   a["source"],
+        })
+    # 最終的に新しい順
+    result.sort(key=lambda i: i.get("pubTimestamp", 0), reverse=True)
+    return result
+
+
+def _fetch_ledgeai(cutoff: dt.datetime) -> list[dict]:
+    try:
+        import requests
+        from bs4 import BeautifulSoup
+    except ImportError:
+        return []
+    try:
+        resp = requests.get(
+            "https://ledge.ai/",
+            timeout=10,
+            headers={"User-Agent": USER_AGENT},
+        )
+        resp.raise_for_status()
+        soup = BeautifulSoup(resp.text, "html.parser")
+        items: list[dict] = []
+        seen: set[str] = set()
+        now = dt.datetime.now(dt.timezone.utc)
+        for a_tag in soup.find_all("a", href=True):
+            href = a_tag["href"]
+            if "/articles/" not in href:
+                continue
+            link = href if href.startswith("http") else f"https://ledge.ai{href}"
+            if link in seen:
+                continue
+            seen.add(link)
+            title = a_tag.get_text(strip=True)
+            if not title:
+                continue
+            items.append({
+                "source":    "Ledge.ai",
+                "title":     title,
+                "link":      link,
+                "published": now,
+            })
+        print(f"  [Ledge.ai] {len(items)} entries (scraped)")
+        return items[:20]
+    except Exception as err:  # noqa: BLE001
+        print(f"  [Ledge.ai] ERROR: {err}", file=sys.stderr)
+        return []
 
 
 if __name__ == "__main__":
