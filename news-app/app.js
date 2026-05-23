@@ -138,9 +138,10 @@
       return;
     }
 
+    const maxCards = state.category === 'economics' ? 29 : 15;
     const [lead, ...rest] = filtered;
     els.leadWrap.appendChild(buildLead(lead));
-    rest.slice(0, 11).forEach(item => els.newsList.appendChild(buildCard(item)));
+    rest.slice(0, maxCards).forEach(item => els.newsList.appendChild(buildCard(item)));
   }
 
   function buildLead(item) {

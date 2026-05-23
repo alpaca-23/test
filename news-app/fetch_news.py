@@ -98,9 +98,8 @@ PAYWALL_KEYWORDS = re.compile(
 EXCLUDE_QUERY = " ".join(f"-site:{s}" for s in sorted(EXCLUDE_DOMAINS))
 
 
-def build_url(query: str) -> str:
-    # 直近24時間の記事に絞る（最新ニュース重視）
-    q = f"{query} when:1d {EXCLUDE_QUERY}"
+def build_url(query: str, when: str = "1d") -> str:
+    q = f"{query} when:{when} {EXCLUDE_QUERY}"
     return (
         "https://news.google.com/rss/search?q="
         + quote(q)
@@ -108,9 +107,18 @@ def build_url(query: str) -> str:
     )
 
 
-FEEDS = {
-    "politics":  build_url("日本 政治"),
-    "economics": build_url("日本 経済"),
+# 各カテゴリのクエリ (query, time_window) のリスト
+# 経済は複数キーワードで直近48時間ぶんを取得・重複除外して件数を増やす
+CATEGORY_QUERIES: dict[str, list[tuple[str, str]]] = {
+    "politics":  [("日本 政治", "1d")],
+    "economics": [
+        ("日本 経済",        "2d"),
+        ("日本 金融",        "2d"),
+        ("日本 株式 市場",   "2d"),
+        ("日本 景気",        "2d"),
+        ("日本 為替 円",     "2d"),
+        ("企業 決算 日本",   "2d"),
+    ],
 }
 
 OUT_DIR = Path(__file__).parent / "data"
@@ -176,23 +184,43 @@ def is_article(item: dict) -> bool:
     return True
 
 
-def main() -> int:
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
-    fetched_at = dt.datetime.now(dt.timezone.utc).isoformat()
-    failures = 0
-    for name, url in FEEDS.items():
-        print(f"[{name}] fetching {url}")
+def fetch_category(name: str, queries: list[tuple[str, str]]) -> list[dict]:
+    """カテゴリ毎の複数クエリを取得して link で重複排除する。"""
+    seen_links: set[str] = set()
+    merged: list[dict] = []
+    for query, when in queries:
+        url = build_url(query, when)
+        print(f"[{name}] fetching ({query}, when:{when})")
         try:
             xml = fetch(url)
             items = parse(xml)
         except (urllib.error.URLError, ET.ParseError) as err:
             print(f"  ERROR: {err}", file=sys.stderr)
-            failures += 1
             continue
         before = len(items)
         items = [i for i in items if is_article(i)]
-        # 新しい順にソート
-        items.sort(key=lambda i: i.get("pubTimestamp", 0), reverse=True)
+        added = 0
+        for item in items:
+            link = item.get("link", "")
+            if not link or link in seen_links:
+                continue
+            seen_links.add(link)
+            merged.append(item)
+            added += 1
+        print(f"  {added} new / {len(items)} filtered / {before} raw")
+    merged.sort(key=lambda i: i.get("pubTimestamp", 0), reverse=True)
+    return merged
+
+
+def main() -> int:
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    fetched_at = dt.datetime.now(dt.timezone.utc).isoformat()
+    failures = 0
+
+    for name, queries in CATEGORY_QUERIES.items():
+        items = fetch_category(name, queries)
+        if not items:
+            failures += 1
         out = OUT_DIR / f"{name}.json"
         out.write_text(
             json.dumps(
@@ -202,7 +230,7 @@ def main() -> int:
             ),
             encoding="utf-8",
         )
-        print(f"  wrote {out.name} ({len(items)}/{before} items after filter)")
+        print(f"  wrote {out.name} ({len(items)} items)")
 
     # 生成AIカテゴリ（別ロジック）
     print("[ai] fetching generative-AI feeds")
@@ -222,7 +250,7 @@ def main() -> int:
         )
         print(f"  wrote ai.json ({len(ai_items)} items)")
 
-    total = len(FEEDS) + 1
+    total = len(CATEGORY_QUERIES) + 1
     return 1 if failures == total else 0
 
 
