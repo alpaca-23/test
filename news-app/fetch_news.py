@@ -9,6 +9,7 @@ import email.utils
 import json
 import re
 import sys
+import unicodedata
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -184,6 +185,35 @@ def is_article(item: dict) -> bool:
     return True
 
 
+def _normalize_title(title: str) -> str:
+    """重複判定用にタイトルを正規化する。
+
+    - 末尾の「- 媒体名」を取り除く（Google ニュース形式）
+    - 全角/半角・カナを統一し、空白を圧縮
+    """
+    if not title:
+        return ""
+    idx = title.rfind(" - ")
+    if idx > 0:
+        title = title[:idx]
+    title = unicodedata.normalize("NFKC", title)
+    title = " ".join(title.split())
+    return title.casefold()
+
+
+def dedupe_by_title(items: list[dict]) -> list[dict]:
+    """同一タイトルの記事を集約（最初に出てきたもの＝新しい順なら最新を残す）。"""
+    seen: set[str] = set()
+    out: list[dict] = []
+    for item in items:
+        key = _normalize_title(item.get("title", ""))
+        if not key or key in seen:
+            continue
+        seen.add(key)
+        out.append(item)
+    return out
+
+
 def fetch_category(name: str, queries: list[tuple[str, str]]) -> list[dict]:
     """カテゴリ毎の複数クエリを取得して link で重複排除する。"""
     seen_links: set[str] = set()
@@ -209,6 +239,10 @@ def fetch_category(name: str, queries: list[tuple[str, str]]) -> list[dict]:
             added += 1
         print(f"  {added} new / {len(items)} filtered / {before} raw")
     merged.sort(key=lambda i: i.get("pubTimestamp", 0), reverse=True)
+    before_dedup = len(merged)
+    merged = dedupe_by_title(merged)
+    if before_dedup != len(merged):
+        print(f"  deduped by title: {before_dedup} -> {len(merged)}")
     return merged
 
 
@@ -332,6 +366,9 @@ def fetch_ai_articles(hours: int) -> list[dict]:
             print(f"  [{source}] ERROR: {err}", file=sys.stderr)
 
     raw.extend(_fetch_ledgeai(cutoff))
+
+    # タイトル重複を集約
+    raw = dedupe_by_title(raw)
 
     # 優先度＋新しい順
     raw.sort(
