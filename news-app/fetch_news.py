@@ -28,12 +28,12 @@ VIDEO_DOMAINS = {
     "youtu.be",
 }
 
-# 有料記事中心のサイト（無料部分のみ提供する媒体も含む）
+# 有料記事中心のサイト（拾わない）
 PAYWALL_DOMAINS = {
     "nikkei.com",       # 日経電子版
     "asahi.com",        # 朝日新聞デジタル（digital.asahi.com含む）
-    "mainichi.jp",      # 毎日新聞 / 毎日新聞プレミア
-    "yomiuri.co.jp",    # 読売新聞オンライン（会員限定多数）
+    "mainichi.jp",      # 毎日新聞 / プレミア
+    "yomiuri.co.jp",    # 読売新聞オンライン
     "bloomberg.co.jp",  # ブルームバーグ日本
     "wsj.com",          # WSJ Japan / WSJ
     "ft.com",           # Financial Times
@@ -42,11 +42,45 @@ PAYWALL_DOMAINS = {
     "diamond.jp",       # ダイヤモンド・オンライン
     "toyokeizai.net",   # 東洋経済オンライン
     "president.jp",     # PRESIDENT Online
-    "shogakukan.co.jp", # 小学館系（NEWSポストセブン等）
-    "newspostseven.com",
 }
 
-EXCLUDE_DOMAINS = VIDEO_DOMAINS | PAYWALL_DOMAINS
+# 軽量・タブロイド・芸能寄りのサイト（有料媒体の深掘り記事に比べ薄い）
+TABLOID_DOMAINS = {
+    "hochi.news",            # スポーツ報知
+    "hochi.co.jp",
+    "nikkansports.com",      # 日刊スポーツ
+    "tokyo-sports.co.jp",    # 東スポWEB
+    "daily.co.jp",           # デイリースポーツ
+    "sponichi.co.jp",        # スポニチ
+    "jprime.jp",             # 週刊女性PRIME
+    "josei7.com",            # 女性自身
+    "shujoseven.com",
+    "friday.kodansha.co.jp", # FRIDAY DIGITAL
+    "cyzo.com",              # サイゾー
+    "cyzowoman.com",
+    "excite.co.jp",          # エキサイトニュース
+    "livedoor.com",          # livedoorニュース（アグリゲータ）
+    "smt.docomo.ne.jp",      # dメニューニュース
+    "biz-journal.jp",        # Business Journal（センセーショナル傾向）
+    "j-cast.com",            # J-CAST
+    "myjitsu.jp",            # 日刊大衆
+    "asagei.com",            # 週刊アサヒ芸成
+    "news-postseven.com",
+    "newspostseven.com",
+    "shukan-jitsuwa.com",    # 週刊実話
+    "tocana.jp",             # TOCANA
+    "ldnews.jp",
+    "iza.ne.jp",             # 産経イザ！（センセーショナル傾向）
+    "ironna.jp",
+    "tanteifile.com",
+    "smart-flash.jp",        # SmartFLASH
+    "smartflash.jp",
+    "real-int.jp",
+    "money-zine.com",
+    "money1.jp",
+}
+
+EXCLUDE_DOMAINS = VIDEO_DOMAINS | PAYWALL_DOMAINS | TABLOID_DOMAINS
 
 # 動画・ライブ中継のキーワード
 VIDEO_KEYWORDS = re.compile(
