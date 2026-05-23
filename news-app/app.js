@@ -83,7 +83,9 @@
   }
 
   async function fetchFeed(category) {
-    const res = await fetch(DATA_URL(category), { cache: 'no-store' });
+    // GitHub Pages CDNのキャッシュをバイパスするためタイムスタンプを付与
+    const url = `${DATA_URL(category)}?t=${Date.now()}`;
+    const res = await fetch(url, { cache: 'no-store' });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
     return { items: data.items || [], fetchedAt: data.fetched_at };
@@ -96,6 +98,7 @@
 
     const cacheKey = state.category;
     let cached = state.cache[cacheKey];
+    const prevFetchedAt = cached && cached.fetchedAt;
 
     if (!cached || force) {
       showStatus('<div class="spinner" role="status" aria-label="読み込み中"></div>記事を取得しています…');
@@ -113,17 +116,41 @@
     }
 
     render(cached.items);
-    showFetchedAt(cached.fetchedAt);
+    const sameAsBefore = force && prevFetchedAt && prevFetchedAt === cached.fetchedAt;
+    showFetchedAt(cached.fetchedAt, sameAsBefore);
     state.loading = false;
     els.refreshBtn.disabled = false;
   }
 
-  function showFetchedAt(iso) {
+  function showFetchedAt(iso, sameAsBefore = false) {
     if (!iso) { clearStatus(); return; }
     const ms = new Date(iso).getTime();
     if (!ms || ms < 946684800000) { clearStatus(); return; } // 2000年以前は無効値とみなす
     els.status.className = 'status';
-    els.status.textContent = `データ取得: ${formatRelative(ms)}（${formatAbsolute(ms)}）`;
+    if (sameAsBefore) {
+      els.status.textContent =
+        `✓ 最新の状態です（${formatRelative(ms)} 更新）・ 次回自動更新 ${nextAutoUpdate()}`;
+    } else {
+      els.status.textContent =
+        `データ取得: ${formatRelative(ms)}（${formatAbsolute(ms)}）`;
+    }
+  }
+
+  // 自動更新は JST 5:00 と 14:00 のスケジュール（ワークフロー側）
+  function nextAutoUpdate() {
+    const now = new Date();
+    const candidates = [5, 14].map(h => {
+      const d = new Date(now);
+      d.setHours(h, 0, 0, 0);
+      if (d <= now) d.setDate(d.getDate() + 1);
+      return d;
+    });
+    const next = candidates.reduce((a, b) => (a < b ? a : b));
+    const hh = String(next.getHours()).padStart(2, '0');
+    const mm = String(next.getMinutes()).padStart(2, '0');
+    const today = new Date();
+    const isToday = next.getDate() === today.getDate();
+    return `${isToday ? '本日' : '明日'} ${hh}:${mm}`;
   }
 
   function render(items) {
