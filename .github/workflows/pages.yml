@@ -3,12 +3,7 @@ name: Deploy news-app to GitHub Pages
 on:
   push:
     branches:
-      - main
       - claude/news-app-politics-economics-qhDHT
-  schedule:
-    # 朝刊（JST 5:00 = UTC 20:00 前日）と夕刊（JST 14:00 = UTC 5:00）にニュースを再取得
-    - cron: '0 20 * * *'
-    - cron: '0 5 * * *'
   workflow_dispatch:
 
 permissions:
