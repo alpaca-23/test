@@ -1,0 +1,66 @@
+name: Deploy news-app to GitHub Pages (scheduled)
+
+# 朝夕ニュースの自動更新ワークフロー。
+# GitHub Actions の schedule はデフォルトブランチ(main)上の workflow しか
+# 発火しないため main に置く必要がある。中身は feature branch を checkout して
+# news-app/ をビルド・デプロイする。
+
+on:
+  schedule:
+    - cron: '0 20 * * *'   # JST 5:00（朝刊）
+    - cron: '0 5 * * *'    # JST 14:00（夕刊）
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  SOURCE_REF: claude/news-app-politics-economics-qhDHT
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.SOURCE_REF }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+          cache-dependency-path: news-app/requirements.txt
+
+      - name: Install Python dependencies
+        run: pip install -r news-app/requirements.txt
+
+      - name: Fetch latest news
+        run: python news-app/fetch_news.py
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./news-app
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
